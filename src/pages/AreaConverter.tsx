@@ -7,16 +7,15 @@ interface Units {
 
 const units: Units = {
   Guntha: 1,
-  Bigha: 16, // Example conversion (1 Bigha = 16 Guntha)
-  Acre: 0.0247,
-  Hectare: 0.01,
+  Bigha: 0.0625,
+  Acre: 0.025,
+  Hectare: 0.010117,
   SquareFeet: 1089,
-  SquareMeter: 40.47,
-  RA: 0.98, // 1 RA = 0.98 Guntha
+  SquareMeter: 101.171367,
 };
 
 const calculateCustomUnit = (h: number, r: number, sm: number): number => {
-  return h * 98.84 + r * 0.98 + sm * 0.0098;
+  return h * 98.842195 + r * 0.98 + sm * 0.101171;
 };
 
 export default function AreaConverter() {
@@ -27,11 +26,8 @@ export default function AreaConverter() {
   const [customSM, setCustomSM] = useState<number>(0);
 
   const convertArea = (targetUnit: string): number => {
-    if (fromUnit === "H.RA.SM") {
-      const customValue = calculateCustomUnit(customH, customR, customSM);
-      return Number(((customValue * units["Guntha"]) / units[targetUnit]).toFixed(3));
-    }
-    return value ? Number(((value * units[fromUnit]) / units[targetUnit]).toFixed(3)) : 0;
+    const baseValue = fromUnit === "H.RA.SM" ? calculateCustomUnit(customH, customR, customSM) : value / units[fromUnit];
+    return Number((baseValue * units[targetUnit]).toFixed(10));
   };
 
   return (
@@ -51,7 +47,7 @@ export default function AreaConverter() {
         {fromUnit === "H.RA.SM" ? (
           <div className="flex flex-col space-y-2 mb-4">
             <input type="number" placeholder="Hectare" className="p-3 border border-gray-300 rounded-lg shadow-sm" value={customH} onChange={(e) => setCustomH(Number(e.target.value))} />
-            <input type="number" placeholder="RA" className="p-3 border border-gray-300 rounded-lg shadow-sm" value={customR} onChange={(e) => setCustomR(Number(e.target.value))} />
+            <input type="number" placeholder="RA (Guntha)" className="p-3 border border-gray-300 rounded-lg shadow-sm" value={customR} onChange={(e) => setCustomR(Number(e.target.value))} />
             <input type="number" placeholder="Square Meter" className="p-3 border border-gray-300 rounded-lg shadow-sm" value={customSM} onChange={(e) => setCustomSM(Number(e.target.value))} />
           </div>
         ) : (
