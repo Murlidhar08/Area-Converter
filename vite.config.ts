@@ -20,8 +20,7 @@ export default defineConfig({
       includeAssets: [
         "favicon.ico",
         "images/favicon-16x16.png",
-        "images/favicon-32x32.png",
-        "images/logo.jpg",
+        "images/favicon-32x32.png"
       ],
       manifest: {
         name: "Area Converter",
