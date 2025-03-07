@@ -27,7 +27,7 @@ export default function AreaConverter() {
 
   const convertArea = (targetUnit: string): number => {
     const baseValue = fromUnit === "H.RA.SM" ? calculateCustomUnit(customH, customR, customSM) : value / units[fromUnit];
-    return Number((baseValue * units[targetUnit]).toFixed(10));
+    return Number((baseValue * units[targetUnit]).toFixed(3));
   };
 
   return (
