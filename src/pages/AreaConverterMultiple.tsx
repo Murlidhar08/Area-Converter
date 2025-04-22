@@ -86,7 +86,7 @@ const calculateCustomUnit = (h: number, r: number, sm: number): number => {
   return h * 98.425197 + r * 0.988421 + sm * 0.009882;
 };
 
-export default function AreaConverter() {
+export default function AreaConverterMultiple() {
   const [value, setValue] = useState<number>(1);
   const [fromUnit, setFromUnit] = useState<string>("Guntha");
   const [customH, setCustomH] = useState<number>(0);

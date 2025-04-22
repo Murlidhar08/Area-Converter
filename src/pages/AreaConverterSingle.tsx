@@ -82,7 +82,7 @@ const unitDetails: UnitDetails = {
   },
 };
 
-const AreaConverter: React.FC = () => {
+export default function AreaConverterSingle() {
   const [value, setValue] = useState<number>(1);
   const [fromUnit, setFromUnit] = useState<keyof UnitDetails>("Bigha");
   const [toUnit, setToUnit] = useState<keyof UnitDetails>("Guntha");
@@ -92,7 +92,7 @@ const AreaConverter: React.FC = () => {
     return Number((value * unitDetails[fromUnit][toUnit]).toFixed(6));
   };
 
-    /** Swap the selected units */
+  /** Swap the selected units */
   const swapUnits = () => {
     setFromUnit(toUnit);
     setToUnit(fromUnit);
@@ -104,7 +104,7 @@ const AreaConverter: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-500 to-pink-500 p-4 relative">
-            {/* Title */}
+      {/* Title */}
       <motion.h1
         className="text-4xl font-extrabold mb-6 text-white text-center"
         initial={{ opacity: 0, y: -20 }}
@@ -113,13 +113,13 @@ const AreaConverter: React.FC = () => {
         Area Converter
       </motion.h1>
 
-            {/* Converter Box */}
+      {/* Converter Box */}
       <motion.div
         className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md mx-auto"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
       >
-                {/* Input Field */}
+        {/* Input Field */}
         <div className="flex flex-col space-y-4 mb-4">
           <input
             type="number"
@@ -130,9 +130,9 @@ const AreaConverter: React.FC = () => {
           />
         </div>
 
-                {/* From - Swap - To */}
+        {/* From - Swap - To */}
         <div className="flex items-center justify-between mb-4">
-                    {/* From Unit */}
+          {/* From Unit */}
           <select
             value={fromUnit}
             onChange={(e) => setFromUnit(e.target.value as keyof UnitDetails)}
@@ -145,7 +145,7 @@ const AreaConverter: React.FC = () => {
             ))}
           </select>
 
-                    {/* Swap Button with SVG */}
+          {/* Swap Button with SVG */}
           <button
             onClick={swapUnits}
             className="text-purple-500 hover:text-purple-700 transition-colors flex items-center justify-center p-2 mx-3"
@@ -162,7 +162,7 @@ const AreaConverter: React.FC = () => {
             </svg>
           </button>
 
-                    {/* To Unit */}
+          {/* To Unit */}
           <select
             value={toUnit}
             onChange={(e) => setToUnit(e.target.value as keyof UnitDetails)}
@@ -176,7 +176,7 @@ const AreaConverter: React.FC = () => {
           </select>
         </div>
 
-                {/* Result Box */}
+        {/* Result Box */}
         <motion.div
           className="bg-gray-100 p-4 rounded-lg shadow-md text-center font-semibold text-sm sm:text-base"
           initial={{ opacity: 0, y: 10 }}
@@ -188,7 +188,7 @@ const AreaConverter: React.FC = () => {
         </motion.div>
       </motion.div>
 
-            {/* Floating Button for Single Page */}
+      {/* Floating Button for Single Page */}
       <motion.button
         onClick={navigateToSinglePage}
         className="fixed bottom-6 right-6 bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-full shadow-lg focus:outline-none"
@@ -200,6 +200,4 @@ const AreaConverter: React.FC = () => {
       </motion.button>
     </div>
   );
-};
-
-export default AreaConverter;
+}
