@@ -6,6 +6,7 @@ interface Units {
   [key: string]: number;
 }
 
+// Accurate Gujarat-based area conversion ratios
 const units: Units = {
   Guntha: 1,
   Bigha: 0.0625,
@@ -26,7 +27,7 @@ export default function AreaConverter() {
   const [customR, setCustomR] = useState<number>(0);
   const [customSM, setCustomSM] = useState<number>(0);
 
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate();
 
   const convertArea = (targetUnit: string): number => {
     const baseValue =
@@ -85,12 +86,14 @@ export default function AreaConverter() {
             <input
               type="number"
               value={value}
+              min={0}
               onChange={(e) => setValue(Number(e.target.value))}
               className="w-full sm:w-1/2 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
-              placeholder="0"
+              placeholder="Enter value"
             />
           </div>
         )}
+
         <select
           value={fromUnit}
           onChange={(e) => setFromUnit(e.target.value)}
@@ -131,7 +134,6 @@ export default function AreaConverter() {
         whileTap={{ scale: 0.9 }}
         aria-label="Go to Single Page"
       >
-        {/* Single Page Icon (You can replace with an actual icon if needed) */}
         <img className="w-6 h-6" src="/images/convert.png" alt="img" />
       </motion.button>
     </div>

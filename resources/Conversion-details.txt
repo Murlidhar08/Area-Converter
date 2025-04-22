@@ -1,0 +1,75 @@
+### 1 Guntha
+- = 1 Guntha  
+- = 0.062500 Bigha (16 Guntha = 1 Bigha in Gujarat)  
+- = 0.025000 Acre (40 Guntha = 1 Acre)  
+- = 0.010162 Hectare  
+- = 0.098842 Are  
+- = 1,089.000000 Square Feet  
+- = 101.171400 Square Meters  
+
+---
+
+### 1 Bigha (Gujarat Standard)
+- = 16.000000 Guntha  
+- = 0.400000 Acre  
+- = 0.162597 Hectare  
+- = 1.618742 Are  
+- = 17,424.000000 Square Feet  
+- = 1,618.742400 Square Meters  
+
+---
+
+### 1 Acre
+- = 40.000000 Guntha  
+- = 2.500000 Bigha  
+- = 0.404686 Hectare  
+- = 4.046860 Are  
+- = 43,560.000000 Square Feet  
+- = 4,046.860000 Square Meters  
+
+---
+
+### 1 Hectare
+- = 98.425197 Guntha  
+- = 6.151575 Bigha  
+- = 2.471054 Acre  
+- = 10.000000 Are  
+- = 107,639.104167 Square Feet  
+- = 10,000.000000 Square Meters  
+
+---
+
+### 1 Are
+- = 0.988421 Guntha  
+- = 0.061776 Bigha  
+- = 0.024711 Acre  
+- = 0.100000 Hectare  
+- = 1,076.391042 Square Feet  
+- = 100.000000 Square Meters  
+
+---
+
+### 1 Square Meter
+- = 0.009882 Guntha  
+- = 0.000618 Bigha  
+- = 0.000247 Acre  
+- = 0.010000 Are  
+- = 10.763910 Square Feet  
+- = 1.000000 Square Meter  
+
+---
+
+### 1 Square Foot
+- = 0.000918 Guntha  
+- = 0.000057 Bigha  
+- = 0.000023 Acre  
+- = 0.000093 Are  
+- = 0.092903 Square Meter  
+- = 1.000000 Square Foot  
+
+---
+
+### 1 H.RA.SM (Custom Format)
+- 1 Hectare = 98.425197 Guntha  
+- 1 RA (Are) = 0.988421 Guntha  
+- 1 SM (Square Meter) = 0.009882 Guntha  
