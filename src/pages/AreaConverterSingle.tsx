@@ -103,7 +103,7 @@ export default function AreaConverterSingle() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-500 to-pink-500 p-4 relative">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-purple-800 p-4 relative">
       {/* Title */}
       <motion.h1
         className="text-4xl font-extrabold mb-6 text-white text-center"
@@ -125,7 +125,7 @@ export default function AreaConverterSingle() {
             type="number"
             value={value}
             onChange={(e) => setValue(Number(e.target.value))}
-            className="p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
             placeholder="Enter Value"
           />
         </div>
@@ -136,7 +136,7 @@ export default function AreaConverterSingle() {
           <select
             value={fromUnit}
             onChange={(e) => setFromUnit(e.target.value as keyof UnitDetails)}
-            className="w-1/2 p-3 border border-gray-300 rounded-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="w-1/2 p-3 border border-gray-300 rounded-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
           >
             {Object.keys(unitDetails).map((unit) => (
               <option key={unit} value={unit}>
@@ -158,7 +158,7 @@ export default function AreaConverterSingle() {
               height="40"
               className="fill-current"
             >
-              <path d="M92 55.5c0 1.1-.4 2.1-1.2 2.8L72.2 76.9c-.8.8-1.8 1.1-2.8 1.1-1 0-2.1-.5-2.8-1.2-1.6-1.6-1.6-4.2 0-5.8l11.7-12H39.2c-2.2 0-4-1.8-4-4s1.8-4 4-4h39.1L66.6 39.5c-1.6-1.6-1.6-3.9 0-5.4 1.6-1.6 4.1-1.6 5.7 0l18.6 18.6c.7.7 1.1 1.7 1.1 2.8zM13.7 41h39.1c2.2 0 4-1.8 4-4s-1.8-4-4-4H13.7l11.7-12c1.6-1.6 1.6-4.2 0-5.8s-4.1-1.6-5.7-.1L1.2 33.7c-.8.7-1.2 1.7-1.2 2.8s.4 2.1 1.2 2.8l18.6 18.6c.8.8 1.8 1.2 2.8 1.2 1 0 2.1-.4 2.8-1.2 1.6-1.6 1.6-3.9 0-5.4L13.7 41z"></path>
+              <path d="M92 55.5c0 1.1-.4 2.1-1.2 2.8L72.2 76.9c-.8.8-1.8 1.1-2.8 1.1-1 0-2.1-.5-2.8-1.2-1.6-1.6-1.6-4.2 0-5.8l11.7-12H39.2c-2.2 0-4-1.8-4-4s1.8-4 4-4h39.1L66.6 39.5c-1.6-1.6-1.6-3.9 0-5.4 1.6-1.6 4.1-1.6 5.7 0l18.6 18.6c.7.7 1.1 1.7 1.1 2.8zM13.7 41h39.1c2.2 0 4-1.8 4-4s-1.8-4-4-4H13.7l11.7-12c1.6-1.6 1.1-4.2 0-5.8s-4.1-1.6-5.7-.1L1.2 33.7c-.8.7-1.2 1.7-1.2 2.8s.4 2.1 1.2 2.8l18.6 18.6c.8.8 1.8 1.2 2.8 1.2 1 0 2.1-.4 2.8-1.2 1.6-1.6 1.6-3.9 0-5.4L13.7 41z"></path>
             </svg>
           </button>
 
@@ -166,7 +166,7 @@ export default function AreaConverterSingle() {
           <select
             value={toUnit}
             onChange={(e) => setToUnit(e.target.value as keyof UnitDetails)}
-            className="w-1/2 p-3 border border-gray-300 rounded-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="w-1/2 p-3 border border-gray-300 rounded-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
           >
             {Object.keys(unitDetails).map((unit) => (
               <option key={unit} value={unit}>
@@ -191,9 +191,9 @@ export default function AreaConverterSingle() {
       {/* Floating Button for Single Page */}
       <motion.button
         onClick={navigateToSinglePage}
-        className="fixed bottom-6 right-6 bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-full shadow-lg focus:outline-none"
+        className="fixed bottom-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none"
         whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
+        whileTap={{ scale: 0.9, rotate: 180 }}
         aria-label="Go to Single Page"
       >
         <img className="w-6 h-6" src="/images/convert.png" alt="img" />

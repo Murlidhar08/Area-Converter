@@ -26,8 +26,8 @@ export default defineConfig({
         name: "Area Converter",
         short_name: "AreaConverter",
         description: "Easily convert area units with our intuitive tool.",
-        theme_color: "#ff69b4",
-        background_color: "#ffffff",
+        theme_color: "#6b21a8",
+        background_color: "#6b21a8",
         display: "standalone",
         icons: [
           {
