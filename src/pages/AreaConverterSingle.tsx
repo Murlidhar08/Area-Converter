@@ -132,17 +132,7 @@ const AreaConverter: React.FC = () => {
                 aria-label="Go to Single Page"
             >
                 {/* Single Page Icon (You can replace with an actual icon if needed) */}
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                >
-                    <path d="M7 7h10v10H7V7z" />
-                    <path d="M3 3h4v4H3V3zm14 0h4v4h-4V3zM3 17h4v4H3v-4zm14 0h4v4h-4v-4z" />
-                </svg>
+                <img className="w-6 h-6" src="/images/convert.png" alt="img"/>
             </motion.button>
         </div>
     );

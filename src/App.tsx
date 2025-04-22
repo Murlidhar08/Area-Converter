@@ -9,7 +9,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/multiple" element={<AreaConverter />} />
-        <Route path="*" element={<AreaConverterSingle />} />
+        <Route path="/single" element={<AreaConverterSingle />} />
+        <Route path="*" element={<AreaConverter />} />
       </Routes>
     </Router>
   );
