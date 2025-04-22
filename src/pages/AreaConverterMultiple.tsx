@@ -33,7 +33,7 @@ export default function AreaConverter() {
       fromUnit === "H.RA.SM"
         ? calculateCustomUnit(customH, customR, customSM)
         : value / units[fromUnit];
-    return Number((baseValue * units[targetUnit]).toFixed(3));
+    return Number((baseValue * units[targetUnit]).toFixed(6));
   };
 
   // Functions
@@ -114,10 +114,6 @@ export default function AreaConverter() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
-                  {fromUnit === "H.RA.SM"
-                    ? `${customH}-${customR}-${customSM} H.RA.SM`
-                    : `${value} ${fromUnit}`}{" "}
-                  =
                   <span className="text-purple-600 font-bold">
                     {convertArea(unit)}
                   </span>{" "}
@@ -136,7 +132,7 @@ export default function AreaConverter() {
         aria-label="Go to Single Page"
       >
         {/* Single Page Icon (You can replace with an actual icon if needed) */}
-        <img className="w-6 h-6" src="/images/convert.png" alt="img"/>
+        <img className="w-6 h-6" src="/images/convert.png" alt="img" />
       </motion.button>
     </div>
   );
