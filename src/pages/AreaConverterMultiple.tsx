@@ -92,29 +92,25 @@ export default function AreaConverterMultiple() {
   const [customH, setCustomH] = useState<number>(0);
   const [customR, setCustomR] = useState<number>(0);
   const [customSM, setCustomSM] = useState<number>(0);
+  const [copied, setCopied] = useState<string | null>(null);
 
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate();
 
   const convertArea = (targetUnit: keyof UnitConversion): number => {
     if (fromUnit === "H.RA.SM") {
-      // Convert custom format to Guntha first
       const gunthaValue = calculateCustomUnit(customH, customR, customSM);
-      return Number(
-        (gunthaValue * unitDetails["Guntha"][targetUnit]).toFixed(6)
-      );
+      return Number((gunthaValue * unitDetails["Guntha"][targetUnit]).toFixed(6));
     }
-
     return Number(
-      (value * unitDetails[fromUnit as keyof UnitDetails][targetUnit]).toFixed(
-        6
-      )
+      (value * unitDetails[fromUnit as keyof UnitDetails][targetUnit]).toFixed(6)
     );
   };
 
-  // Functions
-  /** Navigate to Single Page Conversion */
-  const navigateToSinglePage = () => {
-    navigate("/single");
+  const handleCopy = (text: string, unit: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(unit);
+      setTimeout(() => setCopied(null), 1500);
+    });
   };
 
   return (
@@ -181,29 +177,37 @@ export default function AreaConverterMultiple() {
           <option value="H.RA.SM">Hectare - Are - SquareMeter</option>
         </select>
 
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md text-center font-semibold text-sm sm:text-base space-y-2">
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md space-y-2">
           {Object.keys(unitDetails).map(
             (unit) =>
               unit !== fromUnit && (
-                <motion.p
+                <motion.div
                   key={unit}
-                  className="p-2 bg-white rounded-lg shadow-sm"
+                  className="flex justify-between items-center p-2 bg-white rounded-lg shadow-sm"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
-                  <span className="text-purple-600 font-bold">
-                    {convertArea(unit)}
-                  </span>{" "}
-                  {unit}
-                </motion.p>
+                  <span>
+                    <span className="text-purple-600 font-bold">
+                      {convertArea(unit)}
+                    </span>{" "}
+                    {unit}
+                  </span>
+                  <button
+                    onClick={() => handleCopy(String(convertArea(unit)), unit)}
+                    className="ml-2 px-2 py-1 text-xs text-black bg-purple-100 rounded hover:bg-purple-200"
+                  >
+                    {copied === unit ? "Copied!" : "Copy"}
+                  </button>
+                </motion.div>
               )
           )}
         </div>
       </motion.div>
-      {/* Floating Button for Single Page */}
+
       <motion.button
         title="Single Conversion"
-        onClick={navigateToSinglePage}
+        onClick={() => navigate("/single")}
         className="fixed bottom-6 right-6 bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-full shadow-lg focus:outline-none"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
