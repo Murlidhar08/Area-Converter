@@ -99,10 +99,14 @@ export default function AreaConverterMultiple() {
   const convertArea = (targetUnit: keyof UnitConversion): number => {
     if (fromUnit === "H.RA.SM") {
       const gunthaValue = calculateCustomUnit(customH, customR, customSM);
-      return Number((gunthaValue * unitDetails["Guntha"][targetUnit]).toFixed(6));
+      return Number(
+        (gunthaValue * unitDetails["Guntha"][targetUnit]).toFixed(6)
+      );
     }
     return Number(
-      (value * unitDetails[fromUnit as keyof UnitDetails][targetUnit]).toFixed(6)
+      (value * unitDetails[fromUnit as keyof UnitDetails][targetUnit]).toFixed(
+        6
+      )
     );
   };
 
@@ -115,107 +119,114 @@ export default function AreaConverterMultiple() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-purple-800 p-4">
-  <motion.h1
-    className="text-4xl font-extrabold mb-6 text-white text-center"
-    initial={{ opacity: 0, y: -20 }}
-    animate={{ opacity: 1, y: 0 }}
-  >
-    Area Converter
-  </motion.h1>
-  <motion.div
-    className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-md mx-auto border border-purple-200"
-    initial={{ opacity: 0, scale: 0.9 }}
-    animate={{ opacity: 1, scale: 1 }}
-  >
-    {fromUnit === "H.RA.SM" ? (
-      <div className="flex flex-col space-y-2 mb-4">
-        <input
-          type="number"
-          placeholder="Hectare"
-          className="p-3 border border-purple-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
-          value={customH}
-          onChange={(e) => setCustomH(Number(e.target.value))}
-        />
-        <input
-          type="number"
-          placeholder="RA (Guntha)"
-          className="p-3 border border-purple-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
-          value={customR}
-          onChange={(e) => setCustomR(Number(e.target.value))}
-        />
-        <input
-          type="number"
-          placeholder="Square Meter"
-          className="p-3 border border-purple-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
-          value={customSM}
-          onChange={(e) => setCustomSM(Number(e.target.value))}
-        />
-      </div>
-    ) : (
-      <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
-        <input
-          type="number"
-          value={value}
-          min={0}
-          onChange={(e) => setValue(Number(e.target.value))}
-          className="w-full sm:w-1/2 p-3 border border-purple-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
-          placeholder="Enter value"
-        />
-      </div>
-    )}
+      <motion.h1
+        className="text-4xl font-extrabold mb-6 text-white text-center"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        Area Converter
+      </motion.h1>
+      <motion.div
+        className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-md mx-auto border border-purple-200"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+      >
+        {fromUnit === "H.RA.SM" ? (
+          <div className="flex flex-col space-y-2 mb-4">
+            <input
+              type="number"
+              placeholder="Hectare"
+              className="p-3 border border-purple-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+              value={customH}
+              onChange={(e) => setCustomH(Number(e.target.value))}
+            />
+            <input
+              type="number"
+              placeholder="RA (Guntha)"
+              className="p-3 border border-purple-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+              value={customR}
+              onChange={(e) => setCustomR(Number(e.target.value))}
+            />
+            <input
+              type="number"
+              placeholder="Square Meter"
+              className="p-3 border border-purple-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+              value={customSM}
+              onChange={(e) => setCustomSM(Number(e.target.value))}
+            />
+          </div>
+        ) : (
+          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
+            <input
+              type="number"
+              value={value}
+              min={0}
+              onChange={(e) => setValue(Number(e.target.value))}
+              className="w-full sm:w-1/2 p-3 border border-purple-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+              placeholder="Enter value"
+            />
+          </div>
+        )}
 
-    <select
-      value={fromUnit}
-      onChange={(e) => setFromUnit(e.target.value)}
-      className="w-full p-3 border border-purple-300 rounded-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-purple-400 mb-4"
-    >
-      {Object.keys(unitDetails).map((unit) => (
-        <option key={unit} value={unit}>
-          {unit}
-        </option>
-      ))}
-      <option value="H.RA.SM">Hectare - Are - SquareMeter</option>
-    </select>
+        <select
+          value={fromUnit}
+          onChange={(e) => setFromUnit(e.target.value)}
+          className="w-full p-3 border border-purple-300 rounded-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-purple-400 mb-4"
+        >
+          {Object.keys(unitDetails).map((unit) => (
+            <option key={unit} value={unit}>
+              {unit}
+            </option>
+          ))}
+          <option value="H.RA.SM">Hectare - Are - SquareMeter</option>
+        </select>
 
-    <div className="bg-purple-50 p-4 rounded-lg shadow-md space-y-2">
-      {Object.keys(unitDetails).map(
-        (unit) =>
-          unit !== fromUnit && (
-            <motion.div
-              key={unit}
-              className="flex justify-between items-center p-2 bg-white border border-purple-200 rounded-lg shadow-sm"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <span>
-                <span className="text-purple-700 font-bold">
-                  {convertArea(unit)}
-                </span>{" "}
-                {unit}
-              </span>
-              <button
-                onClick={() => handleCopy(String(convertArea(unit)), unit)}
-                className="ml-2 px-2 py-1 text-xs text-purple-800 bg-purple-100 rounded hover:bg-purple-200"
-              >
-                {copied === unit ? "Copied!" : "Copy"}
-              </button>
-            </motion.div>
-          )
-      )}
+        <div className="bg-purple-50 p-4 rounded-lg shadow-md overflow-x-auto">
+          <table className="w-full text-sm text-left border-collapse">
+            <tbody>
+              {Object.keys(unitDetails).map(
+                (unit) =>
+                  unit !== fromUnit && (
+                    <motion.tr
+                      key={unit}
+                      className="bg-white hover:bg-purple-50"
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                    >
+                      <td className="py-2 px-4 border-b border-purple-200 font-semibold text-purple-800">
+                        {convertArea(unit)}
+                      </td>
+                      <td className="py-2 px-4 border-b border-purple-200">
+                        {unit}
+                      </td>
+                      <td className="py-2 px-4 border-b border-purple-200">
+                        <button
+                          onClick={() =>
+                            handleCopy(String(convertArea(unit)), unit)
+                          }
+                          className="w-20 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
+                        >
+                          {copied === unit ? "Copied!" : "Copy"}
+                        </button>
+                      </td>
+                    </motion.tr>
+                  )
+              )}
+            </tbody>
+          </table>
+        </div>
+      </motion.div>
+
+      <motion.button
+        title="Single Conversion"
+        onClick={() => navigate("/single")}
+        className="fixed bottom-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9, rotate: 180 }}
+        aria-label="Go to Single Page"
+      >
+        <img className="w-6 h-6" src="/images/convert.png" alt="img" />
+      </motion.button>
     </div>
-  </motion.div>
-
-  <motion.button
-    title="Single Conversion"
-    onClick={() => navigate("/single")}
-    className="fixed bottom-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none"
-    whileHover={{ scale: 1.1 }}
-    whileTap={{ scale: 0.9, rotate: 180 }}
-    aria-label="Go to Single Page"
-  >
-    <img className="w-6 h-6" src="/images/convert.png" alt="img" />
-  </motion.button>
-</div>
-
   );
 }
