@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
@@ -93,29 +93,79 @@ export default function AreaConverterMultiple() {
   const [customR, setCustomR] = useState<number>(0);
   const [customSM, setCustomSM] = useState<number>(0);
   const [copied, setCopied] = useState<string | null>(null);
+  const [selectedUnit, setSelectedUnit] = useState<string | null>(null);
+  const [selectedValue, setSelectedValue] = useState<number | null>(null);
+
+  const resultRef = useRef<HTMLDivElement>(null);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const units = Object.keys(unitDetails).filter((u) => u !== fromUnit);
+    if (units.length > 0) {
+      const defaultUnit = units[0];
+      const defaultValue = convertArea(defaultUnit);
+      setSelectedUnit(defaultUnit);
+      setSelectedValue(defaultValue);
+    }
+  }, [fromUnit, value, customH, customR, customSM]);
 
   const convertArea = (targetUnit: keyof UnitConversion): number => {
     if (fromUnit === "H.RA.SM") {
       const gunthaValue = calculateCustomUnit(customH, customR, customSM);
-      return Number(
-        (gunthaValue * unitDetails["Guntha"][targetUnit]).toFixed(6)
-      );
+      return Number((gunthaValue * unitDetails["Guntha"][targetUnit]).toFixed(6));
     }
-    return Number(
-      (value * unitDetails[fromUnit as keyof UnitDetails][targetUnit]).toFixed(
-        6
-      )
-    );
+    return Number((value * unitDetails[fromUnit as keyof UnitDetails][targetUnit]).toFixed(6));
   };
 
   const handleCopy = (text: string, unit: string) => {
     navigator.clipboard.writeText(text).then(() => {
       setCopied(unit);
+      setTimeout(() => setCopied(null), 2000);
+    });
+  };
+
+  const handleCopyString = (text: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied("selected");
       setTimeout(() => setCopied(null), 1500);
     });
   };
+
+  const formatSelectedValue = (selectedVal: number, selectedUnit: string | null) => {
+    if (!selectedUnit)
+      return `${selectedVal}`;
+
+    if (selectedUnit === "Guntha")
+      return <><strong>{selectedVal}</strong> Guntha</>
+
+
+    const floorVal = Math.floor(selectedVal);
+    const remainVal = selectedVal - floorVal;
+
+    const gunthaPerUnit = unitDetails[selectedUnit as keyof UnitDetails]?.Guntha || 0;
+    const guntha = Number((remainVal * gunthaPerUnit).toFixed(2));
+
+    // Guntha is 0
+    if (guntha == 0) {
+      return (
+        <><strong>{floorVal}</strong> {selectedUnit}</>
+      )
+    }
+
+    // Other unit is 0
+    if (floorVal == 0) {
+      return (
+        <><strong>{guntha}</strong> Guntha</>
+      )
+    }
+
+    // Show both
+    return (
+      <><strong>{floorVal}</strong> {selectedUnit} and <strong>{guntha}</strong> Guntha</>
+    )
+  };
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-purple-800 p-4">
@@ -127,7 +177,7 @@ export default function AreaConverterMultiple() {
         Area Converter
       </motion.h1>
       <motion.div
-        className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-md mx-auto border border-purple-200"
+        className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-lg mx-auto border border-purple-200"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
       >
@@ -170,7 +220,11 @@ export default function AreaConverterMultiple() {
 
         <select
           value={fromUnit}
-          onChange={(e) => setFromUnit(e.target.value)}
+          onChange={(e) => {
+            setFromUnit(e.target.value);
+            setSelectedUnit(null);
+            setSelectedValue(null);
+          }}
           className="w-full p-3 border border-purple-300 rounded-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-purple-400 mb-4"
         >
           {Object.keys(unitDetails).map((unit) => (
@@ -189,9 +243,15 @@ export default function AreaConverterMultiple() {
                   unit !== fromUnit && (
                     <motion.tr
                       key={unit}
-                      className="bg-white hover:bg-purple-50"
+                      className={`cursor-pointer transition-colors ${selectedUnit === unit ? "bg-purple-100" : "bg-white hover:bg-purple-50"
+                        }`}
                       initial={{ opacity: 0, y: 5 }}
                       animate={{ opacity: 1, y: 0 }}
+                      onClick={() => {
+                        const val = convertArea(unit);
+                        setSelectedUnit(unit);
+                        setSelectedValue(val);
+                      }}
                     >
                       <td className="py-2 px-4 border-b border-purple-200 font-semibold text-purple-800">
                         {convertArea(unit)}
@@ -214,6 +274,24 @@ export default function AreaConverterMultiple() {
               )}
             </tbody>
           </table>
+
+          {/* Selected record result */}
+          {selectedValue !== null && selectedUnit && (
+            <div className="mt-4 p-3 bg-white border-t border-purple-300 rounded-md shadow-sm
+            text-purple-800 flex items-center justify-between gap-4">
+              <div ref={resultRef}>
+                {formatSelectedValue(selectedValue, selectedUnit)}
+              </div>
+
+              <button
+                onClick={() => handleCopyString(resultRef.current?.innerText ?? "")}
+                className="w-20 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
+              >
+                {copied === "selected" ? "Copied!" : "Copy"}
+              </button>
+            </div>
+
+          )}
         </div>
       </motion.div>
 
