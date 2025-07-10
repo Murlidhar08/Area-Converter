@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import applicationReducer from './slices/applicationSlice';
+import calculationSlice from './slices/calculationSlice';
 
 export const store = configureStore({
     reducer: {
-        application: applicationReducer,
+        calculation: calculationSlice,
     },
 });
 

@@ -8,8 +8,8 @@ const initialState: ApplicationState = {
     test: "Hello",
 };
 
-const applicationSlice = createSlice({
-    name: 'application',
+const calculationSlice = createSlice({
+    name: 'calculation',
     initialState,
     reducers: {
         setDarkMode: (state, action: PayloadAction<string>) => {
@@ -18,5 +18,5 @@ const applicationSlice = createSlice({
     },
 });
 
-export const { setDarkMode } = applicationSlice.actions;
-export default applicationSlice.reducer;
+export const { setDarkMode } = calculationSlice.actions;
+export default calculationSlice.reducer;
