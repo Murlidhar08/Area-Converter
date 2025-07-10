@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import { ArrowLeftRight } from 'lucide-react';
 
 interface UnitConversion {
@@ -102,7 +101,6 @@ export default function AreaConverterSingle() {
   const [value, setValue] = useState<number>(Number(getLocalStorage(enums.value) ?? 1));
   const [fromUnit, setFromUnit] = useState<keyof UnitDetails>(getLocalStorage(enums.fromUnit) ?? "Bigha");
   const [toUnit, setToUnit] = useState<keyof UnitDetails>(getLocalStorage(enums.toUnit) ?? "Guntha");
-  const navigate = useNavigate();
 
   useEffect(() => {
     // Preserve last vaule
@@ -119,10 +117,6 @@ export default function AreaConverterSingle() {
   const swapUnits = () => {
     setFromUnit(toUnit);
     setToUnit(fromUnit);
-  };
-
-  const navigateToSinglePage = () => {
-    navigate("/multiple");
   };
 
   return (
