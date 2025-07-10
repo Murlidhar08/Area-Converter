@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 interface UnitConversion {
   [key: string]: number;
@@ -103,6 +104,7 @@ const getLocalStorage = (key: string): any => {
 };
 
 export default function AreaConverterMultiple() {
+  const applicationStore = useSelector((state: any) => state.application);
   const [value, setValue] = useState<number>(Number(getLocalStorage(enums.value) ?? 1));
   const [fromUnit, setFromUnit] = useState<string>(getLocalStorage(enums.fromUnit) ?? "Guntha");
   const [customH, setCustomH] = useState<number>(getLocalStorage(enums.customH) ?? 0);
@@ -197,7 +199,7 @@ export default function AreaConverterMultiple() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        Area Converter
+        Area Converter {applicationStore.test}
       </motion.h1>
       <motion.div
         className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-lg mx-auto border border-purple-200"
