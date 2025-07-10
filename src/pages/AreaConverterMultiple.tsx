@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { clearListOfCalculator, addListOfCalculator } from '@/redux/slices/calculationSlice';
 
 interface UnitConversion {
   [key: string]: number;
@@ -104,6 +105,7 @@ const getLocalStorage = (key: string): any => {
 };
 
 export default function AreaConverterMultiple() {
+  const dispatch = useDispatch();
   const calculationStr = useSelector((state: any) => state.calculation);
   const [value, setValue] = useState<number>(Number(getLocalStorage(enums.value) ?? 1));
   const [fromUnit, setFromUnit] = useState<string>(getLocalStorage(enums.fromUnit) ?? "Guntha");
@@ -191,6 +193,9 @@ export default function AreaConverterMultiple() {
     )
   };
 
+  const addToCalculation = (num: number) => {
+    dispatch(addListOfCalculator({ value: num }));
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-purple-800 p-4">
@@ -199,7 +204,7 @@ export default function AreaConverterMultiple() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        Area Converter {calculationStr.test}
+        Area Converter
       </motion.h1>
       <motion.div
         className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-lg mx-auto border border-purple-200"
@@ -286,19 +291,20 @@ export default function AreaConverterMultiple() {
                       </td>
                       <td className="py-2 px-4 border-b border-purple-200">
                         <button
-                          onClick={() =>
-                            handleCopy(String(convertArea(unit)), unit)
-                          }
+                          onClick={() => handleCopy(String(convertArea(unit)), unit)}
                           className="w-20 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
                         >
                           {copied === unit ? "Copied!" : "Copy"}
                         </button>
-                        <button
-                          onClick={() => { /* empt */ }}
-                          className="ml-1 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
-                        >
-                          Add
-                        </button>
+                        {/* Add Calculation button */}
+                        {calculationStr.selectedUnit == unit && (
+                          <button
+                            onClick={() => addToCalculation(convertArea(unit))}
+                            className="ml-1 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
+                          >
+                            Add
+                          </button>
+                        )}
                       </td>
                     </motion.tr>
                   )
@@ -326,6 +332,7 @@ export default function AreaConverterMultiple() {
         </div>
       </motion.div>
 
+      {/* Navigate to single */}
       <motion.button
         title="Single Conversion"
         onClick={() => navigate("/single")}
@@ -335,6 +342,19 @@ export default function AreaConverterMultiple() {
         aria-label="Go to Single Page"
       >
         <img className="w-6 h-6" src="/images/convert.png" alt="img" />
+      </motion.button>
+
+      {/* Navigate to Calculation */}
+      <motion.button
+        title="Calculation"
+        onClick={() => navigate("/calculation")}
+        className="fixed top-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9, rotate: 180 }}
+        aria-label="Go to Single Page"
+      >
+        <img className="w-6 h-6" src="/images/convert.png" alt="img" />
+        <p>{calculationStr?.listOfCalc?.length}</p>
       </motion.button>
     </div>
   );

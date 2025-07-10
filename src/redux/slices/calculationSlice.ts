@@ -1,22 +1,33 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface ApplicationState {
-    test: string;
-}
+// Interface
+import ListOfCalculation from "@/interface/ListOfCalculation";
+import ApplicationState from '@/interface/ApplicationState';
 
 const initialState: ApplicationState = {
-    test: "Hello",
+    selectedUnit: "Acre",
+    totalUnit: 0,
+    listOfCalc: [
+        { value: 30 },
+        { value: 20 },
+    ]
 };
 
 const calculationSlice = createSlice({
     name: 'calculation',
     initialState,
     reducers: {
-        setDarkMode: (state, action: PayloadAction<string>) => {
-            state.test = action.payload;
+        setSelectedUnit: (state, action: PayloadAction<string>) => {
+            state.selectedUnit = action.payload;
         },
-    },
+        addListOfCalculator: (state, action: PayloadAction<ListOfCalculation>) => {
+            state.listOfCalc = [...state.listOfCalc, action.payload];
+        },
+        clearListOfCalculator: (state) => {
+            state.listOfCalc = [];
+        }
+    }
 });
 
-export const { setDarkMode } = calculationSlice.actions;
+export const { setSelectedUnit, addListOfCalculator, clearListOfCalculator } = calculationSlice.actions;
 export default calculationSlice.reducer;
