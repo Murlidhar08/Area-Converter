@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Pages
-import AreaConverterMultiple from '@/pages/AreaConverterMultiple.js'
-import AreaConverterSingle from '@/pages/AreaConverterSingle.js'
+import AreaConverterMultiple from '@/pages/AreaConverterMultiple.tsx'
+import AreaConverterSingle from '@/pages/AreaConverterSingle.tsx'
+import Calculation from '@/pages/Calculation.js'
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route path="/multiple" element={<AreaConverterMultiple />} />
         <Route path="/single" element={<AreaConverterSingle />} />
+        <Route path="/calculation" element={<Calculation />} />
         <Route path="*" element={<AreaConverterMultiple />} />
       </Routes>
     </Router>

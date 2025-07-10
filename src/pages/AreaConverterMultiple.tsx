@@ -293,6 +293,12 @@ export default function AreaConverterMultiple() {
                         >
                           {copied === unit ? "Copied!" : "Copy"}
                         </button>
+                        <button
+                          onClick={() => { /* empt */ }}
+                          className="ml-1 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
+                        >
+                          Add
+                        </button>
                       </td>
                     </motion.tr>
                   )
