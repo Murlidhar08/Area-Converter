@@ -4,21 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { clearListOfCalculator, addListOfCalculator, setCalculateUnit } from '@/redux/slices/calculationSlice';
 import ListOfCalculation from "@/interface/ListOfCalculation";
-import { CalculatorIcon, RefreshCw, X } from 'lucide-react';
-
-interface UnitConversion {
-  [key: string]: number;
-}
-
-interface UnitDetails {
-  Guntha: UnitConversion;
-  Bigha: UnitConversion;
-  Acre: UnitConversion;
-  Hectare: UnitConversion;
-  Are: UnitConversion;
-  SquareFeet: UnitConversion;
-  SquareMeter: UnitConversion;
-}
+import { CalculatorIcon, X } from 'lucide-react';
+import UnitDetails from "@/interface/UnitDetails";
+import UnitConversion from "@/interface/UnitConversion";
 
 const unitDetails: UnitDetails = {
   Guntha: {
@@ -201,19 +189,16 @@ export default function AreaConverterMultiple() {
       unitValue: value,
       value: num
     }
+
+    if (fromUnit == "H.RA.SM")
+      obj.unitValue = `${customH}-${customR}-${customSM}`;
+
     dispatch(addListOfCalculator(obj));
     dispatch(setCalculateUnit(unit));
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-purple-800 p-4">
-      <motion.h1
-        className="text-4xl font-extrabold mb-6 text-white text-center"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        Area Converter {calculationStore.calculateUnit}
-      </motion.h1>
+    <div className="flex flex-col items-center justify-start bg-purple-800 p-4">
       <motion.div
         className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-lg mx-auto border border-purple-200"
         initial={{ opacity: 0, scale: 0.9 }}
@@ -341,34 +326,23 @@ export default function AreaConverterMultiple() {
         </div>
       </motion.div>
 
-      {/* Navigate to single */}
-      <motion.button
-        title="Single Conversion"
-        onClick={() => navigate("/single")}
-        className="fixed bottom-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9, rotate: 180 }}
-        aria-label="Go to Single Page"
-      >
-        <RefreshCw size={30} />
-      </motion.button>
-
       {/* Navigate to Calculation */}
-      <motion.button
-        title="Calculation"
-        className="fixed top-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none"
-        aria-label="Go to Single Page"
-      >
-        <p className="absolute bg-white text-red-600 p-2 rounded-full font-bold -top-4 -left-1">{calculationStore?.listOfCalc?.length}</p>
-        <CalculatorIcon
-          onClick={() => navigate("/calculation")}
-          size={30} />
+      {calculationStore?.listOfCalc?.length && (
+        <motion.button
+          title="Calculation"
+          className="fixed top-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none"
+          aria-label="Go to Single Page"
+        >
+          <CalculatorIcon
+            onClick={() => navigate("/calculation")}
+            size={30} />
 
-        <X
-          onClick={() => dispatch(clearListOfCalculator())}
-          size={30}
-          className="absolute bg-white text-red-600 p-2 rounded-full font-bold -top-4 -right-1" />
-      </motion.button>
+          <X
+            onClick={() => dispatch(clearListOfCalculator())}
+            size={30}
+            className="absolute bg-white text-red-600 p-2 rounded-full font-bold -top-4 -right-1" />
+        </motion.button>
+      )}
     </div>
   );
 }

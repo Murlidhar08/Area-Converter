@@ -1,5 +1,5 @@
 export default interface ListOfCalculation {
     unit: string
-    unitValue: number
+    unitValue: number | string
     value: number
 }
