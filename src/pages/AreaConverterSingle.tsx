@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { ArrowLeftRight } from 'lucide-react';
 
 interface UnitConversion {
   [key: string]: number;
@@ -83,9 +83,9 @@ const unitDetails: UnitDetails = {
 };
 
 const enums = {
-  value: 'value',
-  fromUnit: 'fromUnit',
-  toUnit: 'toUnit',
+  value: 'singleValue',
+  fromUnit: 'singleFromUnit',
+  toUnit: 'singleToUnit',
 }
 
 const setLocalStorage = (key: string, value: any) => {
@@ -98,10 +98,9 @@ const getLocalStorage = (key: string): any => {
 
 
 export default function AreaConverterSingle() {
-  const [value, setValue] = useState<number>(Number(getLocalStorage(enums.value)) ?? 1);
+  const [value, setValue] = useState<number>(Number(getLocalStorage(enums.value) ?? 1));
   const [fromUnit, setFromUnit] = useState<keyof UnitDetails>(getLocalStorage(enums.fromUnit) ?? "Bigha");
   const [toUnit, setToUnit] = useState<keyof UnitDetails>(getLocalStorage(enums.toUnit) ?? "Guntha");
-  const navigate = useNavigate();
 
   useEffect(() => {
     // Preserve last vaule
@@ -118,10 +117,6 @@ export default function AreaConverterSingle() {
   const swapUnits = () => {
     setFromUnit(toUnit);
     setToUnit(fromUnit);
-  };
-
-  const navigateToSinglePage = () => {
-    navigate("/multiple");
   };
 
   return (
@@ -168,21 +163,16 @@ export default function AreaConverterSingle() {
           </select>
 
           {/* Swap Button with SVG */}
-          <button
+          <motion.button
             onClick={swapUnits}
             className="text-purple-500 hover:text-purple-700 transition-colors flex items-center justify-center p-2 mx-3"
             aria-label="Swap Units"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9, rotate: 180 }}
+
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 92 92"
-              width="40"
-              height="40"
-              className="fill-current"
-            >
-              <path d="M92 55.5c0 1.1-.4 2.1-1.2 2.8L72.2 76.9c-.8.8-1.8 1.1-2.8 1.1-1 0-2.1-.5-2.8-1.2-1.6-1.6-1.6-4.2 0-5.8l11.7-12H39.2c-2.2 0-4-1.8-4-4s1.8-4 4-4h39.1L66.6 39.5c-1.6-1.6-1.6-3.9 0-5.4 1.6-1.6 4.1-1.6 5.7 0l18.6 18.6c.7.7 1.1 1.7 1.1 2.8zM13.7 41h39.1c2.2 0 4-1.8 4-4s-1.8-4-4-4H13.7l11.7-12c1.6-1.6 1.1-4.2 0-5.8s-4.1-1.6-5.7-.1L1.2 33.7c-.8.7-1.2 1.7-1.2 2.8s.4 2.1 1.2 2.8l18.6 18.6c.8.8 1.8 1.2 2.8 1.2 1 0 2.1-.4 2.8-1.2 1.6-1.6 1.6-3.9 0-5.4L13.7 41z"></path>
-            </svg>
-          </button>
+            <ArrowLeftRight size={35} />
+          </motion.button>
 
           {/* To Unit */}
           <select
@@ -209,17 +199,6 @@ export default function AreaConverterSingle() {
           {toUnit}
         </motion.div>
       </motion.div>
-
-      {/* Floating Button for Single Page */}
-      <motion.button
-        onClick={navigateToSinglePage}
-        className="fixed bottom-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9, rotate: 180 }}
-        aria-label="Go to Single Page"
-      >
-        <img className="w-6 h-6" src="/images/convert.png" alt="img" />
-      </motion.button>
     </div>
   );
 }
