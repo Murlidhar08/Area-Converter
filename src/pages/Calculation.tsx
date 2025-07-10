@@ -15,7 +15,7 @@ export default function Calculation() {
     }, [calculationStore.listOfCalc]);
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-purple-800 p-4">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-purple-800 p-4 pb-20">
             {/* Title */}
             <motion.h1
                 className="text-4xl font-extrabold mb-6 text-white text-center"
@@ -23,7 +23,7 @@ export default function Calculation() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                Total Area
+                Total Calculation
             </motion.h1>
 
             {/* Box */}

@@ -198,7 +198,15 @@ export default function AreaConverterMultiple() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start bg-purple-800 p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-purple-800 p-4 pb-20">
+      {/* Title */}
+      <motion.h1
+        className="text-4xl font-extrabold mb-6 text-white text-center"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        Area Converter
+      </motion.h1>
       <motion.div
         className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-lg mx-auto border border-purple-200"
         initial={{ opacity: 0, scale: 0.9 }}
@@ -282,7 +290,7 @@ export default function AreaConverterMultiple() {
                       <td className="py-2 px-4 border-b border-purple-200">
                         {unit}
                       </td>
-                      <td className="py-2 px-4 border-b border-purple-200">
+                      <td className="flex py-2 px-2 border-b border-purple-200">
                         <button
                           onClick={() => handleCopy(String(convertArea(unit)), unit)}
                           className="w-20 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
@@ -327,7 +335,7 @@ export default function AreaConverterMultiple() {
       </motion.div>
 
       {/* Navigate to Calculation */}
-      {calculationStore?.listOfCalc?.length && (
+      {!!calculationStore?.listOfCalc?.length && (
         <motion.button
           title="Calculation"
           className="fixed top-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none"
