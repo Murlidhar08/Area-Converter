@@ -86,12 +86,28 @@ const calculateCustomUnit = (h: number, r: number, sm: number): number => {
   return h * 98.425197 + r * 0.988421 + sm * 0.009882;
 };
 
+const enums = {
+  value: 'value',
+  fromUnit: 'fromUnit',
+  customH: 'customH',
+  customR: 'customR',
+  customSM: 'customSM'
+}
+
+const setLocalStorage = (key: string, value: any) => {
+  localStorage.setItem(key, value);
+};
+
+const getLocalStorage = (key: string): any => {
+  return localStorage.getItem(key);
+};
+
 export default function AreaConverterMultiple() {
-  const [value, setValue] = useState<number>(1);
-  const [fromUnit, setFromUnit] = useState<string>("Guntha");
-  const [customH, setCustomH] = useState<number>(0);
-  const [customR, setCustomR] = useState<number>(0);
-  const [customSM, setCustomSM] = useState<number>(0);
+  const [value, setValue] = useState<number>(Number(getLocalStorage(enums.value) ?? 1));
+  const [fromUnit, setFromUnit] = useState<string>(getLocalStorage(enums.fromUnit) ?? "Guntha");
+  const [customH, setCustomH] = useState<number>(getLocalStorage(enums.customH) ?? 0);
+  const [customR, setCustomR] = useState<number>(getLocalStorage(enums.customR) ?? 0);
+  const [customSM, setCustomSM] = useState<number>(getLocalStorage(enums.customSM) ?? 0);
   const [copied, setCopied] = useState<string | null>(null);
   const [selectedUnit, setSelectedUnit] = useState<string | null>(null);
   const [selectedValue, setSelectedValue] = useState<number | null>(null);
@@ -108,7 +124,14 @@ export default function AreaConverterMultiple() {
       setSelectedUnit(defaultUnit);
       setSelectedValue(defaultValue);
     }
-  }, [fromUnit, value, customH, customR, customSM]);
+
+    // Preserve last vaule
+    setLocalStorage(enums.value, value);
+    setLocalStorage(enums.fromUnit, fromUnit);
+    setLocalStorage(enums.customH, customH);
+    setLocalStorage(enums.customR, customR);
+    setLocalStorage(enums.customSM, customSM);
+  }, [value, fromUnit, customH, customR, customSM]);
 
   const convertArea = (targetUnit: keyof UnitConversion): number => {
     if (fromUnit === "H.RA.SM") {

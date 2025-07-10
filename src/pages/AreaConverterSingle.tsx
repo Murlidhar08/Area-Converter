@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
@@ -82,11 +82,33 @@ const unitDetails: UnitDetails = {
   },
 };
 
+const enums = {
+  value: 'value',
+  fromUnit: 'fromUnit',
+  toUnit: 'toUnit',
+}
+
+const setLocalStorage = (key: string, value: any) => {
+  localStorage.setItem(key, value);
+};
+
+const getLocalStorage = (key: string): any => {
+  return localStorage.getItem(key);
+};
+
+
 export default function AreaConverterSingle() {
-  const [value, setValue] = useState<number>(1);
-  const [fromUnit, setFromUnit] = useState<keyof UnitDetails>("Bigha");
-  const [toUnit, setToUnit] = useState<keyof UnitDetails>("Guntha");
+  const [value, setValue] = useState<number>(Number(getLocalStorage(enums.value)) ?? 1);
+  const [fromUnit, setFromUnit] = useState<keyof UnitDetails>(getLocalStorage(enums.fromUnit) ?? "Bigha");
+  const [toUnit, setToUnit] = useState<keyof UnitDetails>(getLocalStorage(enums.toUnit) ?? "Guntha");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Preserve last vaule
+    setLocalStorage(enums.value, value);
+    setLocalStorage(enums.fromUnit, fromUnit);
+    setLocalStorage(enums.toUnit, toUnit);
+  }, [value, fromUnit, toUnit]);
 
   const convertArea = (): number => {
     return Number((value * unitDetails[fromUnit][toUnit]).toFixed(6));
