@@ -83,9 +83,9 @@ const unitDetails: UnitDetails = {
 };
 
 const enums = {
-  value: 'value',
-  fromUnit: 'fromUnit',
-  toUnit: 'toUnit',
+  value: 'singleValue',
+  fromUnit: 'singleFromUnit',
+  toUnit: 'singleToUnit',
 }
 
 const setLocalStorage = (key: string, value: any) => {
@@ -98,7 +98,7 @@ const getLocalStorage = (key: string): any => {
 
 
 export default function AreaConverterSingle() {
-  const [value, setValue] = useState<number>(Number(getLocalStorage(enums.value)) ?? 1);
+  const [value, setValue] = useState<number>(Number(getLocalStorage(enums.value) ?? 1));
   const [fromUnit, setFromUnit] = useState<keyof UnitDetails>(getLocalStorage(enums.fromUnit) ?? "Bigha");
   const [toUnit, setToUnit] = useState<keyof UnitDetails>(getLocalStorage(enums.toUnit) ?? "Guntha");
   const navigate = useNavigate();
