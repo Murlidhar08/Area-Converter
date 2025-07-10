@@ -2,7 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { clearListOfCalculator, addListOfCalculator } from '@/redux/slices/calculationSlice';
+import { clearListOfCalculator, addListOfCalculator, setCalculateUnit } from '@/redux/slices/calculationSlice';
+import ListOfCalculation from "@/interface/ListOfCalculation";
+import { CalculatorIcon, RefreshCw, X } from 'lucide-react';
 
 interface UnitConversion {
   [key: string]: number;
@@ -106,7 +108,7 @@ const getLocalStorage = (key: string): any => {
 
 export default function AreaConverterMultiple() {
   const dispatch = useDispatch();
-  const calculationStr = useSelector((state: any) => state.calculation);
+  const calculationStore = useSelector((state: any) => state.calculation);
   const [value, setValue] = useState<number>(Number(getLocalStorage(enums.value) ?? 1));
   const [fromUnit, setFromUnit] = useState<string>(getLocalStorage(enums.fromUnit) ?? "Guntha");
   const [customH, setCustomH] = useState<number>(getLocalStorage(enums.customH) ?? 0);
@@ -193,8 +195,14 @@ export default function AreaConverterMultiple() {
     )
   };
 
-  const addToCalculation = (num: number) => {
-    dispatch(addListOfCalculator({ value: num }));
+  const addToCalculation = (num: number, unit: string) => {
+    const obj: ListOfCalculation = {
+      unit: fromUnit,
+      unitValue: value,
+      value: num
+    }
+    dispatch(addListOfCalculator(obj));
+    dispatch(setCalculateUnit(unit));
   };
 
   return (
@@ -204,7 +212,7 @@ export default function AreaConverterMultiple() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        Area Converter
+        Area Converter {calculationStore.calculateUnit}
       </motion.h1>
       <motion.div
         className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-lg mx-auto border border-purple-200"
@@ -296,10 +304,11 @@ export default function AreaConverterMultiple() {
                         >
                           {copied === unit ? "Copied!" : "Copy"}
                         </button>
+
                         {/* Add Calculation button */}
-                        {calculationStr.selectedUnit == unit && (
+                        {(calculationStore.calculateUnit == unit || calculationStore.calculateUnit == "") && (
                           <button
-                            onClick={() => addToCalculation(convertArea(unit))}
+                            onClick={() => addToCalculation(convertArea(unit), unit)}
                             className="ml-1 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
                           >
                             Add
@@ -341,20 +350,24 @@ export default function AreaConverterMultiple() {
         whileTap={{ scale: 0.9, rotate: 180 }}
         aria-label="Go to Single Page"
       >
-        <img className="w-6 h-6" src="/images/convert.png" alt="img" />
+        <RefreshCw size={30} />
       </motion.button>
 
       {/* Navigate to Calculation */}
       <motion.button
         title="Calculation"
-        onClick={() => navigate("/calculation")}
         className="fixed top-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9, rotate: 180 }}
         aria-label="Go to Single Page"
       >
-        <img className="w-6 h-6" src="/images/convert.png" alt="img" />
-        <p>{calculationStr?.listOfCalc?.length}</p>
+        <p className="absolute bg-white text-red-600 p-2 rounded-full font-bold -top-4 -left-1">{calculationStore?.listOfCalc?.length}</p>
+        <CalculatorIcon
+          onClick={() => navigate("/calculation")}
+          size={30} />
+
+        <X
+          onClick={() => dispatch(clearListOfCalculator())}
+          size={30}
+          className="absolute bg-white text-red-600 p-2 rounded-full font-bold -top-4 -right-1" />
       </motion.button>
     </div>
   );
