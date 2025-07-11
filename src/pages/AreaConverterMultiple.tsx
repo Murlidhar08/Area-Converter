@@ -1,12 +1,20 @@
+// Packages
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { CalculatorIcon, X } from 'lucide-react';
+
+// Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { clearListOfCalculator, addListOfCalculator, setCalculateUnit } from '@/redux/slices/calculationSlice';
+
+// Interface
 import ListOfCalculation from "@/interface/ListOfCalculation";
-import { CalculatorIcon, X } from 'lucide-react';
 import UnitDetails from "@/interface/UnitDetails";
 import UnitConversion from "@/interface/UnitConversion";
+
+// Utils
+import { capitalizeFirstLetter } from '@/utils/commonFunctions'
 
 const unitDetails: UnitDetails = {
   Guntha: {
@@ -95,9 +103,10 @@ const getLocalStorage = (key: string): any => {
 };
 
 export default function AreaConverterMultiple() {
+  const { unitPar, valuePar, hVal, rVal, smVal } = useParams();
   const dispatch = useDispatch();
   const calculationStore = useSelector((state: any) => state.calculation);
-  const [value, setValue] = useState<number>(Number(getLocalStorage(enums.value) ?? 1));
+  const [unitValue, setUnitValue] = useState<number>(Number(getLocalStorage(enums.value) ?? 1));
   const [fromUnit, setFromUnit] = useState<string>(getLocalStorage(enums.fromUnit) ?? "Guntha");
   const [customH, setCustomH] = useState<number>(getLocalStorage(enums.customH) ?? 0);
   const [customR, setCustomR] = useState<number>(getLocalStorage(enums.customR) ?? 0);
@@ -111,6 +120,39 @@ export default function AreaConverterMultiple() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Value parameter
+    if (valuePar) {
+      const numPar = Number(valuePar)
+      if (!isNaN(numPar))
+        setUnitValue(numPar);
+    }
+
+    // Unit Parameter
+    if (unitPar) {
+      const par = capitalizeFirstLetter(unitPar.toLowerCase());
+      if (unitDetails[par as keyof UnitDetails]) setFromUnit(par);
+    }
+
+    // Use HAS
+    if (unitPar && unitPar?.toLowerCase()?.trim() == "hasm") {
+      setFromUnit("H.RA.SM");
+
+      const valH = Number(hVal ?? valuePar);
+      if (!isNaN(valH)) setCustomH(valH);
+      else setCustomH(0);
+
+      const valR = Number(rVal)
+      if (!isNaN(valR)) setCustomR(valR);
+      else setCustomR(0);
+
+      const ValSM = Number(smVal)
+      if (!isNaN(ValSM)) setCustomSM(ValSM);
+      else setCustomSM(0);
+    }
+
+  }, [unitPar, valuePar, hVal, rVal, smVal]);
+
+  useEffect(() => {
     const units = Object.keys(unitDetails).filter((u) => u !== fromUnit);
     if (units.length > 0) {
       const defaultUnit = units[0];
@@ -120,19 +162,19 @@ export default function AreaConverterMultiple() {
     }
 
     // Preserve last vaule
-    setLocalStorage(enums.value, value);
+    setLocalStorage(enums.value, unitValue);
     setLocalStorage(enums.fromUnit, fromUnit);
     setLocalStorage(enums.customH, customH);
     setLocalStorage(enums.customR, customR);
     setLocalStorage(enums.customSM, customSM);
-  }, [value, fromUnit, customH, customR, customSM]);
+  }, [unitValue, fromUnit, customH, customR, customSM]);
 
   const convertArea = (targetUnit: keyof UnitConversion): number => {
     if (fromUnit === "H.RA.SM") {
       const gunthaValue = calculateCustomUnit(customH, customR, customSM);
       return Number((gunthaValue * unitDetails["Guntha"][targetUnit]).toFixed(6));
     }
-    return Number((value * unitDetails[fromUnit as keyof UnitDetails][targetUnit]).toFixed(6));
+    return Number((unitValue * unitDetails[fromUnit as keyof UnitDetails][targetUnit]).toFixed(6));
   };
 
   const handleCopy = (text: string, unit: string) => {
@@ -186,7 +228,7 @@ export default function AreaConverterMultiple() {
   const addToCalculation = (num: number, unit: string) => {
     const obj: ListOfCalculation = {
       unit: fromUnit,
-      unitValue: value,
+      unitValue: unitValue,
       value: num
     }
 
@@ -240,9 +282,9 @@ export default function AreaConverterMultiple() {
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
             <input
               type="number"
-              value={value}
+              value={unitValue}
               min={0}
-              onChange={(e) => setValue(Number(e.target.value))}
+              onChange={(e) => setUnitValue(Number(e.target.value))}
               className="w-full sm:w-1/2 p-3 border border-purple-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
               placeholder="Enter value"
             />
@@ -271,45 +313,43 @@ export default function AreaConverterMultiple() {
             <tbody>
               {Object.keys(unitDetails).map(
                 (unit) =>
-                  unit !== fromUnit && (
-                    <motion.tr
-                      key={unit}
-                      className={`cursor-pointer transition-colors ${selectedUnit === unit ? "bg-purple-100" : "bg-white hover:bg-purple-50"
-                        }`}
-                      initial={{ opacity: 0, y: 5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      onClick={() => {
-                        const val = convertArea(unit);
-                        setSelectedUnit(unit);
-                        setSelectedValue(val);
-                      }}
-                    >
-                      <td className="py-2 px-4 border-b border-purple-200 font-semibold text-purple-800">
-                        {convertArea(unit)}
-                      </td>
-                      <td className="py-2 px-4 border-b border-purple-200">
-                        {unit}
-                      </td>
-                      <td className="flex py-2 px-2 border-b border-purple-200">
-                        <button
-                          onClick={() => handleCopy(String(convertArea(unit)), unit)}
-                          className="w-20 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
-                        >
-                          {copied === unit ? "Copied!" : "Copy"}
-                        </button>
+                  <motion.tr
+                    key={unit}
+                    className={`cursor-pointer transition-colors ${selectedUnit === unit ? "bg-purple-100" : "bg-white hover:bg-purple-50"
+                      }`}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    onClick={() => {
+                      const val = convertArea(unit);
+                      setSelectedUnit(unit);
+                      setSelectedValue(val);
+                    }}
+                  >
+                    <td className="py-2 px-4 border-b border-purple-200 font-semibold text-purple-800">
+                      {convertArea(unit)}
+                    </td>
+                    <td className="py-2 px-4 border-b border-purple-200">
+                      {unit}
+                    </td>
+                    <td className="flex py-2 px-2 border-b border-purple-200">
+                      <button
+                        onClick={() => handleCopy(String(convertArea(unit)), unit)}
+                        className="w-20 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
+                      >
+                        {copied === unit ? "Copied!" : "Copy"}
+                      </button>
 
-                        {/* Add Calculation button */}
-                        {(calculationStore.calculateUnit == unit || calculationStore.calculateUnit == "") && (
-                          <button
-                            onClick={() => addToCalculation(convertArea(unit), unit)}
-                            className="ml-1 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
-                          >
-                            Add
-                          </button>
-                        )}
-                      </td>
-                    </motion.tr>
-                  )
+                      {/* Add Calculation button */}
+                      {(calculationStore.calculateUnit == unit || calculationStore.calculateUnit == "") && (
+                        <button
+                          onClick={() => addToCalculation(convertArea(unit), unit)}
+                          className="ml-1 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
+                        >
+                          Add
+                        </button>
+                      )}
+                    </td>
+                  </motion.tr>
               )}
             </tbody>
           </table>

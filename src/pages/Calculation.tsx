@@ -7,10 +7,11 @@ import { removeCalcItem } from '@/redux/slices/calculationSlice';
 export default function Calculation() {
     const dispatch = useDispatch();
     const calculationStore = useSelector((state: any) => state.calculation);
+    const [pricePerUnit, setPricePerUnit] = useState<number>(0);
     const [totalVal, setTotalVal] = useState<number>(0);
 
     useEffect(() => {
-        const total = calculationStore.listOfCalc.reduce((sum: any, item: any) => sum + Number(item.value || 0), 0);
+        const total = calculationStore.listOfCalc.reduce((sum: number, item: any) => sum + Number(item.value || 0), 0);
         setTotalVal(total);
     }, [calculationStore.listOfCalc]);
 
@@ -26,49 +27,70 @@ export default function Calculation() {
                 Total Calculation
             </motion.h1>
 
-            {/* Box */}
             <motion.div
-                className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md mx-auto"
+                className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-xl mx-auto"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4 }}
             >
-                <div className="bg-purple-50 p-4 rounded-lg shadow-md overflow-x-auto">
-                    <table className="w-full text-sm text-left border-separate border-spacing-y-2">
-                        <tbody>
-                            {calculationStore?.listOfCalc.map((row: any, index: number) => (
-                                <motion.tr
-                                    key={index}
-                                    className="bg-purple-50 hover:bg-purple-200 transition-colors cursor-pointer"
-                                    initial="hidden"
-                                    animate="visible"
-                                    custom={index}
-                                >
-                                    <td className="py-3 px-4 font-medium text-purple-900">{row.unitValue} ({row.unit})</td>
-                                    <td className="py-3 px-4 font-semibold text-purple-900 flex justify-between">
-                                        <p>{row.value} ({calculationStore.calculateUnit})</p>
-                                        <X size={20}
-                                            color="red"
-                                            onClick={() => dispatch(removeCalcItem(index))}
-                                        />
-                                    </td>
-                                </motion.tr>
-                            ))}
+                <div className="space-y-4">
+                    {/* Price Input */}
+                    <div className="flex justify-between items-center gap-4">
+                        <label className="text-purple-900 font-medium w-1/2">Price per unit</label>
+                        <input
+                            type="number"
+                            value={pricePerUnit}
+                            onChange={(e) => setPricePerUnit(Number(e.target.value))}
+                            className="p-2 border border-gray-300 rounded-lg w-full text-right focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            placeholder="Enter Value"
+                        />
+                    </div>
 
-                            {/* Total */}
-                            <motion.tr
-                                className="bg-purple-200 hover:bg-purple-300 transition-colors cursor-pointer"
-                                initial="hidden"
-                                animate="visible"
-                            >
-                                <td className="py-3 px-4 text-purple-900 font-bold">Total</td>
-                                <td className="py-3 px-4 text-purple-900 font-bold">
-                                    {totalVal}
-                                    {calculationStore.calculateUnit ? `(${calculationStore.calculateUnit})` : ""}
-                                </td>
-                            </motion.tr>
-                        </tbody>
-                    </table>
+                    <hr className="border-purple-200" />
+
+                    {/* Calculations List */}
+                    {calculationStore?.listOfCalc.map((row: any, index: number) => (
+                        <motion.div
+                            key={index}
+                            className="flex justify-between items-center bg-purple-50 hover:bg-purple-100 p-3 rounded-md shadow-sm transition-colors"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.05 }}
+                        >
+                            <div className="text-purple-900 font-medium">
+                                {row.unitValue} ({row.unit})
+                            </div>
+                            <div className="flex items-center gap-3 font-semibold text-purple-900">
+                                <span>{row.value} {calculationStore.calculateUnit}</span>
+                                <button
+                                    onClick={() => dispatch(removeCalcItem(index))}
+                                    className="hover:bg-red-100 p-1 rounded-full"
+                                >
+                                    <X size={18} className="text-red-500" />
+                                </button>
+                            </div>
+                        </motion.div>
+                    ))}
+
+                    {/* Totals */}
+                    <div className="bg-purple-100 p-3 rounded-lg space-y-2 mt-4">
+                        <div className="flex justify-between font-bold text-purple-900">
+                            <span>Total Area</span>
+                            <span>
+                                {totalVal} {calculationStore.calculateUnit ? `(${calculationStore.calculateUnit})` : ""}
+                            </span>
+                        </div>
+                        <div className="flex justify-between font-bold text-purple-900">
+                            <span>Total Price</span>
+                            <span>
+                                {Intl.NumberFormat("en-IN", {
+                                    style: "currency",
+                                    currency: "INR",
+                                    maximumFractionDigits: 2,
+                                }).format(totalVal * pricePerUnit)}
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </motion.div>
         </div>
