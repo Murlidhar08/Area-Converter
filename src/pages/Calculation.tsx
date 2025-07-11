@@ -116,12 +116,10 @@ export default function Calculation() {
             {!!calculationStore?.listOfCalc?.length && (
                 <motion.button
                     title="Calculation"
-                    className="fixed top-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none"
+                    className="fixed top-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none cursor-default"
                     aria-label="Go to Single Page"
                 >
-                    <CalculatorIcon
-                        onClick={() => navigate("/calculation")}
-                        size={30} />
+                    <CalculatorIcon className="cursor-pointer" onClick={() => navigate("/calculation")} size={30} />
                     <X
                         onClick={() => dispatch(clearListOfCalculator())}
                         size={30}
