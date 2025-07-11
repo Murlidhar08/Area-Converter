@@ -7,6 +7,7 @@ const unitDetails: UnitDetails = {
         Acre: 0.025,
         Hectare: 0.010162,
         Are: 0.098842,
+        Var: 0.00826446280991735,
         SquareFeet: 1089.0,
         SquareMeter: 101.1714,
     },
@@ -16,6 +17,7 @@ const unitDetails: UnitDetails = {
         Acre: 0.4,
         Hectare: 0.162597,
         Are: 1.618742,
+        Var: 0, // Pending
         SquareFeet: 17424.0,
         SquareMeter: 1618.7424,
     },
@@ -25,6 +27,7 @@ const unitDetails: UnitDetails = {
         Acre: 1,
         Hectare: 0.404686,
         Are: 4.04686,
+        Var: 0.00020661157,
         SquareFeet: 43560.0,
         SquareMeter: 4046.86,
     },
@@ -34,6 +37,7 @@ const unitDetails: UnitDetails = {
         Acre: 2.471054,
         Hectare: 1,
         Are: 10.0,
+        Var: 0.000083612736,
         SquareFeet: 107639.104167,
         SquareMeter: 10000.0,
     },
@@ -43,8 +47,20 @@ const unitDetails: UnitDetails = {
         Acre: 0.024711,
         Hectare: 0.1,
         Are: 1,
+        Var: 0, // Pending
         SquareFeet: 1076.391042,
         SquareMeter: 100.0,
+    },
+    // Pending
+    Var: {
+        Guntha: 0,
+        Bigha: 0,
+        Acre: 0,
+        Hectare: 0,
+        Are: 0,
+        Var: 0,
+        SquareFeet: 0,
+        SquareMeter: 0,
     },
     SquareFeet: {
         Guntha: 0.000918,
@@ -52,6 +68,7 @@ const unitDetails: UnitDetails = {
         Acre: 0.000023,
         Hectare: 0.000093,
         Are: 0.000093,
+        Var: 9,
         SquareFeet: 1,
         SquareMeter: 0.092903,
     },
@@ -61,6 +78,7 @@ const unitDetails: UnitDetails = {
         Acre: 0.000247,
         Hectare: 0.01,
         Are: 0.01,
+        Var: 0.83612736,
         SquareFeet: 10.76391,
         SquareMeter: 1,
     }
