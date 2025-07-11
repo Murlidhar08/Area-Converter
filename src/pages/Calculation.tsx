@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { X } from 'lucide-react';
+import { X, CalculatorIcon } from 'lucide-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeCalcItem } from '@/redux/slices/calculationSlice';
+import { useNavigate } from "react-router-dom";
 
 // Utils
 import { getLocalStorage, setLocalStorage } from '@/utils/commonFunctions'
+import { clearListOfCalculator } from '@/redux/slices/calculationSlice';
 
 // Config
 import Enums from '@/config/Enums'
 
 export default function Calculation() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const calculationStore = useSelector((state: any) => state.calculation);
     const [pricePerUnit, setPricePerUnit] = useState<number>(getLocalStorage(Enums.calculator.pricePerUnit) ?? 0);
@@ -108,6 +111,21 @@ export default function Calculation() {
                     </div>
                 </div>
             </motion.div>
+
+            {/* Navigate to Calculation */}
+            {!!calculationStore?.listOfCalc?.length && (
+                <motion.button
+                    title="Calculation"
+                    className="fixed top-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none cursor-default"
+                    aria-label="Go to Single Page"
+                >
+                    <CalculatorIcon className="cursor-pointer" onClick={() => navigate("/calculation")} size={30} />
+                    <X
+                        onClick={() => dispatch(clearListOfCalculator())}
+                        size={30}
+                        className="absolute bg-white text-red-600 p-2 rounded-full font-bold -top-4 -right-1" />
+                </motion.button>
+            )}
         </div>
     );
 }

@@ -6,6 +6,7 @@ export default interface UnitDetails {
     Acre: UnitConversion;
     Hectare: UnitConversion;
     Are: UnitConversion;
+    Var: UnitConversion;
     SquareFeet: UnitConversion;
     SquareMeter: UnitConversion;
 }
