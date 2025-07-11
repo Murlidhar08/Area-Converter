@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { isNodeOrChild, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowLeftRight } from 'lucide-react';
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 // Utils
 import { capitalizeFirstLetter } from '@/utils/commonFunctions'
