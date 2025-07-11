@@ -4,15 +4,30 @@ import { X } from 'lucide-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeCalcItem } from '@/redux/slices/calculationSlice';
 
+// Utils
+import { getLocalStorage, setLocalStorage } from '@/utils/commonFunctions'
+
+// Config
+import Enums from '@/config/Enums'
+
 export default function Calculation() {
     const dispatch = useDispatch();
     const calculationStore = useSelector((state: any) => state.calculation);
-    const [pricePerUnit, setPricePerUnit] = useState<number>(0);
+    const [pricePerUnit, setPricePerUnit] = useState<number>(getLocalStorage(Enums.calculator.pricePerUnit) ?? 0);
     const [totalVal, setTotalVal] = useState<number>(0);
 
     useEffect(() => {
         const total = calculationStore.listOfCalc.reduce((sum: number, item: any) => sum + Number(item.value || 0), 0);
         setTotalVal(total);
+    }, [calculationStore.listOfCalc]);
+
+    useEffect(() => {
+        setLocalStorage(Enums.calculator.pricePerUnit, pricePerUnit)
+    }, [pricePerUnit]);
+
+    // Add list of calculation to local storage
+    useEffect(() => {
+        setLocalStorage(Enums.calculator.calculator, JSON.stringify(calculationStore.listOfCalc))
     }, [calculationStore.listOfCalc]);
 
     return (

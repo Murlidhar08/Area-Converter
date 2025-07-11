@@ -4,9 +4,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import ListOfCalculation from "@/interface/ListOfCalculation";
 import ApplicationState from '@/interface/ApplicationState';
 
+// Utils
+import { getLocalStorage } from '@/utils/commonFunctions'
+
+// Config
+import Enums from '@/config/Enums'
+
 const initialState: ApplicationState = {
-    calculateUnit: "",
-    listOfCalc: []
+    calculateUnit: getLocalStorage(Enums.calculator.calculateUnit) ?? "",
+    listOfCalc: JSON.parse(getLocalStorage(Enums.calculator.calculator)) ?? []
 };
 
 const calculationSlice = createSlice({

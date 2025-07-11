@@ -14,7 +14,10 @@ import UnitDetails from "@/interface/UnitDetails";
 import UnitConversion from "@/interface/UnitConversion";
 
 // Utils
-import { capitalizeFirstLetter } from '@/utils/commonFunctions'
+import { capitalizeFirstLetter, getLocalStorage, setLocalStorage } from '@/utils/commonFunctions'
+
+// Config
+import Enums from '@/config/Enums'
 
 const unitDetails: UnitDetails = {
   Guntha: {
@@ -86,31 +89,15 @@ const calculateCustomUnit = (h: number, r: number, sm: number): number => {
   return h * 98.425197 + r * 0.988421 + sm * 0.009882;
 };
 
-const enums = {
-  value: 'value',
-  fromUnit: 'fromUnit',
-  customH: 'customH',
-  customR: 'customR',
-  customSM: 'customSM'
-}
-
-const setLocalStorage = (key: string, value: any) => {
-  localStorage.setItem(key, value);
-};
-
-const getLocalStorage = (key: string): any => {
-  return localStorage.getItem(key);
-};
-
 export default function AreaConverterMultiple() {
   const { unitPar, valuePar, hVal, rVal, smVal } = useParams();
   const dispatch = useDispatch();
   const calculationStore = useSelector((state: any) => state.calculation);
-  const [unitValue, setUnitValue] = useState<number>(Number(getLocalStorage(enums.value) ?? 1));
-  const [fromUnit, setFromUnit] = useState<string>(getLocalStorage(enums.fromUnit) ?? "Guntha");
-  const [customH, setCustomH] = useState<number>(getLocalStorage(enums.customH) ?? 0);
-  const [customR, setCustomR] = useState<number>(getLocalStorage(enums.customR) ?? 0);
-  const [customSM, setCustomSM] = useState<number>(getLocalStorage(enums.customSM) ?? 0);
+  const [unitValue, setUnitValue] = useState<number>(Number(getLocalStorage(Enums.multiple.value) ?? 1));
+  const [fromUnit, setFromUnit] = useState<string>(getLocalStorage(Enums.multiple.fromUnit) ?? "Guntha");
+  const [customH, setCustomH] = useState<number>(getLocalStorage(Enums.multiple.customH) ?? 0);
+  const [customR, setCustomR] = useState<number>(getLocalStorage(Enums.multiple.customR) ?? 0);
+  const [customSM, setCustomSM] = useState<number>(getLocalStorage(Enums.multiple.customSM) ?? 0);
   const [copied, setCopied] = useState<string | null>(null);
   const [selectedUnit, setSelectedUnit] = useState<string | null>(null);
   const [selectedValue, setSelectedValue] = useState<number | null>(null);
@@ -119,6 +106,7 @@ export default function AreaConverterMultiple() {
 
   const navigate = useNavigate();
 
+  // URL parameter vaules update
   useEffect(() => {
     // Value parameter
     if (valuePar) {
@@ -152,6 +140,17 @@ export default function AreaConverterMultiple() {
 
   }, [unitPar, valuePar, hVal, rVal, smVal]);
 
+  // Add calculate Unit to local storage
+  useEffect(() => {
+    setLocalStorage(Enums.calculator.calculateUnit, calculationStore.calculateUnit)
+  }, [calculationStore.calculateUnit]);
+
+  // Add list of calculation to local storage
+  useEffect(() => {
+    setLocalStorage(Enums.calculator.calculator, JSON.stringify(calculationStore.listOfCalc))
+  }, [calculationStore.listOfCalc]);
+
+  // Update values to local storage
   useEffect(() => {
     const units = Object.keys(unitDetails).filter((u) => u !== fromUnit);
     if (units.length > 0) {
@@ -162,11 +161,11 @@ export default function AreaConverterMultiple() {
     }
 
     // Preserve last vaule
-    setLocalStorage(enums.value, unitValue);
-    setLocalStorage(enums.fromUnit, fromUnit);
-    setLocalStorage(enums.customH, customH);
-    setLocalStorage(enums.customR, customR);
-    setLocalStorage(enums.customSM, customSM);
+    setLocalStorage(Enums.multiple.value, unitValue);
+    setLocalStorage(Enums.multiple.fromUnit, fromUnit);
+    setLocalStorage(Enums.multiple.customH, customH);
+    setLocalStorage(Enums.multiple.customR, customR);
+    setLocalStorage(Enums.multiple.customSM, customSM);
   }, [unitValue, fromUnit, customH, customR, customSM]);
 
   const convertArea = (targetUnit: keyof UnitConversion): number => {
