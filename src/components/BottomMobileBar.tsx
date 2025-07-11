@@ -16,17 +16,17 @@ export default function BottomMobileBar() {
 
     const tabs = [
         {
-            label: "multiple",
+            label: "Multiple",
             path: "/multiple",
             icon: <ListCheck />
         },
         {
-            label: "single",
+            label: "Single",
             path: "/single",
             icon: <Repeat />
         },
         {
-            label: "calculation",
+            label: "Calculation",
             path: "/calculation",
             badgeCounts: calculationStore?.listOfCalc?.length,
             icon: <CalculatorIcon />
@@ -43,8 +43,9 @@ export default function BottomMobileBar() {
                 }}
                 showLabels
             >
-                {tabs.map(tab =>
+                {tabs.map((tab, idx) =>
                     <BottomNavigationAction
+                        key={idx}
                         label={tab.label}
                         value={tab.path}
                         icon={

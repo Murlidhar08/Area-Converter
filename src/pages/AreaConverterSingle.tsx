@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { isNodeOrChild, motion } from "framer-motion";
 import { ArrowLeftRight } from 'lucide-react';
+import { useNavigate, useParams } from "react-router-dom";
+
+// Utils
+import { capitalizeFirstLetter } from '@/utils/commonFunctions'
 
 interface UnitConversion {
   [key: string]: number;
@@ -96,8 +100,8 @@ const getLocalStorage = (key: string): any => {
   return localStorage.getItem(key);
 };
 
-
 export default function AreaConverterSingle() {
+  const { unitFromVal, unitToVal, unitVal } = useParams();
   const [value, setValue] = useState<number>(Number(getLocalStorage(enums.value) ?? 1));
   const [fromUnit, setFromUnit] = useState<keyof UnitDetails>(getLocalStorage(enums.fromUnit) ?? "Bigha");
   const [toUnit, setToUnit] = useState<keyof UnitDetails>(getLocalStorage(enums.toUnit) ?? "Guntha");
@@ -108,6 +112,31 @@ export default function AreaConverterSingle() {
     setLocalStorage(enums.fromUnit, fromUnit);
     setLocalStorage(enums.toUnit, toUnit);
   }, [value, fromUnit, toUnit]);
+
+  useEffect(() => {
+    // Unit From
+    if (unitFromVal) {
+      const par = capitalizeFirstLetter(unitFromVal.toLowerCase());
+      if (unitDetails[par as keyof UnitDetails])
+        setFromUnit(par as keyof UnitDetails);
+      else setFromUnit("Bigha")
+    }
+
+    // Unit To
+    if (unitToVal) {
+      const par = capitalizeFirstLetter(unitToVal.toLowerCase());
+      if (unitDetails[par as keyof UnitDetails])
+        setToUnit(par as keyof UnitDetails);
+      else setToUnit("Guntha");
+    }
+
+    // Conversion Value
+    if (unitVal) {
+      const par = Number(unitVal);
+      if (!isNaN(par)) setValue(par);
+      else setValue(0);
+    }
+  }, [unitFromVal, unitToVal, unitVal]);
 
   const convertArea = (): number => {
     return Number((value * unitDetails[fromUnit][toUnit]).toFixed(6));
