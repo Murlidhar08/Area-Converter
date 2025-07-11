@@ -313,45 +313,43 @@ export default function AreaConverterMultiple() {
             <tbody>
               {Object.keys(unitDetails).map(
                 (unit) =>
-                  unit !== fromUnit && (
-                    <motion.tr
-                      key={unit}
-                      className={`cursor-pointer transition-colors ${selectedUnit === unit ? "bg-purple-100" : "bg-white hover:bg-purple-50"
-                        }`}
-                      initial={{ opacity: 0, y: 5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      onClick={() => {
-                        const val = convertArea(unit);
-                        setSelectedUnit(unit);
-                        setSelectedValue(val);
-                      }}
-                    >
-                      <td className="py-2 px-4 border-b border-purple-200 font-semibold text-purple-800">
-                        {convertArea(unit)}
-                      </td>
-                      <td className="py-2 px-4 border-b border-purple-200">
-                        {unit}
-                      </td>
-                      <td className="flex py-2 px-2 border-b border-purple-200">
-                        <button
-                          onClick={() => handleCopy(String(convertArea(unit)), unit)}
-                          className="w-20 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
-                        >
-                          {copied === unit ? "Copied!" : "Copy"}
-                        </button>
+                  <motion.tr
+                    key={unit}
+                    className={`cursor-pointer transition-colors ${selectedUnit === unit ? "bg-purple-100" : "bg-white hover:bg-purple-50"
+                      }`}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    onClick={() => {
+                      const val = convertArea(unit);
+                      setSelectedUnit(unit);
+                      setSelectedValue(val);
+                    }}
+                  >
+                    <td className="py-2 px-4 border-b border-purple-200 font-semibold text-purple-800">
+                      {convertArea(unit)}
+                    </td>
+                    <td className="py-2 px-4 border-b border-purple-200">
+                      {unit}
+                    </td>
+                    <td className="flex py-2 px-2 border-b border-purple-200">
+                      <button
+                        onClick={() => handleCopy(String(convertArea(unit)), unit)}
+                        className="w-20 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
+                      >
+                        {copied === unit ? "Copied!" : "Copy"}
+                      </button>
 
-                        {/* Add Calculation button */}
-                        {(calculationStore.calculateUnit == unit || calculationStore.calculateUnit == "") && (
-                          <button
-                            onClick={() => addToCalculation(convertArea(unit), unit)}
-                            className="ml-1 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
-                          >
-                            Add
-                          </button>
-                        )}
-                      </td>
-                    </motion.tr>
-                  )
+                      {/* Add Calculation button */}
+                      {(calculationStore.calculateUnit == unit || calculationStore.calculateUnit == "") && (
+                        <button
+                          onClick={() => addToCalculation(convertArea(unit), unit)}
+                          className="ml-1 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
+                        >
+                          Add
+                        </button>
+                      )}
+                    </td>
+                  </motion.tr>
               )}
             </tbody>
           </table>
