@@ -4,21 +4,13 @@ import { ArrowLeftRight } from 'lucide-react';
 import { useParams } from "react-router-dom";
 
 // Utils
-import { capitalizeFirstLetter } from '@/utils/commonFunctions'
+import { capitalizeFirstLetter, getLocalStorage, setLocalStorage } from '@/utils/commonFunctions'
 
-interface UnitConversion {
-  [key: string]: number;
-}
+// Config
+import Enums from '@/config/Enums'
 
-interface UnitDetails {
-  Guntha: UnitConversion;
-  Bigha: UnitConversion;
-  Acre: UnitConversion;
-  Hectare: UnitConversion;
-  Are: UnitConversion;
-  SquareFeet: UnitConversion;
-  SquareMeter: UnitConversion;
-}
+// Interface
+import UnitDetails from "@/interface/UnitDetails";
 
 const unitDetails: UnitDetails = {
   Guntha: {
@@ -86,31 +78,17 @@ const unitDetails: UnitDetails = {
   },
 };
 
-const enums = {
-  value: 'singleValue',
-  fromUnit: 'singleFromUnit',
-  toUnit: 'singleToUnit',
-}
-
-const setLocalStorage = (key: string, value: any) => {
-  localStorage.setItem(key, value);
-};
-
-const getLocalStorage = (key: string): any => {
-  return localStorage.getItem(key);
-};
-
 export default function AreaConverterSingle() {
   const { unitFromVal, unitToVal, unitVal } = useParams();
-  const [value, setValue] = useState<number>(Number(getLocalStorage(enums.value) ?? 1));
-  const [fromUnit, setFromUnit] = useState<keyof UnitDetails>(getLocalStorage(enums.fromUnit) ?? "Bigha");
-  const [toUnit, setToUnit] = useState<keyof UnitDetails>(getLocalStorage(enums.toUnit) ?? "Guntha");
+  const [value, setValue] = useState<number>(Number(getLocalStorage(Enums.single.value) ?? 1));
+  const [fromUnit, setFromUnit] = useState<keyof UnitDetails>(getLocalStorage(Enums.single.fromUnit) ?? "Bigha");
+  const [toUnit, setToUnit] = useState<keyof UnitDetails>(getLocalStorage(Enums.single.toUnit) ?? "Guntha");
 
   useEffect(() => {
     // Preserve last vaule
-    setLocalStorage(enums.value, value);
-    setLocalStorage(enums.fromUnit, fromUnit);
-    setLocalStorage(enums.toUnit, toUnit);
+    setLocalStorage(Enums.single.value, value);
+    setLocalStorage(Enums.single.fromUnit, fromUnit);
+    setLocalStorage(Enums.single.toUnit, toUnit);
   }, [value, fromUnit, toUnit]);
 
   useEffect(() => {
