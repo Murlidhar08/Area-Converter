@@ -62,10 +62,10 @@ export default function AreaConverterSingle() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-purple-800 p-4 relative">
+    <div className="sm:flex flex-col items-center justify-center min-h-screen sm:bg-purple-800 sm:pb-20 sm:p-4 bg-white">
       {/* Title */}
       <motion.h1
-        className="text-4xl font-extrabold mb-6 text-white text-center"
+        className="text-4xl font-extrabold p-6 bg-purple-800 text-white text-center"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
@@ -74,7 +74,7 @@ export default function AreaConverterSingle() {
 
       {/* Converter Box */}
       <motion.div
-        className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md mx-auto"
+        className="bg-white p-4 sm:p-6 sm:shadow-xl sm:h-full w-full mx-auto sm:border border-purple-200 sm:rounded-2xl sm:max-w-lg"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
       >
@@ -84,7 +84,7 @@ export default function AreaConverterSingle() {
             type="number"
             value={value}
             onChange={(e) => setValue(Number(e.target.value))}
-            className="p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="p-3 border border-purple-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
             placeholder="Enter Value"
           />
         </div>
@@ -95,7 +95,7 @@ export default function AreaConverterSingle() {
           <select
             value={fromUnit}
             onChange={(e) => setFromUnit(e.target.value as keyof UnitDetails)}
-            className="w-1/2 p-3 border border-gray-300 rounded-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-1/2 p-3 border border-purple-300 rounded-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-purple-400"
           >
             {Object.keys(unitDetails).map((unit) => (
               <option key={unit} value={unit}>
@@ -104,14 +104,13 @@ export default function AreaConverterSingle() {
             ))}
           </select>
 
-          {/* Swap Button with SVG */}
+          {/* Swap Button */}
           <motion.button
             onClick={swapUnits}
-            className="text-purple-500 hover:text-purple-700 transition-colors flex items-center justify-center p-2 mx-3"
+            className="text-purple-600 hover:text-purple-800 transition-colors flex items-center justify-center p-2 mx-3"
             aria-label="Swap Units"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9, rotate: 180 }}
-
           >
             <ArrowLeftRight size={35} />
           </motion.button>
@@ -120,7 +119,7 @@ export default function AreaConverterSingle() {
           <select
             value={toUnit}
             onChange={(e) => setToUnit(e.target.value as keyof UnitDetails)}
-            className="w-1/2 p-3 border border-gray-300 rounded-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-1/2 p-3 border border-purple-300 rounded-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-purple-400"
           >
             {Object.keys(unitDetails).map((unit) => (
               <option key={unit} value={unit}>
@@ -132,12 +131,12 @@ export default function AreaConverterSingle() {
 
         {/* Result Box */}
         <motion.div
-          className="bg-gray-100 p-4 rounded-lg shadow-md text-center font-semibold text-sm sm:text-base"
+          className="bg-purple-50 p-4 rounded-lg sm:shadow-md text-center font-semibold text-sm sm:text-base text-purple-800"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
         >
           {value} {fromUnit} ={" "}
-          <span className="text-purple-600 font-bold">{convertArea()}</span>{" "}
+          <span className="text-purple-700 font-bold">{convertArea()}</span>{" "}
           {toUnit}
         </motion.div>
       </motion.div>

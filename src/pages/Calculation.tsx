@@ -34,19 +34,19 @@ export default function Calculation() {
     }, [calculationStore.listOfCalc]);
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-purple-800 p-4 pb-20">
+        <div className="sm:flex flex-col min-h-screen sm:bg-purple-800 sm:p-4 bg-white">
             {/* Title */}
             <motion.h1
-                className="text-4xl font-extrabold mb-6 text-white text-center"
-                initial={{ opacity: 0, y: -30 }}
+                className="text-3xl sm:text-4xl font-extrabold p-6 bg-purple-800 text-white text-center"
+                initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
             >
                 Total Calculation
             </motion.h1>
 
+            {/* Content */}
             <motion.div
-                className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-xl mx-auto"
+                className="flex-1 overflow-y-auto bg-white p-4 sm:p-6 sm:shadow-xl sm:border border-purple-200 sm:rounded-2xl sm:max-w-xl w-full mx-auto pb-24"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4 }}
@@ -54,7 +54,9 @@ export default function Calculation() {
                 <div className="space-y-4">
                     {/* Price Input */}
                     <div className="flex justify-between items-center gap-4">
-                        <label className="text-purple-900 font-medium w-1/2">Price per unit</label>
+                        <label className="text-purple-900 font-medium w-1/2">
+                            Price per unit
+                        </label>
                         <input
                             type="number"
                             value={pricePerUnit}
@@ -79,7 +81,9 @@ export default function Calculation() {
                                 {row.unitValue} ({row.unit})
                             </div>
                             <div className="flex items-center gap-3 font-semibold text-purple-900">
-                                <span>{row.value} {calculationStore.calculateUnit}</span>
+                                <span>
+                                    {row.value} {calculationStore.calculateUnit}
+                                </span>
                                 <button
                                     onClick={() => dispatch(removeCalcItem(index))}
                                     className="hover:bg-red-100 p-1 rounded-full"
@@ -95,7 +99,10 @@ export default function Calculation() {
                         <div className="flex justify-between font-bold text-purple-900">
                             <span>Total Area</span>
                             <span>
-                                {totalVal} {calculationStore.calculateUnit ? `(${calculationStore.calculateUnit})` : ""}
+                                {totalVal}{" "}
+                                {calculationStore.calculateUnit
+                                    ? `(${calculationStore.calculateUnit})`
+                                    : ""}
                             </span>
                         </div>
                         <div className="flex justify-between font-bold text-purple-900">
@@ -112,11 +119,11 @@ export default function Calculation() {
                 </div>
             </motion.div>
 
-            {/* Navigate to Calculation */}
+            {/* Floating Button */}
             {!!calculationStore?.listOfCalc?.length && (
                 <motion.button
                     title="Calculation"
-                    className="fixed top-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none cursor-default"
+                    className="fixed top-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none cursor-default hidden sm:block"
                     aria-label="Go to Single Page"
                 >
                     <CalculatorIcon className="cursor-pointer" onClick={() => navigate("/calculation")} size={30} />

@@ -25,6 +25,7 @@ function App() {
         {/* Redirect unmatched routes to /multiple */}
         <Route path="*" element={<Navigate to="/multiple" replace />} />
       </Routes>
+
       <BottomMobileBar />
     </Router>
   );

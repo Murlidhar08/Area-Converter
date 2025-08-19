@@ -174,17 +174,17 @@ export default function AreaConverterMultiple() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-purple-800 p-4 pb-20">
+    <div className="sm:flex flex-col items-center justify-center min-h-screen sm:bg-purple-800 sm:pb-20 sm:p-4 bg-white">
       {/* Title */}
       <motion.h1
-        className="text-4xl font-extrabold mb-6 text-white text-center"
+        className="text-4xl font-extrabold p-6 bg-purple-800 text-white text-center"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
         Area Converter
       </motion.h1>
       <motion.div
-        className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-lg mx-auto border border-purple-200"
+        className="bg-white p-4 sm:p-6 sm:shadow-xl sm:h-full w-full mx-auto sm:border border-purple-200 sm:rounded-2xl sm:max-w-lg"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
       >
@@ -242,7 +242,7 @@ export default function AreaConverterMultiple() {
           <option value="H.RA.SM">Hectare - Are - SquareMeter</option>
         </select>
 
-        <div className="bg-purple-50 p-4 rounded-lg shadow-md overflow-x-auto">
+        <div className="bg-purple-50 p-4 rounded-lg sm:shadow-md overflow-x-auto">
           <table className="w-full text-sm text-left border-collapse">
             <tbody>
               {Object.keys(unitDetails).map(
@@ -312,7 +312,7 @@ export default function AreaConverterMultiple() {
       {!!calculationStore?.listOfCalc?.length && (
         <motion.button
           title="Calculation"
-          className="fixed top-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none cursor-default"
+          className="fixed top-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none cursor-default hidden sm:block"
           aria-label="Go to Single Page"
         >
           <CalculatorIcon className="cursor-pointer" onClick={() => navigate("/calculation")} size={30} />
