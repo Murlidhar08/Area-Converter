@@ -33,8 +33,12 @@ export default function Calculation() {
         setLocalStorage(Enums.calculator.calculator, JSON.stringify(calculationStore.listOfCalc))
     }, [calculationStore.listOfCalc]);
 
+    const clearCalculation = () => {
+        dispatch(clearListOfCalculator())
+    }
+
     return (
-        <div className="sm:flex flex-col min-h-screen sm:bg-purple-800 sm:p-4 bg-white">
+        <div className="sm:flex flex-col items-center justify-center min-h-screen sm:bg-purple-800 sm:pb-20 sm:p-4 bg-white">
             {/* Title */}
             <motion.h1
                 className="text-3xl sm:text-4xl font-extrabold p-6 bg-purple-800 text-white text-center"
@@ -46,7 +50,7 @@ export default function Calculation() {
 
             {/* Content */}
             <motion.div
-                className="flex-1 overflow-y-auto bg-white p-4 sm:p-6 sm:shadow-xl sm:border border-purple-200 sm:rounded-2xl sm:max-w-xl w-full mx-auto pb-24"
+                className="bg-white p-4 sm:p-6 sm:shadow-xl sm:h-full w-full mx-auto sm:border border-purple-200 sm:rounded-2xl sm:max-w-lg"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4 }}
@@ -64,6 +68,13 @@ export default function Calculation() {
                             className="p-2 border border-gray-300 rounded-lg w-full text-right focus:outline-none focus:ring-2 focus:ring-purple-500"
                             placeholder="Enter Value"
                         />
+                        <button
+                            onClick={clearCalculation}
+                            className="hover:bg-red-100 p-1 rounded-full"
+                            title="Clear All"
+                        >
+                            <X size={18} className="text-red-500" />
+                        </button>
                     </div>
 
                     <hr className="border-purple-200" />
@@ -85,6 +96,7 @@ export default function Calculation() {
                                     {row.value} {calculationStore.calculateUnit}
                                 </span>
                                 <button
+                                    title={`Clear ${row.value} ${calculationStore.calculateUnit}`}
                                     onClick={() => dispatch(removeCalcItem(index))}
                                     className="hover:bg-red-100 p-1 rounded-full"
                                 >
@@ -128,7 +140,7 @@ export default function Calculation() {
                 >
                     <CalculatorIcon className="cursor-pointer" onClick={() => navigate("/calculation")} size={30} />
                     <X
-                        onClick={() => dispatch(clearListOfCalculator())}
+                        onClick={clearCalculation}
                         size={30}
                         className="absolute bg-white text-red-600 p-2 rounded-full font-bold -top-4 -right-1" />
                 </motion.button>
