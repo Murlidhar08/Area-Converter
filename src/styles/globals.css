@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-slate-800;
+    @apply bg-purple-800;
     @apply text-black;
   }
 }

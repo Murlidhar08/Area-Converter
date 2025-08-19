@@ -312,7 +312,7 @@ export default function AreaConverterMultiple() {
       {!!calculationStore?.listOfCalc?.length && (
         <motion.button
           title="Calculation"
-          className="fixed top-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none cursor-default"
+          className="fixed top-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none cursor-default hidden sm:block"
           aria-label="Go to Single Page"
         >
           <CalculatorIcon className="cursor-pointer" onClick={() => navigate("/calculation")} size={30} />
