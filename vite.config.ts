@@ -5,7 +5,7 @@ import { VitePWA } from "vite-plugin-pwa";
 export default defineConfig({
   resolve: {
     alias: {
-      '@': '/src',
+      "@": "/src",
     },
   },
   plugins: [
@@ -16,7 +16,56 @@ export default defineConfig({
       workbox: {
         cleanupOutdatedCaches: true,
         globPatterns: ["**/*.{js,css,html,png,svg,ico,jpg,json}"],
+
+        // Define runtime caching rules
+        runtimeCaching: [
+          {
+            // Cache API or dynamic requests - try network first, fallback to cache
+            urlPattern: /^https:\/\/.*/i,
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "api-cache",
+              networkTimeoutSeconds: 5,
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24, // 1 day
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            // Cache JS, CSS, and static files (Cache First)
+            urlPattern: /\.(?:js|css|woff2?|png|jpg|jpeg|svg|gif|ico|json)$/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "static-cache",
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            // HTML files – network first, fallback to cache
+            urlPattern: ({ request }) => request.mode === "navigate",
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "html-cache",
+              networkTimeoutSeconds: 3,
+              expiration: {
+                maxEntries: 20,
+                maxAgeSeconds: 60 * 60 * 24, // 1 day
+              },
+            },
+          },
+        ],
       },
+
       includeAssets: [
         "favicon.ico",
         "images/favicon-16x16.png",
@@ -29,6 +78,7 @@ export default defineConfig({
         theme_color: "#6b21a8",
         background_color: "#6b21a8",
         display: "standalone",
+        start_url: "/",
         icons: [
           {
             src: "/images/maskable_icon_x48.png",
