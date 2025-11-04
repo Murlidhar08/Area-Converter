@@ -21,7 +21,7 @@ import Enums from '@/config/Enums'
 import unitDetails from '@/config/DetailsUnits'
 
 const calculateCustomUnit = (h: number, r: number, sm: number): number => {
-  return h * 98.425197 + r * 0.988421 + sm * 0.009882;
+  return h * 98.84 + r * 0.98 + sm * 0.0098;
 };
 
 export default function AreaConverterMultiple() {
