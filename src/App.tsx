@@ -5,6 +5,7 @@ import AreaConverterMultiple from '@/pages/AreaConverterMultiple';
 import AreaConverterSingle from '@/pages/AreaConverterSingle';
 import Calculation from '@/pages/Calculation';
 import BottomMobileBar from '@/components/BottomMobileBar';
+import SettingPage from "./pages/SettingPage";
 
 function App() {
   return (
@@ -20,7 +21,9 @@ function App() {
         <Route path="/single/:unitFromVal/:unitToVal" element={<AreaConverterSingle />} />
         <Route path="/single/:unitFromVal/:unitToVal/:unitVal" element={<AreaConverterSingle />} />
 
-        <Route path="/calculation" element={<Calculation />} />
+        <Route path="/calculation" element={<Calculation />} />\
+
+        <Route path="/setting" element={<SettingPage />} />
 
         {/* Redirect unmatched routes to /multiple */}
         <Route path="*" element={<Navigate to="/multiple" replace />} />

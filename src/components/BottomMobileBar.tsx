@@ -1,6 +1,6 @@
 import { BottomNavigation, BottomNavigationAction, Badge } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { CalculatorIcon, ListCheck, Repeat } from 'lucide-react';
+import { CalculatorIcon, ListCheck, Settings } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -20,16 +20,21 @@ export default function BottomMobileBar() {
             path: "/multiple",
             icon: <ListCheck />
         },
-        {
-            label: "Single",
-            path: "/single",
-            icon: <Repeat />
-        },
+        // {
+        //     label: "Single",
+        //     path: "/single",
+        //     icon: <Repeat />
+        // },
         {
             label: "Calculation",
             path: "/calculation",
             badgeCounts: calculationStore?.listOfCalc?.length,
             icon: <CalculatorIcon />
+        },
+        {
+            label: "Setting",
+            path: "/setting",
+            icon: <Settings />
         }
     ]
 

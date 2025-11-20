@@ -1,0 +1,19 @@
+{
+    "title": {
+        "multiple": "Area Converter",
+        "calculator": "Calculation",
+        "setting": "Settings"
+    },
+    "bottom": {
+        "multiple": "Multiple",
+        "calculator": "Calculator",
+        "setting": "Setting"
+    },
+    "multiple": {
+        "inputLabel": "Enter value"
+    },
+    "settings": {
+        "label": "Settings",
+        "language": "Language"
+    }
+}

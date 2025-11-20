@@ -4,6 +4,7 @@ import { X, CalculatorIcon } from 'lucide-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeCalcItem } from '@/redux/slices/calculationSlice';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 // Utils
 import { getLocalStorage, setLocalStorage } from '@/utils/commonFunctions'
@@ -13,6 +14,7 @@ import { clearListOfCalculator } from '@/redux/slices/calculationSlice';
 import Enums from '@/config/Enums'
 
 export default function Calculation() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const calculationStore = useSelector((state: any) => state.calculation);
@@ -45,7 +47,7 @@ export default function Calculation() {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
             >
-                Total Calculation
+                {t("title.calculator")}
             </motion.h1>
 
             {/* Content */}

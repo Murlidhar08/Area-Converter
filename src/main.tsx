@@ -6,6 +6,9 @@ import '@/styles/globals.css';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 
+// Translation
+import './i18n/i18n.ts';
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>

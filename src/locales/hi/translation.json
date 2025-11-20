@@ -1,0 +1,19 @@
+{
+    "title": {
+        "multiple": "क्षेत्रफल परिवर्तक",
+        "calculator": "गणना",
+        "setting": "सेटिंग्स"
+    },
+    "bottom": {
+        "multiple": "परिवर्तन",
+        "calculator": "कैलकुलेटर",
+        "setting": "सेटिंग"
+    },
+    "multiple": {
+        "inputLabel": "मान दर्ज करें"
+    },
+    "settings": {
+        "label": "सेटिंग्स",
+        "language": "भाषा"
+    }
+}

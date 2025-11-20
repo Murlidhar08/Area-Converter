@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { CalculatorIcon, X } from 'lucide-react';
+import { useTranslation } from "react-i18next";
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -25,6 +26,7 @@ const calculateCustomUnit = (h: number, r: number, sm: number): number => {
 };
 
 export default function AreaConverterMultiple() {
+  const { t } = useTranslation();
   const { unitPar, valuePar, hVal, rVal, smVal } = useParams();
   const dispatch = useDispatch();
   const calculationStore = useSelector((state: any) => state.calculation);
@@ -181,7 +183,7 @@ export default function AreaConverterMultiple() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        Area Converter
+        {t("title.multiple")}
       </motion.h1>
       <motion.div
         className="bg-white p-4 sm:p-6 sm:shadow-xl sm:h-full w-full mx-auto sm:border border-purple-200 sm:rounded-2xl sm:max-w-lg"
