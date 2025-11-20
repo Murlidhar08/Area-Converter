@@ -10,7 +10,17 @@
         "setting": "Setting"
     },
     "multiple": {
-        "inputLabel": "Enter value"
+        "inputLabel": "Enter value",
+        "label": {
+            "Guntha": "Guntha",
+            "Bigha": "Bigha",
+            "Acre": "Acre",
+            "Hectare": "Hectare",
+            "Are": "Are",
+            "Var": "Var",
+            "SquareFeet": "Square Feet",
+            "SquareMeter": "Square Meter"
+        }
     },
     "settings": {
         "label": "Settings",

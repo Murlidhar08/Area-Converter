@@ -132,7 +132,7 @@ export default function AreaConverterMultiple() {
       return `${selectedVal}`;
 
     if (selectedUnit === "Guntha")
-      return <><strong>{selectedVal}</strong> Guntha</>
+      return <><strong>{selectedVal}</strong> {t("multiple.label.Guntha")}</>
 
 
     const floorVal = Math.floor(selectedVal);
@@ -144,20 +144,20 @@ export default function AreaConverterMultiple() {
     // Guntha is 0
     if (guntha == 0) {
       return (
-        <><strong>{floorVal}</strong> {selectedUnit}</>
+        <><strong>{floorVal}</strong> {t(`multiple.label.${selectedUnit}`)}</>
       )
     }
 
     // Other unit is 0
     if (floorVal == 0) {
       return (
-        <><strong>{guntha}</strong> Guntha</>
+        <><strong>{guntha}</strong> {t("multiple.label.Guntha")}</>
       )
     }
 
     // Show both
     return (
-      <><strong>{floorVal}</strong> {selectedUnit} and <strong>{guntha}</strong> Guntha</>
+      <><strong>{floorVal}</strong> {t(`multiple.label.${selectedUnit}`)} and <strong>{guntha}</strong> {t("multiple.label.Guntha")}</>
     )
   };
 
@@ -238,10 +238,10 @@ export default function AreaConverterMultiple() {
         >
           {Object.keys(unitDetails).map((unit) => (
             <option key={unit} value={unit}>
-              {unit}
+              {t(`multiple.label.${unit}`)}
             </option>
           ))}
-          <option value="H.RA.SM">Hectare - Are - SquareMeter</option>
+          <option value="H.RA.SM">{t("multiple.label.Hectare")} - {t("multiple.label.Are")} - {t("multiple.label.SquareMeter")}</option>
         </select>
 
         <div className="bg-purple-50 p-4 rounded-lg sm:shadow-md overflow-x-auto">
@@ -251,8 +251,7 @@ export default function AreaConverterMultiple() {
                 (unit) =>
                   <motion.tr
                     key={unit}
-                    className={`cursor-pointer transition-colors ${selectedUnit === unit ? "bg-purple-100" : "bg-white hover:bg-purple-50"
-                      }`}
+                    className={`cursor-pointer transition-colors ${selectedUnit === unit ? "bg-purple-100" : "bg-white hover:bg-purple-50"}`}
                     initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
                     onClick={() => {
@@ -265,7 +264,7 @@ export default function AreaConverterMultiple() {
                       {convertArea(unit)}
                     </td>
                     <td className="py-2 px-4 border-b border-purple-200">
-                      {unit}
+                      {t(`multiple.label.${unit}`)}
                     </td>
                     <td className="flex py-2 px-2 border-b border-purple-200">
                       <button

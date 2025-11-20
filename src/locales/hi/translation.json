@@ -10,7 +10,17 @@
         "setting": "सेटिंग"
     },
     "multiple": {
-        "inputLabel": "मान दर्ज करें"
+        "inputLabel": "मान दर्ज करें",
+        "label": {
+            "Guntha": "गुंठा",
+            "Bigha": "बीघा",
+            "Acre": "एकड़",
+            "Hectare": "हैक्टर",
+            "Are": "हैं",
+            "Var": "हमारा",
+            "SquareFeet": "वर्ग फुट",
+            "SquareMeter": "वर्ग मीटर"
+        }
     },
     "settings": {
         "label": "सेटिंग्स",
