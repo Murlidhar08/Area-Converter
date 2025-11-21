@@ -1,10 +1,12 @@
 import { BottomNavigation, BottomNavigationAction, Badge } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { CalculatorIcon, ListCheck, Repeat } from 'lucide-react';
+import { CalculatorIcon, ListCheck, Settings } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from "react-i18next";
 
 export default function BottomMobileBar() {
+    const { t } = useTranslation();
     const calculationStore = useSelector((state: any) => state.calculation);
     const navigate = useNavigate();
     const location = useLocation();
@@ -16,20 +18,25 @@ export default function BottomMobileBar() {
 
     const tabs = [
         {
-            label: "Multiple",
+            label: t("title.converter"),
             path: "/multiple",
             icon: <ListCheck />
         },
+        // {
+        //     label: "Single",
+        //     path: "/single",
+        //     icon: <Repeat />
+        // },
         {
-            label: "Single",
-            path: "/single",
-            icon: <Repeat />
-        },
-        {
-            label: "Calculation",
+            label: t("title.calculation"),
             path: "/calculation",
             badgeCounts: calculationStore?.listOfCalc?.length,
             icon: <CalculatorIcon />
+        },
+        {
+            label: t("title.settings"),
+            path: "/setting",
+            icon: <Settings />
         }
     ]
 
