@@ -301,7 +301,7 @@ export default function AreaConverterMultiple() {
                 onClick={() => handleCopyString(resultRef.current?.innerText ?? "")}
                 className="w-20 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
               >
-                {copied === "selected" ? "Copied!" : "Copy"}
+                {copied === "selected" ? t("copied") : t("copy")}
               </button>
             </div>
 
