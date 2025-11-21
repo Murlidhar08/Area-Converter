@@ -132,7 +132,7 @@ export default function AreaConverterMultiple() {
       return `${selectedVal}`;
 
     if (selectedUnit === "Guntha")
-      return <><strong>{selectedVal}</strong> {t("multiple.label.Guntha")}</>
+      return <><strong>{selectedVal}</strong> {t("converter.label.Guntha")}</>
 
 
     const floorVal = Math.floor(selectedVal);
@@ -144,20 +144,20 @@ export default function AreaConverterMultiple() {
     // Guntha is 0
     if (guntha == 0) {
       return (
-        <><strong>{floorVal}</strong> {t(`multiple.label.${selectedUnit}`)}</>
+        <><strong>{floorVal}</strong> {t(`converter.label.${selectedUnit}`)}</>
       )
     }
 
     // Other unit is 0
     if (floorVal == 0) {
       return (
-        <><strong>{guntha}</strong> {t("multiple.label.Guntha")}</>
+        <><strong>{guntha}</strong> {t("converter.label.Guntha")}</>
       )
     }
 
     // Show both
     return (
-      <><strong>{floorVal}</strong> {t(`multiple.label.${selectedUnit}`)} and <strong>{guntha}</strong> {t("multiple.label.Guntha")}</>
+      <><strong>{floorVal}</strong> {t(`converter.label.${selectedUnit}`)} {t("and")} <strong>{guntha}</strong> {t("converter.label.Guntha")}</>
     )
   };
 
@@ -183,7 +183,7 @@ export default function AreaConverterMultiple() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        {t("title.multiple")}
+        {t("title.converter")}
       </motion.h1>
       <motion.div
         className="bg-white p-4 sm:p-6 sm:shadow-xl sm:h-full w-full mx-auto sm:border border-purple-200 sm:rounded-2xl sm:max-w-lg"
@@ -238,10 +238,10 @@ export default function AreaConverterMultiple() {
         >
           {Object.keys(unitDetails).map((unit) => (
             <option key={unit} value={unit}>
-              {t(`multiple.label.${unit}`)}
+              {t(`converter.label.${unit}`)}
             </option>
           ))}
-          <option value="H.RA.SM">{t("multiple.label.Hectare")} - {t("multiple.label.Are")} - {t("multiple.label.SquareMeter")}</option>
+          <option value="H.RA.SM">{t("converter.label.Hectare")} - {t("converter.label.Are")} - {t("converter.label.SquareMeter")}</option>
         </select>
 
         <div className="bg-purple-50 p-4 rounded-lg sm:shadow-md overflow-x-auto">
@@ -264,14 +264,14 @@ export default function AreaConverterMultiple() {
                       {convertArea(unit)}
                     </td>
                     <td className="py-2 px-4 border-b border-purple-200">
-                      {t(`multiple.label.${unit}`)}
+                      {t(`converter.label.${unit}`)}
                     </td>
                     <td className="flex py-2 px-2 border-b border-purple-200">
                       <button
                         onClick={() => handleCopy(String(convertArea(unit)), unit)}
                         className="w-20 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
                       >
-                        {copied === unit ? "Copied!" : "Copy"}
+                        {copied === unit ? t("copied") : t("copy")}
                       </button>
 
                       {/* Add Calculation button */}
@@ -280,7 +280,7 @@ export default function AreaConverterMultiple() {
                           onClick={() => addToCalculation(convertArea(unit), unit)}
                           className="ml-1 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
                         >
-                          Add
+                          {t("add")}
                         </button>
                       )}
                     </td>

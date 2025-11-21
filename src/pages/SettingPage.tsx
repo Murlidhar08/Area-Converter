@@ -11,23 +11,22 @@ export default function SettingPage() {
     };
 
     return (
-        <div className="min-h-screen bg-white sm:bg-purple-800 flex flex-col items-center sm:py-20 px-4">
+        <div className="sm:flex flex-col items-center justify-center min-h-screen sm:bg-purple-800 sm:pb-20 sm:p-4 bg-white">
 
-            {/* Page Title */}
+            {/* Title */}
             <motion.h1
-                className="text-3xl sm:text-4xl font-bold text-white text-center py-6 sm:py-10 w-full bg-purple-800 sm:bg-transparent sm:p-0"
+                className="text-3xl sm:text-4xl font-extrabold p-6 bg-purple-800 text-white text-center"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
             >
-                {t("title.setting")}
+                {t("title.settings")}
             </motion.h1>
 
             {/* Container Card */}
             <motion.div
-                className="w-full max-w-lg bg-white rounded-2xl shadow-lg border border-purple-200 p-6"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
+                className="bg-white p-4 sm:p-6 sm:shadow-xl sm:h-full w-full mx-auto sm:border border-purple-200 sm:rounded-2xl sm:max-w-lg"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4 }}
             >
                 {/* Card Title */}
@@ -48,6 +47,7 @@ export default function SettingPage() {
                     >
                         <option value="en">English</option>
                         <option value="hi">हिन्दी</option>
+                        <option value="gu">ગુજરાતી</option>
                     </select>
                 </div>
             </motion.div>

@@ -47,7 +47,7 @@ export default function Calculation() {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
             >
-                {t("title.calculator")}
+                {t("title.calculation")}
             </motion.h1>
 
             {/* Content */}
@@ -61,7 +61,7 @@ export default function Calculation() {
                     {/* Price Input */}
                     <div className="flex justify-between items-center gap-4">
                         <label className="text-purple-900 font-medium w-1/2">
-                            Price per unit
+                            {t("calculation.pricePerUnit")}
                         </label>
                         <input
                             type="number"
@@ -91,11 +91,11 @@ export default function Calculation() {
                             transition={{ delay: index * 0.05 }}
                         >
                             <div className="text-purple-900 font-medium">
-                                {row.unitValue} ({row.unit})
+                                {row.unitValue} ({t(`converter.label.${row.unit}`)})
                             </div>
                             <div className="flex items-center gap-3 font-semibold text-purple-900">
                                 <span>
-                                    {row.value} {calculationStore.calculateUnit}
+                                    {row.value} {t(`converter.label.${calculationStore.calculateUnit}`)}
                                 </span>
                                 <button
                                     title={`Clear ${row.value} ${calculationStore.calculateUnit}`}
@@ -111,16 +111,16 @@ export default function Calculation() {
                     {/* Totals */}
                     <div className="bg-purple-100 p-3 rounded-lg space-y-2 mt-4">
                         <div className="flex justify-between font-bold text-purple-900">
-                            <span>Total Area</span>
+                            <span>{t("calculation.totalArea")}</span>
                             <span>
                                 {totalVal}{" "}
                                 {calculationStore.calculateUnit
-                                    ? `(${calculationStore.calculateUnit})`
+                                    ? `(${t(`converter.label.${calculationStore.calculateUnit}`)})`
                                     : ""}
                             </span>
                         </div>
                         <div className="flex justify-between font-bold text-purple-900">
-                            <span>Total Price</span>
+                            <span>{t("calculation.totalPrice")}</span>
                             <span>
                                 {Intl.NumberFormat("en-IN", {
                                     style: "currency",
