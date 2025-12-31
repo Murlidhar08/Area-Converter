@@ -186,7 +186,7 @@ export default function AreaConverterMultiple() {
         {t("title.converter")}
       </motion.h1>
       <motion.div
-        className="bg-white p-4 sm:p-6 sm:shadow-xl sm:h-full w-full mx-auto sm:border border-purple-200 sm:rounded-2xl sm:max-w-lg"
+        className="bg-white p-4 pb-28 sm:p-6 sm:shadow-xl sm:h-full w-full mx-auto sm:border border-purple-200 sm:rounded-2xl sm:max-w-lg"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
       >
@@ -263,7 +263,7 @@ export default function AreaConverterMultiple() {
                     <td className="py-2 px-4 border-b border-purple-200 font-semibold text-purple-800">
                       {convertArea(unit)}
                     </td>
-                    <td className="py-2 px-4 border-b border-purple-200">
+                    <td className="py-2 px-4 border-b border-purple-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-[200px]">
                       {t(`converter.label.${unit}`)}
                     </td>
                     <td className="flex py-2 px-2 border-b border-purple-200">
