@@ -32,7 +32,7 @@ export default {
         }
     },
     calculation: {
-        pricePer: "Price per",
+        price: "Price",
         totalArea: "Total Area",
         totalPrice: "Net Payable",
         breakdown: "Itemized Breakdown"

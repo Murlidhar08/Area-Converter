@@ -80,18 +80,18 @@ export default function SettingPage() {
                 {settingSections.map((section, idx) => (
                     <motion.div
                         key={section.id}
-                        className="glass-card !p-0 overflow-hidden"
+                        className="glass-card !p-0 overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: idx * 0.1 }}
                     >
-                        <div className="p-6 border-b border-white/5 flex items-center gap-4">
-                            <div className={`p-2.5 rounded-xl ${section.bg.replace('bg-', 'bg-opacity-10 bg-')} ${section.color}`}>
+                        <div className="p-6 border-b border-slate-100 dark:border-white/5 flex items-center gap-4">
+                            <div className={`p-2.5 rounded-xl ${section.bg.replace('bg-', 'bg-opacity-10 dark:bg-opacity-10 bg-')} ${section.color}`}>
                                 <section.icon size={20} />
                             </div>
-                            <h2 className="text-lg font-bold text-white">{section.title}</h2>
+                            <h2 className="text-lg font-bold text-slate-900 dark:text-white">{section.title}</h2>
                         </div>
-                        <div className="p-6 bg-slate-900/20">
+                        <div className="p-6 bg-slate-50 dark:bg-slate-900/20">
                             {section.content}
                         </div>
                     </motion.div>

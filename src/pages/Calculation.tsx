@@ -48,8 +48,7 @@ export default function Calculation() {
                     <div className="p-5 bg-slate-100/50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-3xl space-y-3">
                         <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
                             <IndianRupee size={12} />
-                            {t("calculation.pricePer")} {" "}
-                            {calculationStore.calculateUnit ? t(`converter.label.${calculationStore.calculateUnit}`) : "Unit"}
+                            {t("calculation.price")}
                         </label>
                         <div className="relative">
                             <input
@@ -71,7 +70,7 @@ export default function Calculation() {
                             <Receipt size={12} /> {t("calculation.breakdown") || "ITEMIZED"}
                         </h2>
 
-                        <div className="space-y-2 max-h-[35vh] overflow-y-auto pr-1 custom-scrollbar">
+                        <div className="space-y-2 pr-1 custom-scrollbar">
                             <AnimatePresence mode="popLayout">
                                 {calculationStore?.listOfCalc.length > 0 ? (
                                     calculationStore.listOfCalc.map((row: any, index: number) => (
