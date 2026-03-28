@@ -3,8 +3,102 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-purple-800;
-    @apply text-black;
+  :root {
+    /* Light Mode Variables */
+    --primary: 139, 92, 246;
+    --accent: 236, 72, 153;
+    --bg-main: 248, 250, 252;
+    --bg-glass: 255, 255, 255;
+    --text-main: 15, 23, 42;
+    --text-muted: 100, 116, 139;
+    --border-glass: 226, 232, 240;
+    --card-shadow: rgba(0, 0, 0, 0.05);
   }
+
+  :root.dark {
+    /* Dark Mode Variables */
+    --primary: 139, 92, 246;
+    --accent: 236, 72, 153;
+    --bg-main: 10, 15, 30;
+    --bg-glass: 15, 23, 42;
+    --text-main: 248, 250, 252;
+    --text-muted: 148, 163, 184;
+    --border-glass: 255, 255, 255;
+    --card-shadow: rgba(0, 0, 0, 0.4);
+  }
+
+  body {
+    background-color: rgb(var(--bg-main));
+    font-family: 'Outfit', sans-serif;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(var(--primary), 0.2);
+    border-radius: 10px;
+  }
+}
+
+@layer components {
+  .glass {
+    background-color: rgba(var(--bg-glass), 0.6);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(var(--border-glass), 0.1);
+    box-shadow: 0 8px 32px 0 var(--card-shadow);
+  }
+
+  .glass-dark {
+    background-color: rgba(var(--bg-glass), 0.4);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(128, 128, 128, 0.1);
+  }
+
+  .btn-primary {
+    @apply relative overflow-hidden px-6 py-2.5 rounded-xl font-semibold text-white transition-all duration-300 active:scale-95 disabled:opacity-50;
+    background: linear-gradient(135deg, rgb(var(--primary)), #6366f1);
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl outline-none transition-all duration-200;
+    background-color: rgba(var(--bg-glass), 0.5);
+    border: 1px solid rgba(var(--border-glass), 0.15);
+    color: rgb(var(--text-main));
+  }
+
+  .input-field:focus {
+    border-color: rgb(var(--primary));
+    box-shadow: 0 0 0 4px rgba(var(--primary), 0.1);
+  }
+
+  .glass-card {
+    background-color: rgba(var(--bg-glass), 0.4);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(var(--border-glass), 0.1);
+    box-shadow: 0 8px 32px 0 var(--card-shadow);
+    @apply rounded-3xl p-6 transition-all duration-300;
+  }
+}
+
+/* Animations */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
 }

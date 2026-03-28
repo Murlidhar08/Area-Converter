@@ -1,21 +1,18 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { X, CalculatorIcon } from 'lucide-react';
-import { useSelector, useDispatch } from 'react-redux';
-import { removeCalcItem } from '@/redux/slices/calculationSlice';
-import { useNavigate } from "react-router-dom";
+import { clearListOfCalculator, removeCalcItem } from '@/redux/slices/calculationSlice';
+import { AnimatePresence, motion } from "framer-motion";
+import { Calculator, IndianRupee, PieChart, Receipt, Trash2, X } from 'lucide-react';
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from 'react-redux';
 
 // Utils
-import { getLocalStorage, setLocalStorage } from '@/utils/commonFunctions'
-import { clearListOfCalculator } from '@/redux/slices/calculationSlice';
+import { getLocalStorage, setLocalStorage } from '@/utils/commonFunctions';
 
 // Config
-import Enums from '@/config/Enums'
+import Enums from '@/config/Enums';
 
 export default function Calculation() {
     const { t } = useTranslation();
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const calculationStore = useSelector((state: any) => state.calculation);
     const [pricePerUnit, setPricePerUnit] = useState<number>(getLocalStorage(Enums.calculator.pricePerUnit) ?? 0);
@@ -30,7 +27,6 @@ export default function Calculation() {
         setLocalStorage(Enums.calculator.pricePerUnit, pricePerUnit)
     }, [pricePerUnit]);
 
-    // Add list of calculation to local storage
     useEffect(() => {
         setLocalStorage(Enums.calculator.calculator, JSON.stringify(calculationStore.listOfCalc))
     }, [calculationStore.listOfCalc]);
@@ -40,113 +36,130 @@ export default function Calculation() {
     }
 
     return (
-        <div className="sm:flex flex-col items-center justify-center min-h-screen sm:bg-purple-800 sm:pb-20 sm:p-4 bg-white">
-            {/* Title */}
-            <motion.h1
-                className="text-3xl sm:text-4xl font-extrabold p-6 bg-purple-800 text-white text-center"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-            >
-                {t("title.calculation")}
-            </motion.h1>
-
-            {/* Content */}
+        <div className="flex flex-col items-center justify-start min-h-screen px-4 pb-12">
             <motion.div
-                className="bg-white p-4 sm:p-6 sm:shadow-xl sm:h-full w-full mx-auto sm:border border-purple-200 sm:rounded-2xl sm:max-w-lg"
+                className="glass-card w-full max-w-lg shadow-2xl overflow-hidden !p-0"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4 }}
             >
-                <div className="space-y-4">
-                    {/* Price Input */}
-                    <div className="flex justify-between items-center gap-4">
-                        <label className="text-purple-900 font-medium w-1/2">
-                            {t("calculation.pricePerUnit")}
+                <div className="p-6 space-y-8">
+                    {/* Price Input Wrapper */}
+                    <div className="p-5 bg-slate-100/50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-3xl space-y-3">
+                        <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
+                            <IndianRupee size={12} />
+                            {t("calculation.pricePer")} {" "}
+                            {calculationStore.calculateUnit ? t(`converter.label.${calculationStore.calculateUnit}`) : "Unit"}
                         </label>
-                        <input
-                            type="number"
-                            value={pricePerUnit}
-                            onChange={(e) => setPricePerUnit(Number(e.target.value))}
-                            className="p-2 border border-gray-300 rounded-lg w-full text-right focus:outline-none focus:ring-2 focus:ring-purple-500"
-                            placeholder="Enter Value"
-                        />
-                        <button
-                            onClick={clearCalculation}
-                            className="hover:bg-red-100 p-1 rounded-full"
-                            title="Clear All"
-                        >
-                            <X size={18} className="text-red-500" />
-                        </button>
+                        <div className="relative">
+                            <input
+                                type="number"
+                                value={pricePerUnit}
+                                onChange={(e) => setPricePerUnit(Number(e.target.value))}
+                                className="input-field text-xl font-bold border-none bg-white dark:bg-slate-900/50 shadow-sm text-slate-900 dark:text-white"
+                                placeholder="0.00"
+                            />
+                            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-300 font-bold">
+                                /{calculationStore.calculateUnit ? t(`converter.label.${calculationStore.calculateUnit}`) : "Unit"}
+                            </div>
+                        </div>
                     </div>
 
-                    <hr className="border-purple-200" />
-
                     {/* Calculations List */}
-                    {calculationStore?.listOfCalc.map((row: any, index: number) => (
-                        <motion.div
-                            key={index}
-                            className="flex justify-between items-center bg-purple-50 hover:bg-purple-100 p-3 rounded-md shadow-sm transition-colors"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.05 }}
-                        >
-                            <div className="text-purple-900 font-medium">
-                                {row.unitValue} ({t(`converter.label.${row.unit}`)})
-                            </div>
-                            <div className="flex items-center gap-3 font-semibold text-purple-900">
-                                <span>
-                                    {row.value} {t(`converter.label.${calculationStore.calculateUnit}`)}
-                                </span>
-                                <button
-                                    title={`Clear ${row.value} ${calculationStore.calculateUnit}`}
-                                    onClick={() => dispatch(removeCalcItem(index))}
-                                    className="hover:bg-red-100 p-1 rounded-full"
-                                >
-                                    <X size={18} className="text-red-500" />
-                                </button>
-                            </div>
-                        </motion.div>
-                    ))}
+                    <div className="space-y-4">
+                        <h2 className="text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest px-1 flex items-center gap-2">
+                            <Receipt size={12} /> {t("calculation.breakdown") || "ITEMIZED"}
+                        </h2>
 
-                    {/* Totals */}
-                    <div className="bg-purple-100 p-3 rounded-lg space-y-2 mt-4">
-                        <div className="flex justify-between font-bold text-purple-900">
-                            <span>{t("calculation.totalArea")}</span>
-                            <span>
-                                {totalVal}{" "}
-                                {calculationStore.calculateUnit
-                                    ? `(${t(`converter.label.${calculationStore.calculateUnit}`)})`
-                                    : ""}
-                            </span>
+                        <div className="space-y-2 max-h-[35vh] overflow-y-auto pr-1 custom-scrollbar">
+                            <AnimatePresence mode="popLayout">
+                                {calculationStore?.listOfCalc.length > 0 ? (
+                                    calculationStore.listOfCalc.map((row: any, index: number) => (
+                                        <motion.div
+                                            key={`${index}-${row.value}`}
+                                            layout
+                                            initial={{ opacity: 0, x: -10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, scale: 0.9 }}
+                                            className="group flex justify-between items-center bg-white dark:bg-slate-800/30 border border-slate-100 dark:border-slate-700/50 p-4 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/60 hover:shadow-sm transition-all duration-200"
+                                        >
+                                            <div className="flex flex-col">
+                                                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-tight">
+                                                    {row.unitValue} {t(`converter.label.${row.unit}`)}
+                                                </span>
+                                                <span className="text-sm font-bold text-slate-800 dark:text-slate-200">
+                                                    {row.value} <span className="text-violet-600 dark:text-violet-400">{t(`converter.label.${calculationStore.calculateUnit}`)}</span>
+                                                </span>
+                                            </div>
+                                            <button
+                                                onClick={() => dispatch(removeCalcItem(index))}
+                                                className="p-2 text-slate-300 dark:text-slate-500 hover:text-rose-500 hover:bg-rose-500/10 rounded-xl transition-all"
+                                            >
+                                                <X size={18} />
+                                            </button>
+                                        </motion.div>
+                                    ))
+                                ) : (
+                                    <div className="text-center py-12 px-4 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-3xl">
+                                        <div className="inline-flex p-3 bg-slate-100 dark:bg-slate-800 rounded-2xl text-slate-400 dark:text-slate-300 mb-3">
+                                            <Calculator size={32} />
+                                        </div>
+                                        <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">No items to calculate.</p>
+                                    </div>
+                                )}
+                            </AnimatePresence>
                         </div>
-                        <div className="flex justify-between font-bold text-purple-900">
-                            <span>{t("calculation.totalPrice")}</span>
-                            <span>
-                                {Intl.NumberFormat("en-IN", {
-                                    style: "currency",
-                                    currency: "INR",
-                                    maximumFractionDigits: 2,
-                                }).format(totalVal * pricePerUnit)}
-                            </span>
+                    </div>
+
+                    {/* Summary Card */}
+                    <div className="pt-6 border-t border-slate-200 dark:border-slate-800">
+                        <div className="grid grid-cols-1 gap-3">
+                            {/* Total Area */}
+                            <div className="bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-2xl flex justify-between items-center">
+                                <span className="text-xs font-bold text-indigo-600 dark:text-indigo-300 uppercase tracking-wide flex items-center gap-2">
+                                    <PieChart size={14} /> {t("calculation.totalArea")}
+                                </span>
+                                <span className="text-lg font-extrabold text-slate-900 dark:text-white">
+                                    {totalVal} <span className="text-xs font-medium opacity-70">{t(`converter.label.${calculationStore.calculateUnit}`)}</span>
+                                </span>
+                            </div>
+
+                            {/* Net Payable */}
+                            <div className="bg-indigo-600 dark:bg-slate-950 p-6 rounded-3xl relative overflow-hidden group shadow-lg shadow-indigo-200 dark:shadow-none">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-white dark:bg-indigo-500 opacity-10 rounded-full blur-3xl -mr-10 -mt-10 group-hover:opacity-20 transition-opacity" />
+                                <div className="relative z-10 text-white">
+                                    <span className="text-[10px] font-extrabold text-indigo-100 dark:text-indigo-300 uppercase tracking-[0.2em] mb-1 block">
+                                        Estimated Total Cost
+                                    </span>
+                                    <div className="flex items-baseline gap-2">
+                                        <span className="text-4xl font-extrabold tracking-tighter">
+                                            {Intl.NumberFormat("en-IN", {
+                                                style: "currency",
+                                                currency: "INR",
+                                                maximumFractionDigits: 0,
+                                            }).format(totalVal * pricePerUnit)}
+                                        </span>
+                                        <span className="text-xs font-medium text-indigo-100/70 dark:text-indigo-400">
+                                            ({totalVal} × ₹{pricePerUnit})
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </motion.div>
 
-            {/* Floating Button */}
-            {!!calculationStore?.listOfCalc?.length && (
-                <motion.button
-                    title="Calculation"
-                    className="fixed top-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none cursor-default hidden sm:block"
-                    aria-label="Go to Single Page"
-                >
-                    <CalculatorIcon className="cursor-pointer" onClick={() => navigate("/calculation")} size={30} />
-                    <X
+                {/* Footer Actions */}
+                <div className="bg-slate-50 dark:bg-slate-900/50 p-4 border-t border-slate-100 dark:border-slate-800 flex justify-center">
+                    <button
                         onClick={clearCalculation}
-                        size={30}
-                        className="absolute bg-white text-red-600 p-2 rounded-full font-bold -top-4 -right-1" />
-                </motion.button>
-            )}
+                        disabled={calculationStore?.listOfCalc.length === 0}
+                        className="w-full sm:w-auto px-8 py-3 bg-red-50 dark:bg-rose-500/10 hover:bg-red-100 dark:hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 rounded-2xl transition-all transition-colors flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest disabled:opacity-30 disabled:grayscale"
+                    >
+                        <Trash2 size={16} /> Clear Console
+                    </button>
+                </div>
+            </motion.div>
         </div>
     );
 }

@@ -4,11 +4,19 @@ export default {
     add: "Add",
     copy: "Copy",
     copied: "Copied",
+    copy_all: "Copy Full Text",
 
     title: {
-        converter: "Converter",
-        calculation: "Calculation",
-        settings: "Settings"
+        converter: "Area Converter",
+        single_converter: "Quick Swap",
+        calculation: "Calculations",
+        settings: "App Settings"
+    },
+    subtitle: {
+        converter: "Transform any area instantly"
+    },
+    label: {
+        results: "Conversion Results"
     },
     converter: {
         inputLabel: "Enter value",
@@ -24,12 +32,13 @@ export default {
         }
     },
     calculation: {
-        pricePerUnit: "Price per unit",
+        pricePer: "Price per",
         totalArea: "Total Area",
-        totalPrice: "Total Price"
+        totalPrice: "Net Payable",
+        breakdown: "Itemized Breakdown"
     },
     settings: {
         label: "Settings",
-        language: "Language"
+        language: "Display Language"
     }
 }
