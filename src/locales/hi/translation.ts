@@ -7,19 +7,38 @@ export default {
     copy_all: "पूरा टेक्स्ट कॉपी करें",
 
     title: {
-        converter: "एरिया कन्वर्टर",
-        single_converter: "क्विक स्वैप",
-        calculation: "गणनाएँ",
-        settings: "ऐप सेटिंग्स"
+        converter: "मल्टीपल कन्वर्टर",
+        single_converter: "सिंगल कन्वर्टर",
+        calculation: "त्वरित गणना",
+        settings: "सेटिंग्स"
+    },
+    nav: {
+        converter: { desc: "एक इकाई को अन्य सभी में बदलें" },
+        single: { desc: "वन-टू-वन सटीक" },
+        calc: { desc: "कुल क्षेत्रफल और लागत की गणना करें" },
+        settings: { desc: "भाषा और प्राथमिकताएँ" },
+        github: "गिटहब रिपोजिटरी"
     },
     subtitle: {
         converter: "किसी भी क्षेत्रफल को तुरंत बदलें"
     },
     label: {
-        results: "परिवर्तन परिणाम"
+        results: "परिवर्तन परिणाम",
+        enterValue: "मान दर्ज करें",
+        from: "से",
+        to: "तक",
+        result: "परिणाम"
     },
     converter: {
         inputLabel: "मान दर्ज करें",
+        fromUnit: "इस इकाई से",
+        convertFrom: "कन्वर्ट फ्रॉम",
+        valueIn: "વૈલ્યુ ઇન",
+        custom: {
+            hectare: "हेक्टेयर",
+            are: "आर ई",
+            squareMeter: "वर्ग मीटर"
+        },
         label: {
             Guntha: "गुंठा",
             Bigha: "बीघा",
@@ -28,17 +47,24 @@ export default {
             Are: "आरे",
             Var: "गज",
             SquareFeet: "वर्ग फुट",
-            SquareMeter: "वर्ग मीटर"
+            SquareMeter: "वर्ग मीटर",
+            "H.RA.SM": "हे.आरे.चो.मी"
         }
     },
     calculation: {
-        pricePerUnit: "प्रति यूनिट मूल्य",
+        price: "कीमत",
         totalArea: "कुल क्षेत्रफल",
-        totalPrice: "कुल कीमत",
-        breakdown: "विस्तृत गणना"
+        totalPrice: "कुल देय",
+        breakdown: "आइटમવાર વિવરણ",
+        estimatedCost: "अनुमानित कुल लागत",
+        noItems: "कैलक्यूलेटर कंसोल में कोई आइटम नहीं है",
+        clear: "कंसोल साफ़ करें"
     },
     settings: {
         label: "सेटिंग्स",
-        language: "भाषा चुनें"
+        language: "भाषा चुनें",
+        theme: "ऐप थीम",
+        nightMode: "नाइट मोड",
+        lightMode: "लाइट मोड"
     }
 }

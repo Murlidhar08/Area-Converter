@@ -152,7 +152,7 @@ export default function AreaConverterMultiple() {
               {fromUnit === "H.RA.SM" ? (
                 <div className="grid grid-cols-3 gap-3">
                   <div className="space-y-1">
-                    <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">Hectare</label>
+                    <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">{t("converter.custom.hectare")}</label>
                     <input
                       type="number"
                       min={0}
@@ -163,7 +163,7 @@ export default function AreaConverterMultiple() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">ARE</label>
+                    <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">{t("converter.custom.are")}</label>
                     <input
                       type="number"
                       min={0}
@@ -174,7 +174,7 @@ export default function AreaConverterMultiple() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">Sq. Meter</label>
+                    <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">{t("converter.custom.squareMeter")}</label>
                     <input
                       type="number"
                       min={0}
@@ -187,7 +187,7 @@ export default function AreaConverterMultiple() {
                 </div>
               ) : (
                 <div className="space-y-1">
-                  <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">Value in {fromUnit}</label>
+                  <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">{t("converter.valueIn")} {t(`converter.label.${fromUnit}`)}</label>
                   <div className="relative">
                     <input
                       type="number"
@@ -205,7 +205,7 @@ export default function AreaConverterMultiple() {
               )}
 
               <div className="space-y-1">
-                <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">Convert From</label>
+                <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">{t("converter.convertFrom")}</label>
                 <select
                   value={fromUnit}
                   onChange={(e) => {
@@ -227,7 +227,7 @@ export default function AreaConverterMultiple() {
           {/* Results List */}
           <div className="space-y-4">
             <h2 className="text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest px-1 flex items-center gap-2">
-              <History size={14} /> {t("label.results") || "CONVERSION RESULTS"}
+              <History size={14} /> {t("label.results")}
             </h2>
             <div className="grid gap-2 pr-1 custom-scrollbar">
               <AnimatePresence mode="popLayout">
@@ -306,7 +306,7 @@ export default function AreaConverterMultiple() {
             >
               <div className="p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex-1 text-center sm:text-left">
-                  <p className="text-[10px] font-extrabold text-violet-600 dark:text-violet-400 uppercase tracking-[0.2em] mb-1">Detailed Breakdown</p>
+                  <p className="text-[10px] font-extrabold text-violet-600 dark:text-violet-400 uppercase tracking-[0.2em] mb-1">{t("calculation.breakdown")}</p>
                   <div className="text-lg font-bold text-slate-800 dark:text-slate-200 leading-tight" ref={resultRef}>
                     {formatSelectedValue(selectedValue, selectedUnit)}
                   </div>
@@ -320,7 +320,7 @@ export default function AreaConverterMultiple() {
                   }}
                   className="btn-primary w-full sm:w-auto flex items-center justify-center gap-2 whitespace-nowrap shadow-md text-xs font-bold uppercase tracking-wider"
                 >
-                  {copied === "detail" ? t("copied") : <><Copy size={16} /> {t("copy_all") || "Copy Full Text"}</>}
+                  {copied === "detail" ? t("copied") : <><Copy size={16} /> {t("copy_all")}</>}
                 </button>
               </div>
             </motion.div>
@@ -331,7 +331,7 @@ export default function AreaConverterMultiple() {
       {/* Floating Action Button for Calculation */}
       <AnimatePresence>
         {!!calculationStore?.listOfCalc?.length && (
-          <div className="fixed top-8 right-8 z-50 flex flex-col items-end gap-3 hidden sm:flex">
+          <div className="fixed top-18 right-8 z-60 flex flex-col items-end gap-3 hidden sm:flex">
             <motion.div
               initial={{ x: 20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -356,7 +356,7 @@ export default function AreaConverterMultiple() {
 
               {/* Tooltip */}
               <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-slate-900 text-white text-xs font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
-                View Calculations
+                {t("title.calculation")}
               </div>
             </motion.div>
           </div>

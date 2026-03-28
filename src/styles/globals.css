@@ -16,19 +16,23 @@
   }
 
   :root.dark {
-    /* Dark Mode Variables */
-    --primary: 139, 92, 246;
-    --accent: 236, 72, 153;
-    --bg-main: 10, 15, 30;
-    --bg-glass: 15, 23, 42;
+    /* Deep Midnight Purple Aesthetic */
+    --primary: 168, 85, 247;
+    /* Electric Purple */
+    --accent: 192, 38, 211;
+    /* Fuchsia */
+    --bg-main: 10, 8, 23;
+    /* Deepest Midnight */
+    --bg-glass: 20, 18, 48;
+    /* Dark Navy/Purple Card */
     --text-main: 248, 250, 252;
-    --text-muted: 148, 163, 184;
+    --text-muted: 156, 163, 175;
     --border-glass: 255, 255, 255;
-    --card-shadow: rgba(0, 0, 0, 0.4);
+    --card-shadow: rgba(0, 0, 0, 0.6);
   }
 
   body {
-    background: fixed linear-gradient(135deg, rgb(var(--bg-main)) 0%, rgba(var(--primary), 0.05) 50%, rgba(var(--accent), 0.05) 100%);
+    background: rgb(var(--bg-main), 0.8);
     font-family: 'Outfit', sans-serif;
     min-height: 100vh;
   }

@@ -84,7 +84,7 @@ export default function Calculation() {
                                         >
                                             <div className="flex flex-col">
                                                 <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-tight">
-                                                    {row.unitValue} {t(`converter.label.${row.unit}`)}
+                                                    {row.unitValue} {" "} {t(`converter.label.${row.unit}`)}
                                                 </span>
                                                 <span className="text-sm font-bold text-slate-800 dark:text-slate-200">
                                                     {row.value} <span className="text-violet-600 dark:text-violet-400">{t(`converter.label.${calculationStore.calculateUnit}`)}</span>
@@ -103,7 +103,7 @@ export default function Calculation() {
                                         <div className="inline-flex p-3 bg-slate-100 dark:bg-slate-800 rounded-2xl text-slate-400 dark:text-slate-300 mb-3">
                                             <Calculator size={32} />
                                         </div>
-                                        <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">No items to calculate.</p>
+                                        <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">{t("calculation.noItems")}</p>
                                     </div>
                                 )}
                             </AnimatePresence>
@@ -128,7 +128,7 @@ export default function Calculation() {
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-white dark:bg-indigo-500 opacity-10 rounded-full blur-3xl -mr-10 -mt-10 group-hover:opacity-20 transition-opacity" />
                                 <div className="relative z-10 text-white">
                                     <span className="text-[10px] font-extrabold text-indigo-100 dark:text-indigo-300 uppercase tracking-[0.2em] mb-1 block">
-                                        Estimated Total Cost
+                                        {t("calculation.estimatedCost")}
                                     </span>
                                     <div className="flex items-baseline gap-2">
                                         <span className="text-4xl font-extrabold tracking-tighter">
@@ -155,7 +155,7 @@ export default function Calculation() {
                         disabled={calculationStore?.listOfCalc.length === 0}
                         className="w-full sm:w-auto px-8 py-3 bg-red-50 dark:bg-rose-500/10 hover:bg-red-100 dark:hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 rounded-2xl transition-all transition-colors flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest disabled:opacity-30 disabled:grayscale"
                     >
-                        <Trash2 size={16} /> Clear Console
+                        <Trash2 size={16} /> {t("calculation.clear")}
                     </button>
                 </div>
             </motion.div>

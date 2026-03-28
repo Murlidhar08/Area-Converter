@@ -48,14 +48,14 @@ export default function SettingPage() {
         },
         {
             id: 'theme',
-            title: "App Theme",
+            title: t("settings.theme"),
             icon: isDarkMode ? Moon : Sun,
             color: isDarkMode ? "text-indigo-400" : "text-amber-500",
             bg: isDarkMode ? "bg-indigo-500/10" : "bg-amber-500/10",
             content: (
                 <div className="flex items-center justify-between p-1">
                     <span className="text-sm text-slate-400 font-medium">
-                        {isDarkMode ? "Night Mode" : "Light Mode"}
+                        {isDarkMode ? t("settings.nightMode") : t("settings.lightMode")}
                     </span>
                     <button
                         onClick={() => setIsDarkMode(!isDarkMode)}
