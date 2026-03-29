@@ -23,7 +23,15 @@ function App() {
   return (
     <Router>
       <Navigation />
-      <div className="min-h-screen pt-28"> {/* Top spacing for the 80px fixed header and extra whitespace */}
+      
+      {/* Dynamic Background Elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-violet-500/10 dark:bg-violet-500/20 rounded-full blur-[120px] animate-pulse"></div>
+        <div className="absolute bottom-[5%] right-[-5%] w-[35%] h-[35%] bg-indigo-500/10 dark:bg-indigo-500/20 rounded-full blur-[100px] delay-700 animate-pulse"></div>
+        <div className="absolute top-[30%] right-[10%] w-[25%] h-[25%] bg-pink-500/10 dark:bg-pink-500/20 rounded-full blur-[100px] delay-1000 animate-pulse"></div>
+      </div>
+
+      <div className="relative min-h-screen pt-28 z-10 px-4 md:px-0"> {/* Top spacing for the 80px fixed header and extra whitespace */}
         <Routes>
           <Route path="/multiple" element={<AreaConverterMultiple />} />
           <Route path="/multiple/:unitPar/:valuePar" element={<AreaConverterMultiple />} />

@@ -28,8 +28,9 @@
   }
 
   body {
-    background-color: rgb(var(--bg-main));
+    background: fixed linear-gradient(135deg, rgb(var(--bg-main)) 0%, rgba(var(--primary), 0.05) 50%, rgba(var(--accent), 0.05) 100%);
     font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
   }
 
   ::-webkit-scrollbar {
