@@ -22,7 +22,7 @@ import unitDetails from '@/config/DetailsUnits';
 import Enums from '@/config/Enums';
 
 const calculateCustomUnit = (h: number, r: number, sm: number): number => {
-  return h * 98.84 + r * 0.98 + sm * 0.0098;
+  return h * 98.842152 + r * 0.98842152 + sm * 0.0098842152;
 };
 
 export default function AreaConverterMultiple() {

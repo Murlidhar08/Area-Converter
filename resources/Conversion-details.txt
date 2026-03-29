@@ -70,6 +70,6 @@
 ---
 
 ### 1 H.RA.SM (Custom Format)
-- 1 Hectare = 98.425197 Guntha  
-- 1 RA (Are) = 0.988421 Guntha  
-- 1 SM (Square Meter) = 0.009882 Guntha  
+- 1 Hectare = 98.84 Guntha  
+- 1 RA (Are) = 0.98 Guntha  
+- 1 SM (Square Meter) = 0.0098 Guntha  
