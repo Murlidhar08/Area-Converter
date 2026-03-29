@@ -1,25 +1,25 @@
 // Packages
-import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
-import { useNavigate, useParams } from "react-router-dom";
-import { CalculatorIcon, X } from 'lucide-react';
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRightLeft, Calculator, Copy, History, Plus, X } from 'lucide-react';
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate, useParams } from "react-router-dom";
 
 // Redux
-import { useSelector, useDispatch } from 'react-redux';
-import { clearListOfCalculator, addListOfCalculator, setCalculateUnit } from '@/redux/slices/calculationSlice';
+import { addListOfCalculator, clearListOfCalculator, setCalculateUnit } from '@/redux/slices/calculationSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Interface
 import ListOfCalculation from "@/interface/ListOfCalculation";
-import UnitDetails from "@/interface/UnitDetails";
 import UnitConversion from "@/interface/UnitConversion";
+import UnitDetails from "@/interface/UnitDetails";
 
 // Utils
-import { capitalizeFirstLetter, getLocalStorage, setLocalStorage } from '@/utils/commonFunctions'
+import { capitalizeFirstLetter, getLocalStorage, setLocalStorage } from '@/utils/commonFunctions';
 
 // Config
-import Enums from '@/config/Enums'
-import unitDetails from '@/config/DetailsUnits'
+import unitDetails from '@/config/DetailsUnits';
+import Enums from '@/config/Enums';
 
 const calculateCustomUnit = (h: number, r: number, sm: number): number => {
   return h * 98.84 + r * 0.98 + sm * 0.0098;
@@ -40,54 +40,40 @@ export default function AreaConverterMultiple() {
   const [selectedValue, setSelectedValue] = useState<number | null>(null);
 
   const resultRef = useRef<HTMLDivElement>(null);
-
   const navigate = useNavigate();
 
-  // URL parameter vaules update
+  // URL parameter values update
   useEffect(() => {
-    // Value parameter
     if (valuePar) {
       const numPar = Number(valuePar)
-      if (!isNaN(numPar))
-        setUnitValue(numPar);
+      if (!isNaN(numPar)) setUnitValue(numPar);
     }
 
-    // Unit Parameter
     if (unitPar) {
       const par = capitalizeFirstLetter(unitPar.toLowerCase());
       if (unitDetails[par as keyof UnitDetails]) setFromUnit(par);
     }
 
-    // Use HAS
     if (unitPar && unitPar?.toLowerCase()?.trim() == "hasm") {
       setFromUnit("H.RA.SM");
-
       const valH = Number(hVal ?? valuePar);
       if (!isNaN(valH)) setCustomH(valH);
       else setCustomH(0);
-
       const valR = Number(rVal)
       if (!isNaN(valR)) setCustomR(valR);
       else setCustomR(0);
-
       const ValSM = Number(smVal)
       if (!isNaN(ValSM)) setCustomSM(ValSM);
       else setCustomSM(0);
     }
-
   }, [unitPar, valuePar, hVal, rVal, smVal]);
 
-  // Add calculate Unit to local storage
+  // Sync with Local Storage
   useEffect(() => {
     setLocalStorage(Enums.calculator.calculateUnit, calculationStore.calculateUnit)
-  }, [calculationStore.calculateUnit]);
-
-  // Add list of calculation to local storage
-  useEffect(() => {
     setLocalStorage(Enums.calculator.calculator, JSON.stringify(calculationStore.listOfCalc))
-  }, [calculationStore.listOfCalc]);
+  }, [calculationStore.calculateUnit, calculationStore.listOfCalc]);
 
-  // Update values to local storage
   useEffect(() => {
     const units = Object.keys(unitDetails).filter((u) => u !== fromUnit);
     if (units.length > 0) {
@@ -97,7 +83,6 @@ export default function AreaConverterMultiple() {
       setSelectedValue(defaultValue);
     }
 
-    // Preserve last vaule
     setLocalStorage(Enums.multiple.value, unitValue);
     setLocalStorage(Enums.multiple.fromUnit, fromUnit);
     setLocalStorage(Enums.multiple.customH, customH);
@@ -120,44 +105,24 @@ export default function AreaConverterMultiple() {
     });
   };
 
-  const handleCopyString = (text: string) => {
-    navigator.clipboard.writeText(text).then(() => {
-      setCopied("selected");
-      setTimeout(() => setCopied(null), 1500);
-    });
-  };
-
   const formatSelectedValue = (selectedVal: number, selectedUnit: string | null) => {
-    if (!selectedUnit)
-      return `${selectedVal}`;
-
-    if (selectedUnit === "Guntha")
-      return <><strong>{selectedVal}</strong> {t("converter.label.Guntha")}</>
-
+    if (!selectedUnit) return `${selectedVal}`;
+    if (selectedUnit === "Guntha") return <><strong>{selectedVal}</strong> {t("converter.label.Guntha")}</>
 
     const floorVal = Math.floor(selectedVal);
     const remainVal = selectedVal - floorVal;
-
     const gunthaPerUnit = unitDetails[selectedUnit as keyof UnitDetails]?.Guntha || 0;
     const guntha = Number((remainVal * gunthaPerUnit).toFixed(2));
 
-    // Guntha is 0
-    if (guntha == 0) {
-      return (
-        <><strong>{floorVal}</strong> {t(`converter.label.${selectedUnit}`)}</>
-      )
-    }
+    if (guntha == 0) return <><strong>{floorVal}</strong> {t(`converter.label.${selectedUnit}`)}</>
+    if (floorVal == 0) return <><strong>{guntha}</strong> {t("converter.label.Guntha")}</>
 
-    // Other unit is 0
-    if (floorVal == 0) {
-      return (
-        <><strong>{guntha}</strong> {t("converter.label.Guntha")}</>
-      )
-    }
-
-    // Show both
     return (
-      <><strong>{floorVal}</strong> {t(`converter.label.${selectedUnit}`)} {t("and")} <strong>{guntha}</strong> {t("converter.label.Guntha")}</>
+      <span className="flex flex-wrap items-center gap-1">
+        <strong className="text-violet-700">{floorVal}</strong> {t(`converter.label.${selectedUnit}`)}
+        <span className="text-slate-400 mx-1">{t("and")}</span>
+        <strong className="text-violet-700">{guntha}</strong> {t("converter.label.Guntha")}
+      </span>
     )
   };
 
@@ -167,162 +132,236 @@ export default function AreaConverterMultiple() {
       unitValue: unitValue,
       value: num
     }
-
-    if (fromUnit == "H.RA.SM")
-      obj.unitValue = `${customH}-${customR}-${customSM}`;
-
+    if (fromUnit == "H.RA.SM") obj.unitValue = `${customH}-${customR}-${customSM}`;
     dispatch(addListOfCalculator(obj));
     dispatch(setCalculateUnit(unit));
   };
 
   return (
-    <div className="sm:flex flex-col items-center justify-center min-h-screen sm:bg-purple-800 sm:pb-20 sm:p-4 bg-white">
-      {/* Title */}
-      <motion.h1
-        className="text-4xl font-extrabold p-6 bg-purple-800 text-white text-center"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        {t("title.converter")}
-      </motion.h1>
+    <div className="flex flex-col items-center justify-start min-h-screen px-4 pb-10">
       <motion.div
-        className="bg-white p-4 pb-28 sm:p-6 sm:shadow-xl sm:h-full w-full mx-auto sm:border border-purple-200 sm:rounded-2xl sm:max-w-lg"
-        initial={{ opacity: 0, scale: 0.9 }}
+        className="glass-card w-full max-w-xl shadow-2xl overflow-hidden !p-0 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800"
+        initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4 }}
       >
-        {fromUnit === "H.RA.SM" ? (
-          <div className="flex flex-col space-y-2 mb-4">
-            <input
-              type="number"
-              placeholder="Hectare"
-              className="p-3 border border-purple-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
-              value={customH}
-              onChange={(e) => setCustomH(Number(e.target.value))}
-            />
-            <input
-              type="number"
-              placeholder="RA (Guntha)"
-              className="p-3 border border-purple-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
-              value={customR}
-              onChange={(e) => setCustomR(Number(e.target.value))}
-            />
-            <input
-              type="number"
-              placeholder="Square Meter"
-              className="p-3 border border-purple-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
-              value={customSM}
-              onChange={(e) => setCustomSM(Number(e.target.value))}
-            />
-          </div>
-        ) : (
-          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
-            <input
-              type="number"
-              value={unitValue}
-              min={0}
-              onChange={(e) => setUnitValue(Number(e.target.value))}
-              className="w-full sm:w-1/2 p-3 border border-purple-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
-              placeholder="Enter value"
-            />
-          </div>
-        )}
-
-        <select
-          value={fromUnit}
-          onChange={(e) => {
-            setFromUnit(e.target.value);
-            setSelectedUnit(null);
-            setSelectedValue(null);
-          }}
-          className="w-full p-3 border border-purple-300 rounded-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-purple-400 mb-4"
-        >
-          {Object.keys(unitDetails).map((unit) => (
-            <option key={unit} value={unit}>
-              {t(`converter.label.${unit}`)}
-            </option>
-          ))}
-          <option value="H.RA.SM">{t("converter.label.Hectare")} - {t("converter.label.Are")} - {t("converter.label.SquareMeter")}</option>
-        </select>
-
-        <div className="bg-purple-50 p-4 rounded-lg sm:shadow-md overflow-x-auto">
-          <table className="w-full text-sm text-left border-collapse">
-            <tbody>
-              {Object.keys(unitDetails).map(
-                (unit) =>
-                  <motion.tr
-                    key={unit}
-                    className={`cursor-pointer transition-colors ${selectedUnit === unit ? "bg-purple-100" : "bg-white hover:bg-purple-50"}`}
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    onClick={() => {
-                      const val = convertArea(unit);
-                      setSelectedUnit(unit);
-                      setSelectedValue(val);
-                    }}
-                  >
-                    <td className="py-2 px-4 border-b border-purple-200 font-semibold text-purple-800">
-                      {convertArea(unit)}
-                    </td>
-                    <td className="py-2 px-4 border-b border-purple-200 whitespace-nowrap overflow-hidden text-ellipsis max-w-[200px]">
-                      {t(`converter.label.${unit}`)}
-                    </td>
-                    <td className="flex py-2 px-2 border-b border-purple-200">
-                      <button
-                        onClick={() => handleCopy(String(convertArea(unit)), unit)}
-                        className="w-20 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
-                      >
-                        {copied === unit ? t("copied") : t("copy")}
-                      </button>
-
-                      {/* Add Calculation button */}
-                      {(calculationStore.calculateUnit == unit || calculationStore.calculateUnit == "") && (
-                        <button
-                          onClick={() => addToCalculation(convertArea(unit), unit)}
-                          className="ml-1 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
-                        >
-                          {t("add")}
-                        </button>
-                      )}
-                    </td>
-                  </motion.tr>
+        <div className="p-6">
+          {/* Input Section */}
+          <div className="space-y-4 mb-8">
+            <div className="flex flex-col gap-4">
+              {fromUnit === "H.RA.SM" ? (
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">Hectare</label>
+                    <input
+                      type="number"
+                      min={0}
+                      value={customH}
+                      onChange={(e) => setCustomH(Number(e.target.value))}
+                      className="input-field bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-white"
+                      placeholder="H"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">ARE</label>
+                    <input
+                      type="number"
+                      min={0}
+                      value={customR}
+                      onChange={(e) => setCustomR(Number(e.target.value))}
+                      className="input-field bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-white"
+                      placeholder="R"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">Sq. Meter</label>
+                    <input
+                      type="number"
+                      min={0}
+                      value={customSM}
+                      onChange={(e) => setCustomSM(Number(e.target.value))}
+                      className="input-field bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-white"
+                      placeholder="SM"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-1">
+                  <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">Value in {fromUnit}</label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      min={0}
+                      value={unitValue}
+                      onChange={(e) => setUnitValue(Number(e.target.value))}
+                      className="input-field pr-12 text-lg font-bold bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-white"
+                      placeholder="0.00"
+                    />
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-300">
+                      <ArrowRightLeft size={20} />
+                    </div>
+                  </div>
+                </div>
               )}
-            </tbody>
-          </table>
 
-          {/* Selected record result */}
-          {selectedValue !== null && selectedUnit && (
-            <div className="mt-4 p-3 bg-white border-t border-purple-300 rounded-md shadow-sm
-            text-purple-800 flex items-center justify-between gap-4">
-              <div ref={resultRef}>
-                {formatSelectedValue(selectedValue, selectedUnit)}
+              <div className="space-y-1">
+                <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">Convert From</label>
+                <select
+                  value={fromUnit}
+                  onChange={(e) => {
+                    setFromUnit(e.target.value);
+                    setSelectedUnit(null);
+                    setSelectedValue(null);
+                  }}
+                  className="input-field appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%2394a3b8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat pr-12 bg-slate-100 dark:bg-slate-800/40 text-slate-900 dark:text-white font-bold"
+                >
+                  {Object.keys(unitDetails).map((unit) => (
+                    <option key={unit} value={unit} className="bg-white dark:bg-slate-900">{t(`converter.label.${unit}`)}</option>
+                  ))}
+                  <option value="H.RA.SM" className="bg-white dark:bg-slate-900">{t("converter.label.Hectare")} - {t("converter.label.Are")} - {t("converter.label.SquareMeter")}</option>
+                </select>
               </div>
-
-              <button
-                onClick={() => handleCopyString(resultRef.current?.innerText ?? "")}
-                className="w-20 px-3 py-1 text-xs text-purple-800 bg-purple-50 rounded hover:bg-purple-200 text-center"
-              >
-                {copied === "selected" ? t("copied") : t("copy")}
-              </button>
             </div>
+          </div>
 
-          )}
+          {/* Results List */}
+          <div className="space-y-4">
+            <h2 className="text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest px-1 flex items-center gap-2">
+              <History size={14} /> {t("label.results") || "CONVERSION RESULTS"}
+            </h2>
+            <div className="grid gap-2 pr-1 custom-scrollbar">
+              <AnimatePresence mode="popLayout">
+                {Object.keys(unitDetails).map((unit) => {
+                  const isSelected = selectedUnit === unit;
+                  const value = convertArea(unit);
+
+                  return (
+                    <motion.div
+                      key={unit}
+                      layout
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.99 }}
+                      onClick={() => {
+                        setSelectedUnit(unit);
+                        setSelectedValue(value);
+                      }}
+                      className={`group cursor-pointer p-4 rounded-2xl flex items-center justify-between transition-all duration-200 border
+                        ${isSelected
+                          ? "bg-violet-600 border-violet-600 text-white shadow-lg shadow-violet-600/40 ring-2 ring-violet-500/20"
+                          : "bg-slate-50 dark:bg-slate-800/40 border-slate-100 dark:border-slate-700/50 hover:border-violet-500/50 hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-900 dark:text-slate-300"}`}
+                    >
+                      <div className="flex flex-col gap-0.5">
+                        <span className={`text-[10px] uppercase font-bold tracking-wider ${isSelected ? "text-violet-100" : "text-slate-400 dark:text-slate-500 group-hover:text-violet-600 dark:group-hover:text-violet-400"}`}>
+                          {t(`converter.label.${unit}`)}
+                        </span>
+                        <span className={`text-lg font-bold ${isSelected ? "text-white" : "text-slate-800 dark:text-slate-200"}`}>
+                          {value}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                        <button
+                          onClick={() => handleCopy(String(value), unit)}
+                          className={`p-2.5 rounded-xl transition-all ${isSelected
+                            ? "bg-white/20 hover:bg-white/30 text-white"
+                            : "bg-slate-100 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400 hover:bg-violet-500/10 dark:hover:bg-violet-500/20 hover:text-violet-600 dark:hover:text-violet-400"}`}
+                        >
+                          {copied === unit ? <span className="text-xs font-bold px-1">{t("copied")}</span> : <Copy size={18} />}
+                        </button>
+
+                        <AnimatePresence>
+                          {(calculationStore.calculateUnit === unit || calculationStore.calculateUnit === "") && (
+                            <motion.button
+                              initial={{ scale: 0, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              exit={{ scale: 0, opacity: 0 }}
+                              onClick={() => addToCalculation(value, unit)}
+                              className={`p-2.5 rounded-xl transition-all ${isSelected
+                                ? "bg-white/20 hover:bg-white/30 text-white"
+                                : "bg-slate-100 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400 hover:bg-emerald-500/10 dark:hover:bg-emerald-500/20 hover:text-emerald-600 dark:hover:text-emerald-400"}`}
+                            >
+                              <Plus size={18} />
+                            </motion.button>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+            </div>
+          </div>
         </div>
+
+        {/* Selected Result Detail */}
+        <AnimatePresence>
+          {selectedValue !== null && selectedUnit && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="mt-0 bg-slate-50/50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800 overflow-hidden"
+            >
+              <div className="p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex-1 text-center sm:text-left">
+                  <p className="text-[10px] font-extrabold text-violet-600 dark:text-violet-400 uppercase tracking-[0.2em] mb-1">Detailed Breakdown</p>
+                  <div className="text-lg font-bold text-slate-800 dark:text-slate-200 leading-tight" ref={resultRef}>
+                    {formatSelectedValue(selectedValue, selectedUnit)}
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    const text = resultRef.current?.innerText ?? "";
+                    navigator.clipboard.writeText(text);
+                    setCopied("detail");
+                    setTimeout(() => setCopied(null), 1500);
+                  }}
+                  className="btn-primary w-full sm:w-auto flex items-center justify-center gap-2 whitespace-nowrap shadow-md text-xs font-bold uppercase tracking-wider"
+                >
+                  {copied === "detail" ? t("copied") : <><Copy size={16} /> {t("copy_all") || "Copy Full Text"}</>}
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
 
-      {/* Navigate to Calculation */}
-      {!!calculationStore?.listOfCalc?.length && (
-        <motion.button
-          title="Calculation"
-          className="fixed top-6 right-6 bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-full shadow-lg focus:outline-none cursor-default hidden sm:block"
-          aria-label="Go to Single Page"
-        >
-          <CalculatorIcon className="cursor-pointer" onClick={() => navigate("/calculation")} size={30} />
-          <X
-            onClick={() => dispatch(clearListOfCalculator())}
-            size={30}
-            className="absolute bg-white text-red-600 p-2 rounded-full font-bold -top-4 -right-1" />
-        </motion.button>
-      )}
+      {/* Floating Action Button for Calculation */}
+      <AnimatePresence>
+        {!!calculationStore?.listOfCalc?.length && (
+          <div className="fixed top-8 right-8 z-50 flex flex-col items-end gap-3 hidden sm:flex">
+            <motion.div
+              initial={{ x: 20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: 20, opacity: 0 }}
+              className="relative group"
+            >
+              <div className="absolute -top-3 -left-3 bg-rose-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold border-2 border-white shadow-lg z-10">
+                {calculationStore.listOfCalc.length}
+              </div>
+              <button
+                onClick={() => navigate("/calculation")}
+                className="w-16 h-16 bg-slate-900 text-white rounded-2xl flex items-center justify-center shadow-2xl hover:bg-violet-600 transition-all group-active:scale-90"
+              >
+                <Calculator size={28} />
+              </button>
+              <button
+                onClick={() => dispatch(clearListOfCalculator())}
+                className="absolute -bottom-2 -right-2 bg-white text-slate-400 w-8 h-8 rounded-full flex items-center justify-center shadow-lg hover:text-rose-500 hover:scale-110 transition-all border border-slate-100"
+              >
+                <X size={16} />
+              </button>
+
+              {/* Tooltip */}
+              <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-slate-900 text-white text-xs font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
+                View Calculations
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

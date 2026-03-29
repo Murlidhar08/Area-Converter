@@ -3,12 +3,20 @@ export default {
     and: "और",
     add: "जोड़ें",
     copy: "कॉपी",
-    copied: "कॉपी किया गया",
-    
+    copied: "कॉपी हो गया",
+    copy_all: "पूरा टेक्स्ट कॉपी करें",
+
     title: {
-        converter: "परिवर्तक",
-        calculation: "गणना",
-        settings: "सेटिंग्स"
+        converter: "एरिया कन्वर्टर",
+        single_converter: "क्विक स्वैप",
+        calculation: "गणनाएँ",
+        settings: "ऐप सेटिंग्स"
+    },
+    subtitle: {
+        converter: "किसी भी क्षेत्रफल को तुरंत बदलें"
+    },
+    label: {
+        results: "परिवर्तन परिणाम"
     },
     converter: {
         inputLabel: "मान दर्ज करें",
@@ -16,20 +24,21 @@ export default {
             Guntha: "गुंठा",
             Bigha: "बीघा",
             Acre: "एकड़",
-            Hectare: "हेक्टर",
+            Hectare: "हेक्टेयर",
             Are: "आरे",
-            Var: "वार",
+            Var: "गज",
             SquareFeet: "वर्ग फुट",
             SquareMeter: "वर्ग मीटर"
         }
     },
     calculation: {
-        pricePerUnit: "प्रति इकाई मूल्य",
+        pricePerUnit: "प्रति यूनिट मूल्य",
         totalArea: "कुल क्षेत्रफल",
-        totalPrice: "कुल मूल्य"
+        totalPrice: "कुल कीमत",
+        breakdown: "विस्तृत गणना"
     },
     settings: {
         label: "सेटिंग्स",
-        language: "भाषा"
+        language: "भाषा चुनें"
     }
 }
