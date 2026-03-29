@@ -1,6 +1,6 @@
 // Packages
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRightLeft, Calculator, Copy, History, Plus, X } from 'lucide-react';
+import { ArrowRightLeft, Calculator, CheckCheck, Copy, History, Plus, X } from 'lucide-react';
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
@@ -253,11 +253,11 @@ export default function AreaConverterMultiple() {
                           : "bg-slate-50 dark:bg-slate-800/40 border-slate-100 dark:border-slate-700/50 hover:border-violet-500/50 hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-900 dark:text-slate-300"}`}
                     >
                       <div className="flex flex-col gap-0.5">
-                        <span className={`text-[10px] uppercase font-bold tracking-wider ${isSelected ? "text-violet-100" : "text-slate-400 dark:text-slate-500 group-hover:text-violet-600 dark:group-hover:text-violet-400"}`}>
-                          {t(`converter.label.${unit}`)}
-                        </span>
                         <span className={`text-lg font-bold ${isSelected ? "text-white" : "text-slate-800 dark:text-slate-200"}`}>
                           {value}
+                          <span className={`text-sm ml-2 font-bold tracking-wider ${isSelected ? "text-violet-100" : "text-slate-400 dark:text-slate-500 text-violet-600 dark:group-hover:text-violet-400"}`}>
+                            {t(`converter.label.${unit}`)}
+                          </span>
                         </span>
                       </div>
 
@@ -268,7 +268,7 @@ export default function AreaConverterMultiple() {
                             ? "bg-white/20 hover:bg-white/30 text-white"
                             : "bg-slate-100 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400 hover:bg-violet-500/10 dark:hover:bg-violet-500/20 hover:text-violet-600 dark:hover:text-violet-400"}`}
                         >
-                          {copied === unit ? <span className="text-xs font-bold px-1">{t("copied")}</span> : <Copy size={18} />}
+                          {copied === unit ? <CheckCheck size={18} /> : <Copy size={18} />}
                         </button>
 
                         <AnimatePresence>
@@ -320,7 +320,7 @@ export default function AreaConverterMultiple() {
                   }}
                   className="btn-primary w-full sm:w-auto flex items-center justify-center gap-2 whitespace-nowrap shadow-md text-xs font-bold uppercase tracking-wider"
                 >
-                  {copied === "detail" ? t("copied") : <><Copy size={16} /> {t("copy_all")}</>}
+                  {copied === "detail" ? t("copied") : <><Copy size={16} /> {t("copy")}</>}
                 </button>
               </div>
             </motion.div>

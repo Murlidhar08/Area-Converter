@@ -4,7 +4,6 @@ export default {
     add: "Add",
     copy: "Copy",
     copied: "Copied",
-    copy_all: "Copy Full Text",
 
     title: {
         converter: "Multiple Converter",
@@ -23,7 +22,7 @@ export default {
         converter: "Transform any area instantly"
     },
     label: {
-        results: "Conversion Results",
+        results: "Results",
         enterValue: "Enter Value",
         from: "From",
         to: "To",

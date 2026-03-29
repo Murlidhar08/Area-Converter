@@ -49,6 +49,7 @@ export default function SettingPage() {
         {
             id: 'theme',
             title: t("settings.theme"),
+            hidden: true,
             icon: isDarkMode ? Moon : Sun,
             color: isDarkMode ? "text-indigo-400" : "text-amber-500",
             bg: isDarkMode ? "bg-indigo-500/10" : "bg-amber-500/10",
@@ -80,6 +81,7 @@ export default function SettingPage() {
                 {settingSections.map((section, idx) => (
                     <motion.div
                         key={section.id}
+                        hidden={section.hidden}
                         className="glass-card !p-0 overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}

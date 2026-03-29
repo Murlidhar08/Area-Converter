@@ -7,7 +7,7 @@
     /* Light Mode Variables */
     --primary: 139, 92, 246;
     --accent: 236, 72, 153;
-    --bg-main: 248, 250, 252;
+    --bg-main: rgb(255, 176, 255);
     --bg-glass: 255, 255, 255;
     --text-main: 15, 23, 42;
     --text-muted: 100, 116, 139;
@@ -32,7 +32,7 @@
   }
 
   body {
-    background: rgb(var(--bg-main), 0.8);
+    @apply bg-violet-200;
     font-family: 'Outfit', sans-serif;
     min-height: 100vh;
   }
