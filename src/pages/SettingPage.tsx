@@ -48,14 +48,15 @@ export default function SettingPage() {
         },
         {
             id: 'theme',
-            title: "App Theme",
+            title: t("settings.theme"),
+            hidden: false,
             icon: isDarkMode ? Moon : Sun,
             color: isDarkMode ? "text-indigo-400" : "text-amber-500",
             bg: isDarkMode ? "bg-indigo-500/10" : "bg-amber-500/10",
             content: (
                 <div className="flex items-center justify-between p-1">
                     <span className="text-sm text-slate-400 font-medium">
-                        {isDarkMode ? "Night Mode" : "Light Mode"}
+                        {isDarkMode ? t("settings.nightMode") : t("settings.lightMode")}
                     </span>
                     <button
                         onClick={() => setIsDarkMode(!isDarkMode)}
@@ -80,6 +81,7 @@ export default function SettingPage() {
                 {settingSections.map((section, idx) => (
                     <motion.div
                         key={section.id}
+                        hidden={section.hidden}
                         className="glass-card !p-0 overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}

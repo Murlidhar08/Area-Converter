@@ -7,7 +7,7 @@
     /* Light Mode Variables */
     --primary: 139, 92, 246;
     --accent: 236, 72, 153;
-    --bg-main: 248, 250, 252;
+    --bg-main: rgb(255, 176, 255);
     --bg-glass: 255, 255, 255;
     --text-main: 15, 23, 42;
     --text-muted: 100, 116, 139;
@@ -16,20 +16,25 @@
   }
 
   :root.dark {
-    /* Dark Mode Variables */
-    --primary: 139, 92, 246;
-    --accent: 236, 72, 153;
-    --bg-main: 10, 15, 30;
-    --bg-glass: 15, 23, 42;
+    /* Deep Midnight Purple Aesthetic */
+    --primary: 168, 85, 247;
+    /* Electric Purple */
+    --accent: 192, 38, 211;
+    /* Fuchsia */
+    --bg-main: 10, 8, 23;
+    /* Deepest Midnight */
+    --bg-glass: 20, 18, 48;
+    /* Dark Navy/Purple Card */
     --text-main: 248, 250, 252;
-    --text-muted: 148, 163, 184;
+    --text-muted: 156, 163, 175;
     --border-glass: 255, 255, 255;
-    --card-shadow: rgba(0, 0, 0, 0.4);
+    --card-shadow: rgba(0, 0, 0, 0.6);
   }
 
   body {
-    background-color: rgb(var(--bg-main));
+    @apply bg-violet-200;
     font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
   }
 
   ::-webkit-scrollbar {

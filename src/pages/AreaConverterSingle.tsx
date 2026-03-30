@@ -72,7 +72,7 @@ export default function AreaConverterSingle() {
           {/* Input Section */}
           <div className="space-y-2">
             <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1 flex items-center gap-2">
-              <Hash size={14} /> Enter Value
+              <Hash size={14} /> {t("label.enterValue")}
             </label>
             <input
               type="number"
@@ -87,7 +87,7 @@ export default function AreaConverterSingle() {
           {/* Unit Selection Grid */}
           <div className="grid grid-cols-1 gap-2 relative">
             <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">From</label>
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">{t("label.from")}</label>
               <select
                 value={fromUnit}
                 onChange={(e) => setFromUnit(e.target.value as keyof UnitDetails)}
@@ -111,7 +111,7 @@ export default function AreaConverterSingle() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">To</label>
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">{t("label.to")}</label>
               <select
                 value={toUnit}
                 onChange={(e) => setToUnit(e.target.value as keyof UnitDetails)}
@@ -133,7 +133,7 @@ export default function AreaConverterSingle() {
           >
             <div className="relative z-10">
               <div className="flex items-center gap-2 text-indigo-100 text-[10px] font-bold uppercase tracking-widest mb-3">
-                <Target size={14} /> Result
+                <Target size={14} /> {t("label.result")}
               </div>
               <div className="flex flex-col gap-1">
                 <span className="text-sm font-medium text-white/70 flex items-center gap-2">

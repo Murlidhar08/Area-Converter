@@ -32,8 +32,8 @@ const unitDetails: UnitDetails = {
         SquareMeter: 4046.86, // Standard conversion
     },
     Hectare: {
-        Guntha: 98.425197, // 10000 sq m / 101.1714 sq m/guntha
-        Bigha: 6.1776, // 10000 sq m / 1618.7424 sq m/bigha
+        Guntha: 98.842152, // 10000 sq m / 101.1714 sq m/guntha
+        Bigha: 6.177635, // 10000 sq m / 1618.7424 sq m/bigha
         Acre: 2.471054, // Standard conversion
         Hectare: 1,
         Are: 100.0, // 1 Hectare = 100 Are
