@@ -247,10 +247,10 @@ export default function AreaConverterMultiple() {
                         setSelectedUnit(unit);
                         setSelectedValue(value);
                       }}
-                      className={`group cursor-pointer p-4 rounded-2xl flex items-center justify-between transition-all duration-200 border
+                      className={`group cursor-pointer p-3 rounded-2xl flex items-center justify-between transition-all duration-200 border
                         ${isSelected
                           ? "bg-violet-600 border-violet-600 text-white shadow-lg shadow-violet-600/40 ring-2 ring-violet-500/20"
-                          : "bg-slate-50 dark:bg-slate-800/40 border-slate-100 dark:border-slate-700/50 hover:border-violet-500/50 hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-900 dark:text-slate-300"}`}
+                          : "bg-violet-50 dark:bg-slate-800/40 border-slate-100 dark:border-slate-700/50 hover:border-violet-500/50 hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-900 dark:text-slate-300"}`}
                     >
                       <div className="flex flex-col gap-0.5">
                         <span className={`text-lg font-bold ${isSelected ? "text-white" : "text-slate-800 dark:text-slate-200"}`}>

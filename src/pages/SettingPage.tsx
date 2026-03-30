@@ -49,7 +49,7 @@ export default function SettingPage() {
         {
             id: 'theme',
             title: t("settings.theme"),
-            hidden: true,
+            hidden: false,
             icon: isDarkMode ? Moon : Sun,
             color: isDarkMode ? "text-indigo-400" : "text-amber-500",
             bg: isDarkMode ? "bg-indigo-500/10" : "bg-amber-500/10",
