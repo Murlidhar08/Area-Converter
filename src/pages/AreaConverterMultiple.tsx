@@ -138,63 +138,63 @@ export default function AreaConverterMultiple() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen px-4 pb-10">
+    <div className="flex-1 flex flex-col items-center justify-start md:px-4 md:pb-12">
       <motion.div
-        className="glass-card w-full max-w-xl shadow-2xl overflow-hidden !p-0 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800"
+        className="glass-card flex-1 md:flex-none w-full max-w-lg relative overflow-hidden shadow-2xl bg-white border border-slate-200"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
       >
-        <div className="p-6">
+        <div className="p-2 md:p-6">
           {/* Input Section */}
           <div className="space-y-4 mb-8">
             <div className="flex flex-col gap-4">
               {fromUnit === "H.RA.SM" ? (
                 <div className="grid grid-cols-3 gap-3">
                   <div className="space-y-1">
-                    <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">{t("converter.custom.hectare")}</label>
+                    <label className="text-[10px] font-extrabold text-slate-500 uppercase ml-1">{t("converter.custom.hectare")}</label>
                     <input
                       type="number"
                       min={0}
                       value={customH}
                       onChange={(e) => setCustomH(Number(e.target.value))}
-                      className="input-field bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-white"
+                      className="input-field bg-slate-50 text-slate-900"
                       placeholder="H"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">{t("converter.custom.are")}</label>
+                    <label className="text-[10px] font-extrabold text-slate-500 uppercase ml-1">{t("converter.custom.are")}</label>
                     <input
                       type="number"
                       min={0}
                       value={customR}
                       onChange={(e) => setCustomR(Number(e.target.value))}
-                      className="input-field bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-white"
+                      className="input-field bg-slate-50 text-slate-900"
                       placeholder="R"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">{t("converter.custom.squareMeter")}</label>
+                    <label className="text-[10px] font-extrabold text-slate-500 uppercase ml-1">{t("converter.custom.squareMeter")}</label>
                     <input
                       type="number"
                       min={0}
                       value={customSM}
                       onChange={(e) => setCustomSM(Number(e.target.value))}
-                      className="input-field bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-white"
+                      className="input-field bg-slate-50 text-slate-900"
                       placeholder="SM"
                     />
                   </div>
                 </div>
               ) : (
                 <div className="space-y-1">
-                  <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">{t("converter.valueIn")} {t(`converter.label.${fromUnit}`)}</label>
+                  <label className="text-[10px] font-extrabold text-slate-500 uppercase ml-1">{t("converter.valueIn")} {t(`converter.label.${fromUnit}`)}</label>
                   <div className="relative">
                     <input
                       type="number"
                       min={0}
                       value={unitValue}
                       onChange={(e) => setUnitValue(Number(e.target.value))}
-                      className="input-field pr-12 text-lg font-bold bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-white"
+                      className="input-field pr-12 text-lg font-bold bg-slate-50 text-slate-900"
                       placeholder="0.00"
                     />
                     <div className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-300">
@@ -205,7 +205,7 @@ export default function AreaConverterMultiple() {
               )}
 
               <div className="space-y-1">
-                <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase ml-1">{t("converter.convertFrom")}</label>
+                <label className="text-[10px] font-extrabold text-slate-500 uppercase ml-1">{t("converter.convertFrom")}</label>
                 <select
                   value={fromUnit}
                   onChange={(e) => {
@@ -213,7 +213,7 @@ export default function AreaConverterMultiple() {
                     setSelectedUnit(null);
                     setSelectedValue(null);
                   }}
-                  className="input-field appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%2394a3b8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat pr-12 bg-slate-100 dark:bg-slate-800/40 text-slate-900 dark:text-white font-bold"
+                  className="input-field appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%2394a3b8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat pr-12 bg-slate-100 dark:bg-slate-800/40 text-slate-900 font-bold"
                 >
                   {Object.keys(unitDetails).map((unit) => (
                     <option key={unit} value={unit} className="bg-white dark:bg-slate-900">{t(`converter.label.${unit}`)}</option>
@@ -226,7 +226,7 @@ export default function AreaConverterMultiple() {
 
           {/* Results List */}
           <div className="space-y-4">
-            <h2 className="text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest px-1 flex items-center gap-2">
+            <h2 className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest px-1 flex items-center gap-2">
               <History size={14} /> {t("label.results")}
             </h2>
             <div className="grid gap-2 pr-1 custom-scrollbar">
@@ -250,12 +250,12 @@ export default function AreaConverterMultiple() {
                       className={`group cursor-pointer p-3 rounded-2xl flex items-center justify-between transition-all duration-200 border
                         ${isSelected
                           ? "bg-violet-600 border-violet-600 text-white shadow-lg shadow-violet-600/40 ring-2 ring-violet-500/20"
-                          : "bg-violet-50 dark:bg-slate-800/40 border-slate-100 dark:border-slate-700/50 hover:border-violet-500/50 hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-900 dark:text-slate-300"}`}
+                          : "bg-slate-50 border-slate-100 hover:border-violet-500/50 hover:bg-slate-50 text-slate-900"}`}
                     >
                       <div className="flex flex-col gap-0.5">
-                        <span className={`text-lg font-bold ${isSelected ? "text-white" : "text-slate-800 dark:text-slate-200"}`}>
+                        <span className={`text-lg font-bold ${isSelected ? "text-white" : "text-slate-800"}`}>
                           {value}
-                          <span className={`text-sm ml-2 font-bold tracking-wider ${isSelected ? "text-violet-100" : "text-slate-400 dark:text-slate-500 text-violet-600 dark:group-hover:text-violet-400"}`}>
+                          <span className={`text-sm ml-2 font-bold tracking-wider ${isSelected ? "text-violet-100" : "text-slate-400 text-violet-600"}`}>
                             {t(`converter.label.${unit}`)}
                           </span>
                         </span>
@@ -266,7 +266,7 @@ export default function AreaConverterMultiple() {
                           onClick={() => handleCopy(String(value), unit)}
                           className={`p-2.5 rounded-xl transition-all ${isSelected
                             ? "bg-white/20 hover:bg-white/30 text-white"
-                            : "bg-slate-100 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400 hover:bg-violet-500/10 dark:hover:bg-violet-500/20 hover:text-violet-600 dark:hover:text-violet-400"}`}
+                            : "bg-slate-100 text-slate-400 hover:bg-violet-500/10 hover:text-violet-600"}`}
                         >
                           {copied === unit ? <CheckCheck size={18} /> : <Copy size={18} />}
                         </button>
@@ -280,7 +280,7 @@ export default function AreaConverterMultiple() {
                               onClick={() => addToCalculation(value, unit)}
                               className={`p-2.5 rounded-xl transition-all ${isSelected
                                 ? "bg-white/20 hover:bg-white/30 text-white"
-                                : "bg-slate-100 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400 hover:bg-emerald-500/10 dark:hover:bg-emerald-500/20 hover:text-emerald-600 dark:hover:text-emerald-400"}`}
+                                : "bg-slate-100 text-slate-500 hover:bg-emerald-500/10 hover:text-emerald-600"}`}
                             >
                               <Plus size={18} />
                             </motion.button>
@@ -302,12 +302,12 @@ export default function AreaConverterMultiple() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="mt-0 bg-slate-50/50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800 overflow-hidden"
+              className="mt-0 bg-slate-50/50 border-t border-slate-200 overflow-hidden"
             >
               <div className="p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex-1 text-center sm:text-left">
-                  <p className="text-[10px] font-extrabold text-violet-600 dark:text-violet-400 uppercase tracking-[0.2em] mb-1">{t("calculation.breakdown")}</p>
-                  <div className="text-lg font-bold text-slate-800 dark:text-slate-200 leading-tight" ref={resultRef}>
+                  <p className="text-[10px] font-extrabold text-violet-600 uppercase tracking-[0.2em] mb-1">{t("calculation.breakdown")}</p>
+                  <div className="text-lg font-bold text-slate-800 leading-tight" ref={resultRef}>
                     {formatSelectedValue(selectedValue, selectedUnit)}
                   </div>
                 </div>

@@ -15,22 +15,6 @@
     --card-shadow: rgba(0, 0, 0, 0.05);
   }
 
-  :root.dark {
-    /* Deep Midnight Purple Aesthetic */
-    --primary: 168, 85, 247;
-    /* Electric Purple */
-    --accent: 192, 38, 211;
-    /* Fuchsia */
-    --bg-main: 10, 8, 23;
-    /* Deepest Midnight */
-    --bg-glass: 20, 18, 48;
-    /* Dark Navy/Purple Card */
-    --text-main: 248, 250, 252;
-    --text-muted: 156, 163, 175;
-    --border-glass: 255, 255, 255;
-    --card-shadow: rgba(0, 0, 0, 0.6);
-  }
-
   body {
     @apply bg-violet-200;
     font-family: 'Outfit', sans-serif;
@@ -85,9 +69,9 @@
   .glass-card {
     background-color: rgba(var(--bg-glass), 0.4);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(var(--border-glass), 0.1);
+    border: 1px solid rgba(var(--border-glass), 0.15);
     box-shadow: 0 8px 32px 0 var(--card-shadow);
-    @apply rounded-3xl p-6 transition-all duration-300;
+    @apply rounded-none md:rounded-3xl p-4 md:p-6 transition-all duration-300;
   }
 }
 
