@@ -138,14 +138,14 @@ export default function AreaConverterMultiple() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen px-4 pb-10">
+    <div className="flex-1 flex flex-col items-center justify-start md:px-4 md:pb-12">
       <motion.div
-        className="glass-card w-full max-w-xl shadow-2xl overflow-hidden !p-0 bg-white border border-slate-200"
+        className="glass-card flex-1 md:flex-none w-full max-w-lg relative overflow-hidden shadow-2xl bg-white border border-slate-200"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
       >
-        <div className="p-6">
+        <div className="p-2 md:p-6">
           {/* Input Section */}
           <div className="space-y-4 mb-8">
             <div className="flex flex-col gap-4">

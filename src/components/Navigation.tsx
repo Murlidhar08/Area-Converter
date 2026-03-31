@@ -65,7 +65,7 @@ export default function Navigation() {
     return (
         <>
             {/* Top Bar (Header) */}
-            <header className="fixed top-0 left-0 right-0 z-40 h-20 glass border-b border-slate-200 flex items-center justify-between px-6">
+            <header className="fixed top-0 left-0 right-0 z-40 h-16 md:h-20 glass border-b border-slate-200 flex items-center justify-between px-4 md:px-6">
                 <button
                     onClick={toggleMenu}
                     className="p-2.5 bg-violet-600 rounded-xl text-white hover:bg-violet-700 transition-all duration-300 shadow-lg shadow-violet-500/20"

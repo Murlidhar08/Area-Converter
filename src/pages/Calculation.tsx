@@ -36,9 +36,9 @@ export default function Calculation() {
     }
 
     return (
-        <div className="flex flex-col items-center justify-start min-h-screen px-4 pb-12">
+        <div className="flex-1 flex flex-col items-center justify-start md:px-4 md:pb-12">
             <motion.div
-                className="glass-card w-full max-w-lg shadow-2xl overflow-hidden !p-0 bg-white border border-slate-200"
+                className="glass-card flex-1 md:flex-none w-full max-w-lg shadow-2xl overflow-hidden !p-0 bg-white border border-slate-200"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4 }}
