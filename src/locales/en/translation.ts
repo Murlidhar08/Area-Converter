@@ -61,9 +61,6 @@ export default {
     },
     settings: {
         label: "Settings",
-        language: "Display Language",
-        theme: "App Theme",
-        nightMode: "Night Mode",
-        lightMode: "Light Mode"
+        language: "Display Language"
     }
 }

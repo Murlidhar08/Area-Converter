@@ -59,7 +59,7 @@ export default function AreaConverterSingle() {
   return (
     <div className="flex flex-col items-center justify-start min-h-screen px-4">
       <motion.div
-        className="glass-card w-full max-w-lg relative overflow-hidden shadow-2xl"
+        className="glass-card w-full max-w-lg relative overflow-hidden shadow-2xl bg-white border border-slate-200"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
@@ -79,7 +79,7 @@ export default function AreaConverterSingle() {
               min={0}
               value={value}
               onChange={(e) => setValue(Number(e.target.value))}
-              className="input-field text-2xl font-bold py-5 text-center focus:scale-[1.02] bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-white"
+              className="input-field text-2xl font-bold py-5 text-center focus:scale-[1.02] bg-slate-50 text-slate-900"
               placeholder="0.00"
             />
           </div>
@@ -91,10 +91,10 @@ export default function AreaConverterSingle() {
               <select
                 value={fromUnit}
                 onChange={(e) => setFromUnit(e.target.value as keyof UnitDetails)}
-                className="input-field appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%2394a3b8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat pr-12 font-semibold bg-slate-100 dark:bg-slate-800/40 text-slate-900 dark:text-white border-slate-200 dark:border-slate-700/50"
+                className="input-field appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%2394a3b8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat pr-12 font-semibold bg-slate-100 font-semibold text-slate-900 border-slate-200"
               >
                 {Object.keys(unitDetails).map((unit) => (
-                  <option key={unit} value={unit} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">{t(`converter.label.${unit}`) || unit}</option>
+                  <option key={unit} value={unit} className="bg-white text-slate-900">{t(`converter.label.${unit}`) || unit}</option>
                 ))}
               </select>
             </div>
@@ -103,7 +103,7 @@ export default function AreaConverterSingle() {
             <div className="flex justify-center z-10">
               <motion.button
                 onClick={swapUnits}
-                className="w-12 h-12 rounded-full bg-slate-900 dark:bg-slate-950 text-white flex items-center justify-center shadow-2xl hover:bg-indigo-600 dark:hover:bg-indigo-600 hover:rotate-180 transition-all duration-500 active:scale-90 border border-slate-200 dark:border-white/5"
+                className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center shadow-2xl hover:bg-indigo-600 hover:rotate-180 transition-all duration-500 active:scale-90 border border-slate-200"
                 whileTap={{ scale: 0.9 }}
               >
                 <RefreshCw size={20} />
@@ -115,10 +115,10 @@ export default function AreaConverterSingle() {
               <select
                 value={toUnit}
                 onChange={(e) => setToUnit(e.target.value as keyof UnitDetails)}
-                className="input-field appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%2394a3b8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat pr-12 font-semibold bg-slate-100 dark:bg-slate-800/40 text-slate-900 dark:text-white border-slate-200 dark:border-slate-700/50"
+                className="input-field appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%2394a3b8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat pr-12 font-semibold bg-slate-100 font-semibold text-slate-900 border-slate-200"
               >
                 {Object.keys(unitDetails).map((unit) => (
-                  <option key={unit} value={unit} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">{t(`converter.label.${unit}`) || unit}</option>
+                  <option key={unit} value={unit} className="bg-white text-slate-900">{t(`converter.label.${unit}`) || unit}</option>
                 ))}
               </select>
             </div>

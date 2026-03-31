@@ -15,22 +15,6 @@
     --card-shadow: rgba(0, 0, 0, 0.05);
   }
 
-  :root.dark {
-    /* Deep Midnight Purple Aesthetic */
-    --primary: 168, 85, 247;
-    /* Electric Purple */
-    --accent: 192, 38, 211;
-    /* Fuchsia */
-    --bg-main: 10, 8, 23;
-    /* Deepest Midnight */
-    --bg-glass: 20, 18, 48;
-    /* Dark Navy/Purple Card */
-    --text-main: 248, 250, 252;
-    --text-muted: 156, 163, 175;
-    --border-glass: 255, 255, 255;
-    --card-shadow: rgba(0, 0, 0, 0.6);
-  }
-
   body {
     @apply bg-violet-200;
     font-family: 'Outfit', sans-serif;

@@ -1,24 +1,9 @@
 import { motion } from "framer-motion";
-import { Globe, Moon, Sun } from 'lucide-react';
-import { useEffect, useState } from "react";
+import { Globe } from 'lucide-react';
 import { useTranslation } from "react-i18next";
 
 export default function SettingPage() {
     const { t, i18n } = useTranslation();
-    const [isDarkMode, setIsDarkMode] = useState(() => {
-        const saved = localStorage.getItem("theme");
-        return saved === "dark" || !saved; // Default to dark as per current design
-    });
-
-    useEffect(() => {
-        if (isDarkMode) {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem("theme", "dark");
-        } else {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem("theme", "light");
-        }
-    }, [isDarkMode]);
 
     const handleLanguageChange = (lang: string) => {
         i18n.changeLanguage(lang);
@@ -45,33 +30,6 @@ export default function SettingPage() {
                     </select>
                 </div>
             )
-        },
-        {
-            id: 'theme',
-            title: t("settings.theme"),
-            hidden: false,
-            icon: isDarkMode ? Moon : Sun,
-            color: isDarkMode ? "text-indigo-400" : "text-amber-500",
-            bg: isDarkMode ? "bg-indigo-500/10" : "bg-amber-500/10",
-            content: (
-                <div className="flex items-center justify-between p-1">
-                    <span className="text-sm text-slate-400 font-medium">
-                        {isDarkMode ? t("settings.nightMode") : t("settings.lightMode")}
-                    </span>
-                    <button
-                        onClick={() => setIsDarkMode(!isDarkMode)}
-                        className={`w-14 h-7 rounded-full relative transition-colors duration-300 ${isDarkMode ? "bg-violet-600" : "bg-slate-200"}`}
-                    >
-                        <motion.div
-                            animate={{ x: isDarkMode ? 28 : 4 }}
-                            transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                            className="absolute top-1 left-0 w-5 h-5 bg-white rounded-full shadow-lg flex items-center justify-center"
-                        >
-                            {isDarkMode ? <Moon size={10} className="text-violet-600" /> : <Sun size={10} className="text-amber-500" />}
-                        </motion.div>
-                    </button>
-                </div>
-            )
         }
     ];
 
@@ -81,19 +39,18 @@ export default function SettingPage() {
                 {settingSections.map((section, idx) => (
                     <motion.div
                         key={section.id}
-                        hidden={section.hidden}
-                        className="glass-card !p-0 overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800"
+                        className="glass-card !p-0 overflow-hidden bg-white border border-slate-200"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: idx * 0.1 }}
                     >
-                        <div className="p-6 border-b border-slate-100 dark:border-white/5 flex items-center gap-4">
-                            <div className={`p-2.5 rounded-xl ${section.bg.replace('bg-', 'bg-opacity-10 dark:bg-opacity-10 bg-')} ${section.color}`}>
+                        <div className="p-6 border-b border-slate-100 flex items-center gap-4">
+                            <div className={`p-2.5 rounded-xl ${section.bg} ${section.color}`}>
                                 <section.icon size={20} />
                             </div>
-                            <h2 className="text-lg font-bold text-slate-900 dark:text-white">{section.title}</h2>
+                            <h2 className="text-lg font-bold text-slate-900">{section.title}</h2>
                         </div>
-                        <div className="p-6 bg-slate-50 dark:bg-slate-900/20">
+                        <div className="p-6 bg-slate-50">
                             {section.content}
                         </div>
                     </motion.div>

@@ -62,9 +62,6 @@ export default {
     },
     settings: {
         label: "સેટિંગ્સ",
-        language: "ભાષા પસંદ કરો",
-        theme: "એપ થીમ",
-        nightMode: "નાઈટ મોડ",
-        lightMode: "લાઈટ મોડ"
+        language: "ભાષા પસંદ કરો"
     }
 }
