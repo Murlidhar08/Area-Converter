@@ -118,13 +118,13 @@ export default function Navigation() {
                         animate={{ x: 0 }}
                         exit={{ x: '-100%' }}
                         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                        className="fixed top-0 left-0 bottom-0 w-[280px] sm:w-[380px] glass-dark border-r border-slate-200 z-[55] flex flex-col pt-6 pb-8 shadow-2xl"
+                        className="fixed top-0 left-0 bottom-0 w-full md:w-2/6 glass-dark border-r border-slate-200 z-[55] flex flex-col pt-6 pb-8 shadow-2xl"
                     >
                         {/* Close Button Inside Sidebar */}
                         <div className="flex justify-start px-6 mb-4">
                             <button
                                 onClick={toggleMenu}
-                                className="p-2 bg-slate-100 rounded-xl text-slate-500 hover:text-rose-600 transition-all transition-colors"
+                                className="p-2 bg-slate-100 rounded-xl text-slate-500 hover:text-rose-600 transition-colors"
                             >
                                 <X size={24} />
                             </button>
