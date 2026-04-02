@@ -306,7 +306,9 @@ export default function AreaConverterMultiple() {
             >
               <div className="p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex-1 text-center sm:text-left">
-                  <p className="text-[10px] font-extrabold text-violet-600 uppercase tracking-[0.2em] mb-1">{t("calculation.breakdown")}</p>
+                  <p className="text-[10px] font-extrabold text-violet-600 uppercase tracking-[0.2em] mb-1">
+                    {t("calculation.breakdown")}
+                  </p>
                   <div className="text-lg font-bold text-slate-800 leading-tight" ref={resultRef}>
                     {formatSelectedValue(selectedValue, selectedUnit)}
                   </div>
