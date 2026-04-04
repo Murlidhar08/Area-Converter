@@ -25,7 +25,7 @@ const calculateCustomUnit = (h: number, r: number, sm: number): number => {
   return h * 98.842152 + r * 0.98842152 + sm * 0.0098842152;
 };
 
-export default function AreaConverterMultiple() {
+export default function UnitConverterMultiple() {
   const { t } = useTranslation();
   const { unitPar, valuePar, hVal, rVal, smVal } = useParams();
   const dispatch = useDispatch();
@@ -138,17 +138,17 @@ export default function AreaConverterMultiple() {
   };
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-start md:px-4 md:pb-12">
+    <div className="flex-1 flex flex-col items-center justify-start w-full h-full md:px-4 md:pb-6 overflow-hidden">
       <motion.div
-        className="glass-card flex-1 md:flex-none w-full max-w-lg relative overflow-hidden shadow-2xl bg-white border border-slate-200"
+        className="glass-card flex-1 w-full max-w-7xl relative overflow-hidden shadow-2xl bg-white border border-slate-200 flex flex-col"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
       >
-        <div className="p-2 md:p-6">
-          {/* Input Section */}
-          <div className="space-y-4 mb-8">
-            <div className="flex flex-col gap-4">
+        <div className="p-2 md:p-8 md:flex md:gap-8 flex-1 overflow-hidden">
+          {/* Input Section Container */}
+          <div className="flex-none w-full md:w-[320px] lg:w-[380px] space-y-6 overflow-y-auto">
+            <div className="flex flex-col gap-4 pb-4">
               {fromUnit === "H.RA.SM" ? (
                 <div className="grid grid-cols-3 gap-3">
                   <div className="space-y-1">
@@ -224,8 +224,11 @@ export default function AreaConverterMultiple() {
             </div>
           </div>
 
-          {/* Results List */}
-          <div className="space-y-4">
+          {/* Vertical Divider for Desktop */}
+          <div className="hidden md:block w-px bg-slate-100 self-stretch" />
+
+          {/* Results Section Container */}
+          <div className="flex-1 space-y-6 mt-8 md:mt-0">
             <h2 className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest px-1 flex items-center gap-2">
               <History size={14} /> {t("label.results")}
             </h2>
@@ -262,6 +265,27 @@ export default function AreaConverterMultiple() {
                       </div>
 
                       <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                        {/* Add To Calculation Icon */}
+                        <AnimatePresence>
+                          {(calculationStore.calculateUnit === unit || calculationStore.calculateUnit === "") && (
+                            <motion.button
+                              initial={{ scale: 0, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              exit={{ scale: 0, opacity: 0 }}
+                              onClick={() => addToCalculation(value, unit)}
+                              className={`p-2.5 rounded-xl transition-all relative group/tooltip ${isSelected
+                                ? "bg-white/20 hover:bg-white/30 text-white"
+                                : "bg-slate-100 text-slate-500 hover:bg-emerald-500/10 hover:text-emerald-600"}`}
+                            >
+                              <Plus size={18} />
+                              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-slate-900 text-white text-[10px] font-bold rounded-lg opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl z-50">
+                                {t("calculation.add_to_calculation")}
+                              </div>
+                            </motion.button>
+                          )}
+                        </AnimatePresence>
+
+                        {/* Copy Icon */}
                         <button
                           onClick={() => handleCopy(String(value), unit)}
                           className={`p-2.5 rounded-xl transition-all ${isSelected
@@ -270,22 +294,6 @@ export default function AreaConverterMultiple() {
                         >
                           {copied === unit ? <CheckCheck size={18} /> : <Copy size={18} />}
                         </button>
-
-                        <AnimatePresence>
-                          {(calculationStore.calculateUnit === unit || calculationStore.calculateUnit === "") && (
-                            <motion.button
-                              initial={{ scale: 0, opacity: 0 }}
-                              animate={{ scale: 1, opacity: 1 }}
-                              exit={{ scale: 0, opacity: 0 }}
-                              onClick={() => addToCalculation(value, unit)}
-                              className={`p-2.5 rounded-xl transition-all ${isSelected
-                                ? "bg-white/20 hover:bg-white/30 text-white"
-                                : "bg-slate-100 text-slate-500 hover:bg-emerald-500/10 hover:text-emerald-600"}`}
-                            >
-                              <Plus size={18} />
-                            </motion.button>
-                          )}
-                        </AnimatePresence>
                       </div>
                     </motion.div>
                   );
@@ -310,7 +318,7 @@ export default function AreaConverterMultiple() {
                     {t("calculation.breakdown")}
                   </p>
                   <div className="text-lg font-bold text-slate-800 leading-tight" ref={resultRef}>
-                    {formatSelectedValue(selectedValue, selectedUnit)}
+                    {formatSelectedValue(selectedValue as number, selectedUnit)}
                   </div>
                 </div>
                 <button

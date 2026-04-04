@@ -14,7 +14,7 @@ import Enums from '@/config/Enums';
 // Interface
 import UnitDetails from "@/interface/UnitDetails";
 
-export default function AreaConverterSingle() {
+export default function UnitConverterSingle() {
   const { t } = useTranslation();
   const { unitFromVal, unitToVal, unitVal } = useParams();
   const [value, setValue] = useState<number>(Number(getLocalStorage(Enums.single.value) ?? 1));

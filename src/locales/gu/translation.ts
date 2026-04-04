@@ -1,5 +1,5 @@
 export default {
-    applicationTitle: "વિસ્તાર પરિવર્તક",
+    applicationTitle: "એકમ પરિવર્તક",
     and: "અને",
     add: "ઉમેરો",
     copy: "કૉપી",
@@ -20,7 +20,7 @@ export default {
         github: "ગિટહબ રિપોઝિટરી"
     },
     subtitle: {
-        converter: "કોઈપણ વિસ્તારને તરત જ બદલો"
+        converter: "કોઈપણ એકમને તરત જ બદલો"
     },
     label: {
         results: "પરિવર્તન પરિણામો",
@@ -58,7 +58,8 @@ export default {
         breakdown: "વિગતવાર ગણતરી",
         estimatedCost: "અંદાજિત કુલ કિંમત",
         noItems: "કેલ્ક્યુલેટર કન્સોલમાં કોઈ આઈટમ નથી",
-        clear: "કન્સોલ સાફ કરો"
+        clear: "કન્સોલ સાફ કરો",
+        add_to_calculation: "ગણતરીમાં ઉમેરો"
     },
     settings: {
         label: "સેટિંગ્સ",

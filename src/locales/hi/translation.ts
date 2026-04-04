@@ -1,5 +1,5 @@
 export default {
-    applicationTitle: "क्षेत्रफल परिवर्तक",
+    applicationTitle: "इकाई परिवर्तक",
     and: "और",
     add: "जोड़ें",
     copy: "कॉपी",
@@ -20,7 +20,7 @@ export default {
         github: "गिटहब रिपोजिटरी"
     },
     subtitle: {
-        converter: "किसी भी क्षेत्रफल को तुरंत बदलें"
+        converter: "किसी भी इकाई को तुरंत बदलें"
     },
     label: {
         results: "परिवर्तन परिणाम",
@@ -57,8 +57,9 @@ export default {
         totalPrice: "कुल देय",
         breakdown: "आइटમવાર વિવરણ",
         estimatedCost: "अनुमानित कुल लागत",
-        noItems: "कैलक्यूलेटर कंसोल में कोई आइटम नहीं है",
-        clear: "कंसोल साफ़ करें"
+        noItems: "कैलकुलेटर कंसोल में कोई आइटम नहीं है।",
+        clear: "कंसोल साफ़ करें",
+        add_to_calculation: "गणना में जोड़ें"
     },
     settings: {
         label: "सेटिंग्स",

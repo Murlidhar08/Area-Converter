@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 // Pages
-import AreaConverterMultiple from '@/pages/AreaConverterMultiple';
-import AreaConverterSingle from '@/pages/AreaConverterSingle';
+import UnitConverterMultiple from '@/pages/UnitConverterMultiple';
+import UnitConverterSingle from '@/pages/UnitConverterSingle';
 import Calculation from '@/pages/Calculation';
 import SettingPage from "./pages/SettingPage";
 
@@ -29,15 +29,15 @@ function App() {
 
       <div className="relative pt-16 md:pt-28 z-10 md:px-0 flex flex-col min-h-dvh md:min-h-[calc(100vh-64px)] md:min-h-0"> {/* Layout wrapper for full-height pages */}
         <Routes>
-          <Route path="/multiple" element={<AreaConverterMultiple />} />
-          <Route path="/multiple/:unitPar/:valuePar" element={<AreaConverterMultiple />} />
-          <Route path="/multiple/:unitPar/:hVal/:rVal" element={<AreaConverterMultiple />} />
-          <Route path="/multiple/:unitPar/:hVal/:rVal/:smVal" element={<AreaConverterMultiple />} />
+          <Route path="/multiple" element={<UnitConverterMultiple />} />
+          <Route path="/multiple/:unitPar/:valuePar" element={<UnitConverterMultiple />} />
+          <Route path="/multiple/:unitPar/:hVal/:rVal" element={<UnitConverterMultiple />} />
+          <Route path="/multiple/:unitPar/:hVal/:rVal/:smVal" element={<UnitConverterMultiple />} />
 
-          <Route path="/single" element={<AreaConverterSingle />} />
-          <Route path="/single/:unitFromVal" element={<AreaConverterSingle />} />
-          <Route path="/single/:unitFromVal/:unitToVal" element={<AreaConverterSingle />} />
-          <Route path="/single/:unitFromVal/:unitToVal/:unitVal" element={<AreaConverterSingle />} />
+          <Route path="/single" element={<UnitConverterSingle />} />
+          <Route path="/single/:unitFromVal" element={<UnitConverterSingle />} />
+          <Route path="/single/:unitFromVal/:unitToVal" element={<UnitConverterSingle />} />
+          <Route path="/single/:unitFromVal/:unitToVal/:unitVal" element={<UnitConverterSingle />} />
 
           <Route path="/calculation" element={<Calculation />} />
 

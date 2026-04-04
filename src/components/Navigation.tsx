@@ -23,11 +23,11 @@ export default function Navigation() {
 
     const getTitle = () => {
         const path = location.pathname;
-        if (path.startsWith('/multiple')) return t("title.converter") || "Area Converter";
+        if (path.startsWith('/multiple')) return t("title.converter") || "Unit Converter";
         if (path.startsWith('/single')) return t("title.single_converter") || "Quick Swap";
         if (path.startsWith('/calculation')) return t("title.calculation") || "Calculations";
         if (path.startsWith('/setting')) return t("title.settings") || "Settings";
-        return t("applicationTitle") || "Area Converter";
+        return t("applicationTitle") || "Unit Converter";
     };
 
     const navItems = [

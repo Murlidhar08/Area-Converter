@@ -72,9 +72,9 @@ export default defineConfig({
         "images/favicon-32x32.png"
       ],
       manifest: {
-        name: "Area Converter",
-        short_name: "AreaConverter",
-        description: "Easily convert area units with our intuitive tool.",
+        name: "Unit Converter",
+        short_name: "UnitConverter",
+        description: "Easily convert units with our intuitive tool.",
         theme_color: "#6b21a8",
         background_color: "#6b21a8",
         display: "standalone",
