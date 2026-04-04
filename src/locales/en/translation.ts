@@ -1,5 +1,5 @@
 export default {
-    applicationTitle: "Area Converter",
+    applicationTitle: "Unit Converter",
     and: "and",
     add: "Add",
     copy: "Copy",
@@ -19,7 +19,7 @@ export default {
         github: "Github Repository"
     },
     subtitle: {
-        converter: "Transform any area instantly"
+        converter: "Transform any unit instantly"
     },
     label: {
         results: "Results",
@@ -57,7 +57,8 @@ export default {
         breakdown: "Itemized Breakdown",
         estimatedCost: "Estimated Total Cost",
         noItems: "No items in calculator console.",
-        clear: "Clear Console"
+        clear: "Clear Console",
+        add_to_calculation: "Add to Calculation"
     },
     settings: {
         label: "Settings",
