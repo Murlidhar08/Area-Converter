@@ -8,7 +8,7 @@ export default {
     title: {
         converter: "Multiple Converter",
         single_converter: "Single Converter",
-        calculation: "Quick Calculations",
+        calculation: "Calculations",
         settings: "Settings"
     },
     nav: {
