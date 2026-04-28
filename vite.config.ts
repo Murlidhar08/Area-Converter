@@ -12,23 +12,37 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "autoUpdate",
+      injectRegister: 'auto',
       devOptions: { enabled: true },
       workbox: {
         cleanupOutdatedCaches: true,
-        globPatterns: ["**/*.{js,css,html,png,svg,ico,jpg,json}"],
+        globPatterns: ["**/*.{js,css,html,png,svg,ico,jpg,json,woff2}"],
+        clientsClaim: true,
+        skipWaiting: true,
 
         // Define runtime caching rules
         runtimeCaching: [
           {
-            // Cache API or dynamic requests - try network first, fallback to cache
-            urlPattern: /^https:\/\/.*/i,
-            handler: "NetworkFirst",
+            // Cache Google Fonts Stylesheets
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'CacheFirst',
             options: {
-              cacheName: "api-cache",
-              networkTimeoutSeconds: 5,
+              cacheName: 'google-fonts-stylesheets',
               expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24, // 1 day
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+              },
+            },
+          },
+          {
+            // Cache Google Fonts Webfonts
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-webfonts',
+              expiration: {
+                maxEntries: 30,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
               },
               cacheableResponse: {
                 statuses: [0, 200],
@@ -36,13 +50,13 @@ export default defineConfig({
             },
           },
           {
-            // Cache JS, CSS, and static files (Cache First)
-            urlPattern: /\.(?:js|css|woff2?|png|jpg|jpeg|svg|gif|ico|json)$/i,
+            // Cache static assets (images, etc.)
+            urlPattern: /\.(?:png|jpg|jpeg|svg|gif|ico|json)$/i,
             handler: "CacheFirst",
             options: {
-              cacheName: "static-cache",
+              cacheName: "static-assets-cache",
               expiration: {
-                maxEntries: 100,
+                maxEntries: 60,
                 maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
               },
               cacheableResponse: {
@@ -51,14 +65,13 @@ export default defineConfig({
             },
           },
           {
-            // HTML files – network first, fallback to cache
-            urlPattern: ({ request }) => request.mode === "navigate",
-            handler: "NetworkFirst",
+            // For everything else, use StaleWhileRevalidate to ensure offline works but stays updated
+            urlPattern: /^https:\/\/.*/i,
+            handler: "StaleWhileRevalidate",
             options: {
-              cacheName: "html-cache",
-              networkTimeoutSeconds: 3,
+              cacheName: "external-resources",
               expiration: {
-                maxEntries: 20,
+                maxEntries: 50,
                 maxAgeSeconds: 60 * 60 * 24, // 1 day
               },
             },
@@ -69,7 +82,10 @@ export default defineConfig({
       includeAssets: [
         "favicon.ico",
         "images/favicon-16x16.png",
-        "images/favicon-32x32.png"
+        "images/favicon-32x32.png",
+        "images/apple-touch-icon.png",
+        "images/maskable_icon_x192.png",
+        "images/maskable_icon_x512.png"
       ],
       manifest: {
         name: "Unit Converter",
@@ -79,6 +95,7 @@ export default defineConfig({
         background_color: "#6b21a8",
         display: "standalone",
         start_url: "/",
+        orientation: "portrait",
         icons: [
           {
             src: "/images/maskable_icon_x48.png",
