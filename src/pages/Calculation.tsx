@@ -36,16 +36,16 @@ export default function Calculation() {
     }
 
     return (
-        <div className="flex-1 flex flex-col items-center justify-start md:px-4 md:pb-12">
+        <div className="flex-1 flex flex-col items-center justify-start md:px-4 md:pb-6">
             <motion.div
                 className="glass-card flex-1 md:flex-none w-full max-w-lg shadow-2xl overflow-hidden !p-0 bg-white border border-slate-200"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4 }}
             >
-                <div className="p-6 space-y-8">
+                <div className="p-4 space-y-4">
                     {/* Price Input Wrapper */}
-                    <div className="p-5 bg-slate-100/50 border border-slate-200 rounded-3xl space-y-3">
+                    <div className="p-3 bg-slate-100/50 border border-slate-200 rounded-2xl space-y-1">
                         <label className="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest ml-1 flex items-center gap-2">
                             <IndianRupee size={12} />
                             {t("calculation.price")}
@@ -80,7 +80,7 @@ export default function Calculation() {
                                             initial={{ opacity: 0, x: -10 }}
                                             animate={{ opacity: 1, x: 0 }}
                                             exit={{ opacity: 0, scale: 0.9 }}
-                                            className="group flex justify-between items-center bg-white border border-slate-100 p-4 rounded-2xl hover:bg-slate-50 hover:shadow-sm transition-all duration-200"
+                                            className="group flex justify-between items-center bg-white border border-slate-100 p-2.5 rounded-xl hover:bg-slate-50 hover:shadow-sm transition-all duration-200"
                                         >
                                             <div className="flex flex-col">
                                                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">
@@ -124,21 +124,21 @@ export default function Calculation() {
                             </div>
 
                             {/* Net Payable */}
-                            <div className="bg-indigo-600 p-6 rounded-3xl relative overflow-hidden group shadow-lg shadow-indigo-200">
+                            <div className="bg-indigo-600 p-4 rounded-2xl relative overflow-hidden group shadow-lg shadow-indigo-200">
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full blur-3xl -mr-10 -mt-10 group-hover:opacity-20 transition-opacity" />
                                 <div className="relative z-10 text-white">
                                     <span className="text-[10px] font-extrabold text-indigo-100 uppercase tracking-[0.2em] mb-1 block">
                                         {t("calculation.estimatedCost")}
                                     </span>
                                     <div className="flex items-baseline gap-2">
-                                        <span className="text-4xl font-extrabold tracking-tighter">
+                                        <span className="text-2xl font-extrabold tracking-tighter">
                                             {Intl.NumberFormat("en-IN", {
                                                 style: "currency",
                                                 currency: "INR",
                                                 maximumFractionDigits: 0,
                                             }).format(totalVal * pricePerUnit)}
                                         </span>
-                                        <span className="text-xs font-medium text-indigo-100/70">
+                                        <span className="text-[10px] font-medium text-indigo-100/70">
                                             ({totalVal} × ₹{pricePerUnit})
                                         </span>
                                     </div>

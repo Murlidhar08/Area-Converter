@@ -140,14 +140,14 @@ export default function UnitConverterMultiple() {
   return (
     <div className="flex-1 flex flex-col items-center justify-start w-full h-full md:px-4 md:pb-6 overflow-hidden">
       <motion.div
-        className="glass-card flex-1 w-full max-w-7xl relative overflow-hidden shadow-2xl bg-white border border-slate-200 flex flex-col"
+        className="glass-card flex-1 w-full max-w-6xl relative overflow-hidden shadow-2xl bg-white border border-slate-200 flex flex-col"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
       >
-        <div className="p-2 md:p-8 md:flex md:gap-8 flex-1 overflow-hidden">
+        <div className="p-3 md:p-5 md:flex md:gap-6 flex-1 overflow-hidden">
           {/* Input Section Container */}
-          <div className="flex-none w-full md:w-[320px] lg:w-[380px] space-y-6 overflow-y-auto">
+          <div className="flex-none w-full md:w-[280px] lg:w-[320px] space-y-4 overflow-y-auto">
             <div className="flex flex-col gap-4 pb-4">
               {fromUnit === "H.RA.SM" ? (
                 <div className="grid grid-cols-3 gap-3">
@@ -228,11 +228,11 @@ export default function UnitConverterMultiple() {
           <div className="hidden md:block w-px bg-slate-100 self-stretch" />
 
           {/* Results Section Container */}
-          <div className="flex-1 space-y-6 mt-8 md:mt-0">
+          <div className="flex-1 space-y-4 mt-6 md:mt-0">
             <h2 className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest px-1 flex items-center gap-2">
               <History size={14} /> {t("label.results")}
             </h2>
-            <div className="grid gap-2 pr-1 custom-scrollbar">
+            <div className="grid gap-1.5 pr-1 custom-scrollbar">
               <AnimatePresence mode="popLayout">
                 {Object.keys(unitDetails).map((unit) => {
                   const isSelected = selectedUnit === unit;
@@ -250,15 +250,15 @@ export default function UnitConverterMultiple() {
                         setSelectedUnit(unit);
                         setSelectedValue(value);
                       }}
-                      className={`group cursor-pointer p-3 rounded-2xl flex items-center justify-between transition-all duration-200 border
+                      className={`group cursor-pointer p-2 rounded-xl flex items-center justify-between transition-all duration-200 border
                         ${isSelected
                           ? "bg-violet-600 border-violet-600 text-white shadow-lg shadow-violet-600/40 ring-2 ring-violet-500/20"
                           : "bg-slate-50 border-slate-100 hover:border-violet-500/50 hover:bg-slate-50 text-slate-900"}`}
                     >
-                      <div className="flex flex-col gap-0.5">
-                        <span className={`text-lg font-bold ${isSelected ? "text-white" : "text-slate-800"}`}>
+                      <div className="flex flex-col gap-0">
+                        <span className={`text-base font-bold ${isSelected ? "text-white" : "text-slate-800"}`}>
                           {value}
-                          <span className={`text-sm ml-2 font-bold tracking-wider ${isSelected ? "text-violet-100" : "text-slate-400 text-violet-600"}`}>
+                          <span className={`text-[10px] ml-2 font-bold tracking-wider ${isSelected ? "text-violet-100" : "text-slate-400 text-violet-600"}`}>
                             {t(`converter.label.${unit}`)}
                           </span>
                         </span>
