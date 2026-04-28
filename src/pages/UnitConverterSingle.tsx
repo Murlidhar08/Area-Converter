@@ -57,7 +57,7 @@ export default function UnitConverterSingle() {
   };
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-start md:px-4 md:pb-12">
+    <div className="flex-1 flex flex-col items-center justify-start md:px-4 md:pb-6">
       <motion.div
         className="glass-card flex-1 md:flex-none w-full max-w-lg relative overflow-hidden shadow-2xl bg-white border border-slate-200"
         initial={{ opacity: 0, scale: 0.95 }}
@@ -68,18 +68,18 @@ export default function UnitConverterSingle() {
         <div className="absolute -top-24 -right-24 w-48 h-48 bg-violet-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative space-y-8">
+        <div className="relative space-y-4">
           {/* Input Section */}
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1 flex items-center gap-2">
-              <Hash size={14} /> {t("label.enterValue")}
+          <div className="space-y-1">
+            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1 flex items-center gap-2">
+              <Hash size={12} /> {t("label.enterValue")}
             </label>
             <input
               type="number"
               min={0}
               value={value}
               onChange={(e) => setValue(Number(e.target.value))}
-              className="input-field text-2xl font-bold py-5 text-center focus:scale-[1.02] bg-slate-50 text-slate-900"
+              className="input-field text-xl font-bold py-3 text-center focus:scale-[1.02] bg-slate-50 text-slate-900"
               placeholder="0.00"
             />
           </div>
@@ -100,13 +100,13 @@ export default function UnitConverterSingle() {
             </div>
 
             {/* Swap Button Overlap */}
-            <div className="flex justify-center z-10">
+            <div className="flex justify-center z-10 -my-3">
               <motion.button
                 onClick={swapUnits}
-                className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center shadow-2xl hover:bg-indigo-600 hover:rotate-180 transition-all duration-500 active:scale-90 border border-slate-200"
+                className="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center shadow-xl hover:bg-indigo-600 hover:rotate-180 transition-all duration-500 active:scale-90 border border-slate-200"
                 whileTap={{ scale: 0.9 }}
               >
-                <RefreshCw size={20} />
+                <RefreshCw size={16} />
               </motion.button>
             </div>
 
@@ -126,28 +126,28 @@ export default function UnitConverterSingle() {
 
           {/* Result Section */}
           <motion.div
-            className="mt-8 p-6 bg-gradient-to-br from-indigo-600 to-violet-700 rounded-3xl text-white shadow-xl shadow-indigo-950/50 relative overflow-hidden group"
+            className="mt-4 p-4 bg-gradient-to-br from-indigo-600 to-violet-700 rounded-2xl text-white shadow-xl shadow-indigo-950/50 relative overflow-hidden group"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             key={`${fromUnit}-${toUnit}-${value}`}
           >
             <div className="relative z-10">
-              <div className="flex items-center gap-2 text-indigo-100 text-[10px] font-bold uppercase tracking-widest mb-3">
-                <Target size={14} /> {t("label.result")}
+              <div className="flex items-center gap-2 text-indigo-100 text-[9px] font-bold uppercase tracking-widest mb-2">
+                <Target size={12} /> {t("label.result")}
               </div>
-              <div className="flex flex-col gap-1">
-                <span className="text-sm font-medium text-white/70 flex items-center gap-2">
-                  {value} {t(`converter.label.${fromUnit}`) || fromUnit} <ChevronRight size={14} />
+              <div className="flex flex-col gap-0">
+                <span className="text-[10px] font-medium text-white/70 flex items-center gap-1">
+                  {value} {t(`converter.label.${fromUnit}`) || fromUnit} <ChevronRight size={10} />
                 </span>
-                <span className="text-4xl font-extrabold tracking-tight">
+                <span className="text-3xl font-extrabold tracking-tight">
                   {convertArea()}
-                  <span className="text-xl ml-2 font-medium text-white/80">{t(`converter.label.${toUnit}`) || toUnit}</span>
+                  <span className="text-lg ml-2 font-medium text-white/80">{t(`converter.label.${toUnit}`) || toUnit}</span>
                 </span>
               </div>
             </div>
             {/* Animated Decor */}
             <div className="absolute right-[-10%] bottom-[-20%] opacity-10 group-hover:opacity-20 transition-opacity">
-              <ArrowLeftRight size={160} />
+              <ArrowLeftRight size={120} />
             </div>
           </motion.div>
         </div>

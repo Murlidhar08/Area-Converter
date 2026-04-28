@@ -27,7 +27,7 @@ function App() {
         <div className="absolute top-[30%] right-[10%] w-[25%] h-[25%] bg-pink-500/10 rounded-full blur-[100px] delay-1000 animate-pulse"></div>
       </div>
 
-      <div className="relative pt-16 md:pt-28 z-10 md:px-0 flex flex-col min-h-dvh md:min-h-0 md:ml-72 transition-all duration-300"> {/* Layout wrapper for full-height pages */}
+      <div className="relative pt-14 md:pt-20 z-10 md:px-0 flex flex-col min-h-dvh md:min-h-0 md:ml-64 transition-all duration-300"> {/* Layout wrapper for full-height pages */}
         <Routes>
           <Route path="/multiple" element={<UnitConverterMultiple />} />
           <Route path="/multiple/:unitPar/:valuePar" element={<UnitConverterMultiple />} />
