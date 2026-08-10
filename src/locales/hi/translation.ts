@@ -64,5 +64,13 @@ export default {
     settings: {
         label: "सेटिंग्स",
         language: "भाषा चुनें"
+    },
+    words: {
+        zero: "शून्य",
+        crore: "करोड़",
+        lakh: "लाख",
+        thousand: "हज़ार",
+        hundred: "सौ",
+        only: "मात्र"
     }
 }

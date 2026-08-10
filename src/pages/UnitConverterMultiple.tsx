@@ -147,7 +147,7 @@ export default function UnitConverterMultiple() {
       >
         <div className="p-3 md:p-5 md:flex md:gap-6 flex-1 overflow-hidden">
           {/* Input Section Container */}
-          <div className="flex-none w-full md:w-[280px] lg:w-[320px] space-y-4 overflow-y-auto">
+          <div className="flex-none w-full md:w-70 lg:w-[320px] space-y-4 overflow-y-auto">
             <div className="flex flex-col gap-4 pb-4">
               {fromUnit === "H.RA.SM" ? (
                 <div className="grid grid-cols-3 gap-3">
@@ -213,7 +213,7 @@ export default function UnitConverterMultiple() {
                     setSelectedUnit(null);
                     setSelectedValue(null);
                   }}
-                  className="input-field appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%2394a3b8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat pr-12 bg-slate-100 dark:bg-slate-800/40 text-slate-900 font-bold"
+                  className="input-field appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%2394a3b8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-size-[1.25rem_1.25rem] bg-no-repeat pr-12 bg-slate-100 dark:bg-slate-800/40 text-slate-900 font-bold"
                 >
                   {Object.keys(unitDetails).map((unit) => (
                     <option key={unit} value={unit} className="bg-white dark:bg-slate-900">{t(`converter.label.${unit}`)}</option>
@@ -258,7 +258,7 @@ export default function UnitConverterMultiple() {
                       <div className="flex flex-col gap-0">
                         <span className={`text-base font-bold ${isSelected ? "text-white" : "text-slate-800"}`}>
                           {value}
-                          <span className={`text-[10px] ml-2 font-bold tracking-wider ${isSelected ? "text-violet-100" : "text-slate-400 text-violet-600"}`}>
+                          <span className={`text-[10px] ml-2 font-bold tracking-wider ${isSelected ? "text-violet-100" : "text-violet-600"}`}>
                             {t(`converter.label.${unit}`)}
                           </span>
                         </span>
@@ -341,7 +341,7 @@ export default function UnitConverterMultiple() {
       {/* Floating Action Button for Calculation */}
       <AnimatePresence>
         {!!calculationStore?.listOfCalc?.length && (
-          <div className="fixed top-18 right-8 z-60 flex flex-col items-end gap-3 hidden sm:flex">
+          <div className="fixed top-23 right-8 z-60 flex-col items-end gap-3 hidden md:flex">
             <motion.div
               initial={{ x: 20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
