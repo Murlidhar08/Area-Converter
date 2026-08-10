@@ -63,5 +63,13 @@ export default {
     settings: {
         label: "Settings",
         language: "Display Language"
+    },
+    words: {
+        zero: "Zero",
+        crore: "Crore",
+        lakh: "Lakh",
+        thousand: "Thousand",
+        hundred: "Hundred",
+        only: "Only"
     }
 }

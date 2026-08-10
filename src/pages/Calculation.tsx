@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from 'react-redux';
 
 // Utils
-import { getLocalStorage, setLocalStorage } from '@/utils/commonFunctions';
+import { getLocalStorage, numberToWords, setLocalStorage } from '@/utils/commonFunctions';
 
 // Config
 import Enums from '@/config/Enums';
@@ -15,7 +15,7 @@ export default function Calculation() {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const calculationStore = useSelector((state: any) => state.calculation);
-    const [pricePerUnit, setPricePerUnit] = useState<number>(getLocalStorage(Enums.calculator.pricePerUnit) ?? 0);
+    const [pricePerUnit, setPricePerUnit] = useState<number>(Number(getLocalStorage(Enums.calculator.pricePerUnit) ?? 0));
     const [totalVal, setTotalVal] = useState<number>(0);
 
     useEffect(() => {
@@ -38,7 +38,7 @@ export default function Calculation() {
     return (
         <div className="flex-1 flex flex-col items-center justify-start md:px-4 md:pb-6">
             <motion.div
-                className="glass-card flex-1 md:flex-none w-full max-w-lg shadow-2xl overflow-hidden !p-0 bg-white border border-slate-200"
+                className="glass-card flex-1 md:flex-none w-full max-w-lg shadow-2xl overflow-hidden p-0! bg-white border border-slate-200"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4 }}
@@ -46,9 +46,11 @@ export default function Calculation() {
                 <div className="p-4 space-y-4">
                     {/* Price Input Wrapper */}
                     <div className="p-3 bg-slate-100/50 border border-slate-200 rounded-2xl space-y-1">
-                        <label className="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest ml-1 flex items-center gap-2">
-                            <IndianRupee size={12} />
-                            {t("calculation.price")}
+                        <label className="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest ml-1 flex justify-between items-center gap-2">
+                            <div className="flex items-center gap-2">
+                                <IndianRupee size={12} />
+                                {t("calculation.price")}
+                            </div>
                         </label>
                         <div className="relative">
                             <input
@@ -59,9 +61,17 @@ export default function Calculation() {
                                 placeholder="0.00"
                             />
                             <div className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">
-                                /{calculationStore.calculateUnit ? t(`converter.label.${calculationStore.calculateUnit}`) : "Unit"}
+                                /{" "}{calculationStore.calculateUnit ? t(`converter.label.${calculationStore.calculateUnit}`) : "Unit"}
                             </div>
                         </div>
+
+                        {pricePerUnit > 0 && (
+                            <div className='flex justify-end min-h-5'>
+                                <span className="text-[11px] font-semibold text-slate-500 italic">
+                                    {numberToWords(pricePerUnit)}
+                                </span>
+                            </div>
+                        )}
                     </div>
 
                     {/* Calculations List */}
@@ -87,7 +97,13 @@ export default function Calculation() {
                                                     {row.unitValue} {" "} {t(`converter.label.${row.unit}`)}
                                                 </span>
                                                 <span className="text-sm font-bold text-slate-800">
-                                                    {row.value} <span className="text-violet-600">{t(`converter.label.${calculationStore.calculateUnit}`)}</span>
+                                                    {row.value}
+                                                    {" "}
+                                                    {calculationStore.calculateUnit && (
+                                                        <span className="text-violet-600">
+                                                            {t(`converter.label.${calculationStore.calculateUnit}`)}
+                                                        </span>
+                                                    )}
                                                 </span>
                                             </div>
                                             <button
@@ -119,14 +135,18 @@ export default function Calculation() {
                                     <PieChart size={14} /> {t("calculation.totalArea")}
                                 </span>
                                 <span className="text-lg font-extrabold text-slate-900">
-                                    {totalVal} <span className="text-xs font-medium opacity-70">{t(`converter.label.${calculationStore.calculateUnit}`)}</span>
+                                    {totalVal}
+                                    {" "}
+                                    {calculationStore.calculateUnit && (
+                                        <span className="text-xs font-medium opacity-70">{t(`converter.label.${calculationStore.calculateUnit}`)}</span>
+                                    )}
                                 </span>
                             </div>
 
                             {/* Net Payable */}
                             <div className="bg-indigo-600 p-4 rounded-2xl relative overflow-hidden group shadow-lg shadow-indigo-200">
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full blur-3xl -mr-10 -mt-10 group-hover:opacity-20 transition-opacity" />
-                                <div className="relative z-10 text-white">
+                                <div className="flex flex-col relative z-10 text-white">
                                     <span className="text-[10px] font-extrabold text-indigo-100 uppercase tracking-[0.2em] mb-1 block">
                                         {t("calculation.estimatedCost")}
                                     </span>
@@ -142,6 +162,11 @@ export default function Calculation() {
                                             ({totalVal} × ₹{pricePerUnit})
                                         </span>
                                     </div>
+                                    {(totalVal * pricePerUnit) > 0 && (
+                                        <span className="text-xs flex justify-end font-semibold text-indigo-100 italic tracking-wide mt-1">
+                                            {numberToWords(totalVal * pricePerUnit)}
+                                        </span>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -153,7 +178,7 @@ export default function Calculation() {
                     <button
                         onClick={clearCalculation}
                         disabled={calculationStore?.listOfCalc.length === 0}
-                        className="w-full sm:w-auto px-8 py-3 bg-red-50 hover:bg-red-100 text-rose-600 rounded-2xl transition-all transition-colors flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest disabled:opacity-30 disabled:grayscale"
+                        className="w-full sm:w-auto px-8 py-3 bg-red-50 hover:bg-red-100 text-rose-600 rounded-2xl transition-colors flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest disabled:opacity-30 disabled:grayscale"
                     >
                         <Trash2 size={16} /> {t("calculation.clear")}
                     </button>
